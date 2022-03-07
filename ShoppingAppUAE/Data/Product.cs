@@ -49,6 +49,14 @@ namespace ShoppingAppUAE.Data
         public ICollection<ProductImage> ProductImages { get; set; }
 
 
+
+
+        public string DescriptionEnglish { get; set; }
+
+
+        public string DescriptionArabic { get; set; }
+
+
         public bool IsActive { get; set; }
 
         [ForeignKey(nameof(Category))]

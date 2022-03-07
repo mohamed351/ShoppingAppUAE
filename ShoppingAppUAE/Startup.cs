@@ -37,7 +37,7 @@ namespace ShoppingAppUAE
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-            services.AddTransient<IUnitOfWork, IUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
         }
 
