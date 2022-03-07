@@ -1,0 +1,149 @@
+﻿@model ShoppingAppUAE.Data.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section styles{
+
+    <link href="~/js/jquery-ui/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
+<style>
+    .select2-selection__choice{
+        color:#333 !important;
+    }
+    .select2-selection__choice__remove{
+        background-color:transparent !important;
+    }
+</style>
+    
+}
+
+<form asp-action="Create" asp-controller="Categories" method="post">
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex mb-2 justify-content-end">
+                <button type="submit" class="btn btn-success">Add Category</button>
+            </div>
+
+            <div id="tabs">
+                <ul>
+                    <li><a href="#englishtab">English</a></li>
+                    <li><a href="#arabictab">Arabic</a></li>
+
+                </ul>
+                <div id="englishtab">
+
+                    <div class="form-group">
+                        <label asp-for="CategoryNameEnglish"> Name </label>
+                        <input class="form-control" type="text" asp-for="CategoryNameEnglish" />
+                        <span class="text-danger" asp-validation-for="CategoryNameEnglish"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SEOEnglishTitle"> </label>
+                        <input class="form-control" type="text" asp-for="SEOEnglishTitle" />
+                        <span class="text-danger" asp-validation-for="SEOEnglishTitle"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SEOEnglishKeyWords"> </label>
+                        <select  class="form-control" type="text"  id="SEOEnglishKeyWordsselect" > </select>
+                        <span class="text-danger" asp-validation-for="SEOEnglishKeyWords"></span>
+                        <input type="hidden" asp-for="SEOEnglishKeyWords" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CategoryDescriptionEnglish">Description </label>
+                        <input class="form-control" type="text" asp-for="CategoryDescriptionEnglish" />
+                        <span class="text-danger" asp-validation-for="CategoryDescriptionEnglish"></span>
+                    </div>
+
+
+                </div>
+                <div id="arabictab">
+
+
+                    <div class="form-group">
+                        <label asp-for="CategoryNameArabic"> Name </label>
+                        <input class="form-control" type="text" asp-for="CategoryNameArabic" />
+                        <span class="text-danger" asp-validation-for="CategoryNameArabic"></span>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="SEOArabicTitle"> </label>
+                        <input class="form-control" type="text" asp-for="SEOArabicTitle" />
+                        <span class="text-danger" asp-validation-for="SEOArabicTitle"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SEOArabicKeyWords"> </label>
+                        <select class="form-control" type="text" id="SEOArabicKeyWordsselect"> </select>
+                        <span class="text-danger" asp-validation-for="SEOArabicKeyWords"></span>
+                        <input type="hidden" asp-for="SEOArabicKeyWords" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CategoryDescriptionArabic"> Description </label>
+                        <input class="form-control" type="text" asp-for="CategoryDescriptionArabic" />
+                        <span class="text-danger" asp-validation-for="CategoryDescriptionArabic"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/jquery-ui/jqueryui/jquery-ui.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/lib/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script>
+        $(function() {
+
+
+            $("form").on("submit", function () {
+                $("#SEOArabicKeyWords").val($("#SEOArabicKeyWordsselect").val().join(","));
+                $("#SEOEnglishKeyWords").val($("#SEOEnglishKeyWordsselect").val().join(","));
+                alert($("#SEOArabicKeyWords").val());
+                alert($("#SEOEnglishKeyWords").val());
+            });
+            $("#SEOEnglishKeyWordsselect").select2({
+                tags: true,
+                multiple: true,
+                width: 'resolve',
+                 tokenSeparators: [',', ' '],
+            });
+            $("#SEOArabicKeyWordsselect").select2({
+                tags: true,
+                multiple: true,
+                width: 'resolve',
+                tokenSeparators: [',', ' ']
+            });
+            $("#tabs").tabs();
+
+            tinymce.init({
+                selector: '#CategoryDescriptionEnglish',
+                plugins: 'table',
+                menubar: 'table'
+            });
+            tinymce.init({
+                selector: '#CategoryDescriptionArabic',
+                plugins: 'table',
+                menubar: 'table'
+            });
+           
+         
+        });
+    </script>
+
+}

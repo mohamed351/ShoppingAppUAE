@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
+{
+    public class ProductCreateViewModel
+    {
+
+
+        [Required]
+        public string ProductNameEnglish { get; set; }
+
+        [Required]
+        public string ProductNameArabic { get; set; }
+
+        [Required]
+        public decimal SellingPrice { get; set; }
+        [Required]
+        public decimal PurchasingPrice { get; set; }
+
+        [Required]
+        public decimal Discount { get; set; }
+
+
+        [Required]
+        public string ImageURL { get; set; }
+
+        public string ImageAlternativeText { get; set; }
+
+
+
+        public string SEOEnglishTitle { get; set; }
+
+        public string SEOArabicTitle { get; set; }
+
+
+        public string SEOEnglishKeyWords { get; set; }
+
+        public string SEOArabicKeyWords { get; set; }
+
+        public int Quantity { get; set; }
+
+     
+
+
+     
+        public int CategoryID { get; set; }
+
+
+    }
+
+    public class ProductEditViewModel : ProductCreateViewModel
+    {
+        public int ProductID { get; set; }
+    }
+}
