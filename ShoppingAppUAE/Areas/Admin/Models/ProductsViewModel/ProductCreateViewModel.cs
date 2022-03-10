@@ -43,10 +43,14 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
 
         public int Quantity { get; set; }
 
-     
+
+        public string DescriptionEnglish { get; set; }
 
 
-     
+        public string DescriptionArabic { get; set; }
+
+
+
         public int CategoryID { get; set; }
 
 

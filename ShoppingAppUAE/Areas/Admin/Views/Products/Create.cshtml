@@ -8,113 +8,134 @@
     <link href="~/lib/image-cropper/css/jquery.Jcrop.css" rel="stylesheet" />
     <link href="~/lib/image-cropper/css/style.css" rel="stylesheet" />
     <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
 }
+<form asp-action="Create" method="post">
+    <div class="card">
+        <div class="card-body">
 
-<div class="card">
-    <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ProductNameEnglish"></label>
+                        <input type="text" class="form-control" asp-for="ProductNameEnglish" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductNameArabic"></label>
+                        <input type="text" class="form-control" asp-for="ProductNameArabic" />
+                    </div>
 
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="ProductNameEnglish"></label>
-                    <input type="text" class="form-control" asp-for="ProductNameEnglish" />
+                    <div class="form-group">
+                        <label asp-for="PurchasingPrice"></label>
+                        <input type="number" step="any" class="form-control" asp-for="PurchasingPrice" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SellingPrice"></label>
+                        <input type="number" step="any" class="form-control" asp-for="SellingPrice" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CategoryID"></label>
+                        <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.Categories"></select>
+
+
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Discount"></label>
+                        <input type="number" step="any" class="form-control" asp-for="Discount" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ImageAlternativeText"></label>
+                        <input type="number" step="any" class="form-control" asp-for="ImageAlternativeText" />
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="SEOEnglishTitle"></label>
+                        <input type="text" class="form-control" asp-for="SEOEnglishTitle" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SEOArabicTitle"></label>
+                        <input type="text" class="form-control" asp-for="SEOArabicTitle" />
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label asp-for="SEOArabicKeyWords"></label>
+                        <select class="form-control" type="text" id="SEOArabicKeyWordsselect"></select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="SEOEnglishKeyWords"></label>
+                        <select class="form-control" type="text" id="SEOEnglishKeyWordsselect"></select>
+                    </div>
+
+
+
+
+
+
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="ProductNameArabic"></label>
-                    <input type="text" class="form-control" asp-for="ProductNameArabic" />
+
+
+                <div class="col-md-6">
+                    <div class="panel panel-body" style="display: flex; justify-content: center;">
+                        <input type="hidden" asp-for="ImageURL" />
+                        <div class="span4 cropme" style="width: 400px; height: 400px;"></div>
+                    </div>
                 </div>
 
 
-                <div class="form-group">
-                    <label asp-for="PurchasingPrice"></label>
-                    <input type="number" step="any" class="form-control" asp-for="PurchasingPrice" />
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="DescriptionEnglish"></label>
+                        <input type="text" asp-for="DescriptionEnglish" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DescriptionArabic"></label>
+
+                        <input asp-for="DescriptionArabic" />
+                    </div>
+
+
+
+
+
                 </div>
-
-                <div class="form-group">
-                    <label asp-for="SellingPrice"></label>
-                    <input type="number" step="any" class="form-control" asp-for="SellingPrice" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="CategoryID"></label>
-                    <select asp-for="CategoryID" asp-items="ViewBag.Categories"></select>
-
-
-
-
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Discount"></label>
-                    <input type="number" step="any" class="form-control" asp-for="Discount" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ImageAlternativeText"></label>
-                    <input type="number" step="any" class="form-control" asp-for="ImageAlternativeText" />
-                </div>
-
-
-
-                <div class="form-group">
-                    <label asp-for="SEOEnglishTitle"></label>
-                    <input type="text" class="form-control" asp-for="SEOEnglishTitle" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="SEOArabicTitle"></label>
-                    <input type="text" class="form-control" asp-for="SEOArabicTitle" />
-                </div>
-
-
-
-
-                <div class="form-group">
-                    <label asp-for="SEOArabicKeyWords"></label>
-                    <select id="SEOArabicKeyWordsselect"></select>
-                </div>
-
-
-                <div class="form-group">
-                    <label asp-for="SEOEnglishKeyWords"></label>
-                    <select id="SEOEnglishKeyWordsselect"></select>
-                </div>
-
-
-              
-
-
 
             </div>
 
 
-
-            <div class="col-md-6">
-
-            </div>
-
-
-            <div class="col-md-12">
-               
-
-
-            </div>
 
         </div>
 
 
-
     </div>
 
-</div>
+</form>
 
 @section Scripts {
     <script src="~/lib/image-cropper/scripts/jquery.Jcrop.js"></script>
     <script src="~/lib/image-cropper/scripts/jquery.SimpleCropper.js"></script>
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/lib/tinymce/jquery.tinymce.min.js"></script>
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -126,9 +147,29 @@
 
         });
         tinymce.init({
-            selector: '#Description',
+            selector: '#DescriptionEnglish',
             plugins: 'table',
             menubar: 'table'
+        });
+
+        tinymce.init({
+            selector: '#DescriptionArabic',
+            plugins: 'table',
+            menubar: 'table'
+        });
+
+
+        $("#SEOArabicKeyWordsselect").select2({
+            tags: true,
+            multiple: true,
+            width: 'resolve',
+            tokenSeparators: [',', ' '],
+        });
+        $("#SEOEnglishKeyWordsselect").select2({
+            tags: true,
+            multiple: true,
+            width: 'resolve',
+            tokenSeparators: [',', ' ']
         });
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

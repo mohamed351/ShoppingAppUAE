@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel;
 using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,19 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
             ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish");
             return View();
+        }
+
+        public IActionResult Create(ProductCreateViewModel productCreateViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+              
+
+            }
+
+            return View(productCreateViewModel);
+
         }
 
         
