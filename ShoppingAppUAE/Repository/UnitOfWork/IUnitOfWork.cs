@@ -10,6 +10,8 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
     {
 
          ICategoryRepository Categories { get; }
+         
+        IProductRepository ProductRepository { get; }
 
         int Complete();
 

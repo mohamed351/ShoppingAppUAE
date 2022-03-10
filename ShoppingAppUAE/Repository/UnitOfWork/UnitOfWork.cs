@@ -16,8 +16,11 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
         {
             this.context = context;
             this.Categories = new CategoryRepository(context);
+            this.ProductRepository = new ProductRepository(context);
         }
         public ICategoryRepository Categories { get; }
+
+        public IProductRepository ProductRepository { get; }
 
         public int Complete()
         {
