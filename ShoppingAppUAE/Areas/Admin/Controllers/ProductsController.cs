@@ -78,6 +78,27 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
         }
 
+        public IActionResult Edit(int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest("The ID is not specified");
+            }
+          var product =  unitOfWork.Products.GetByID(ID.Value);
+            if(product == null)
+            {
+                return NotFound("The Product is not found");
+            }
+
+            ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish", product.CategoryID);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Edit(ProductEditViewModel productEditViewModel)
+        {
+            return View(productEditViewModel);
+        }
+
         
     }
 }
