@@ -2,26 +2,65 @@
 @{
     ViewData["Title"] = "Index";
 }
+@section styles{
 
+
+    <link href="~/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
 <div class="card">
 
-    <div class="d-flex justify-content-between align-center">
-        <h5 class="card-title">Products</h5>
-        <a asp-action="Create" class="btn btn-success" asp-controller="Products">Create</a>
-    </div>
-    <div class="mt-2">
+
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-center">
+            <h5 class="card-title">Products</h5>
+            <a asp-action="Create" class="btn btn-success" asp-controller="Products">Create</a>
+        </div>
+        <div class="mt-2">
+
+        </div>
+
+        <table class="table" width="100%" id="productTable">
+            <thead>
+                <tr>
+                    <td>Product Name English</td>
+                    <th>Product Name Arabic</th>
+                    <th>Purchasing Price</th>
+                    <th>Selling Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
     </div>
-
-    <table>
-        <thead>
-            <tr>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
 
 </div>
+@section scripts{
+
+    <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+
+    <script src="~/js/alphaDataTable.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            tablePlugin("#productTable", "/Admin/Products/GetProducts", [
+                { data: "productNameEnglish" },
+                { data: "productNameArabic" },
+                { data: "purchasingPrice" },
+                {data:"sellingPrice"},
+                {
+                    data: "productID", render: function (data) {
+                        return `<a class="btn btn-primary" href="/Admin/Products/Edit/${data}"> Edit </a> |
+                            <a class="btn btn-warning" href="/Admin/Products/Details/${data}"> Details </a> |
+                           <a class="btn btn-danger" href="/Admin/Products/Delete/${data}"> Delete </a>`
+                    }
+                }
+
+            ])
+
+        });
+    </script>
+}

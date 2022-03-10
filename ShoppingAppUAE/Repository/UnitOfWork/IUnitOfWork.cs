@@ -11,7 +11,7 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
 
          ICategoryRepository Categories { get; }
          
-        IProductRepository ProductRepository { get; }
+        IProductRepository Products { get; }
 
         int Complete();
 
