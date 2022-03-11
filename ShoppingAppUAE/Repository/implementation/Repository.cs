@@ -1,4 +1,5 @@
-﻿using ShoppingAppUAE.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,11 @@ namespace ShoppingAppUAE.Repository.implementation
         public TEntity GetByID(TKey key)
         {
             return context.Find<TEntity>(key);
+        }
+
+        public TEntity GetByIDAsNotTracking(Expression<Func<TEntity,bool>> expression)
+        {
+            return context.Set<TEntity>().AsNoTracking().FirstOrDefault(expression);
         }
 
         public async Task<TEntity> GetByIDAsync(TKey key)

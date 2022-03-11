@@ -14,6 +14,8 @@ namespace ShoppingAppUAE.Repository.Interfaces
 
         TEntity GetByID(TKey key);
 
+        TEntity GetByIDAsNotTracking(Expression<Func<TEntity, bool>> expression);
+
         Task<TEntity> GetByIDAsync(TKey key);
 
         bool AnyEntity(Expression<Func<TEntity, bool>> expression);

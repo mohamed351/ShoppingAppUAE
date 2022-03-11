@@ -91,14 +91,88 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             }
 
             ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish", product.CategoryID);
-            return View(product);
+            var productEditViewModel = new ProductEditViewModel()
+            {
+                CategoryID = product.CategoryID,
+                DescriptionArabic = product.DescriptionArabic,
+                ProductNameEnglish = product.ProductNameEnglish,
+                DescriptionEnglish = product.DescriptionEnglish,
+                Discount = product.Discount,
+                ProductID = product.ProductID,
+                ProductNameArabic = product.ProductNameArabic,
+                PurchasingPrice = product.PurchasingPrice,
+                Quantity = product.Quantity,
+                SellingPrice = product.SellingPrice,
+                ImageURL = product.ImageURL,
+                SEOArabicKeyWords = product.SEOArabicKeyWords,
+                SEOArabicTitle = product.SEOArabicTitle,
+                SEOEnglishKeyWords = product.SEOEnglishKeyWords,
+                SEOEnglishTitle = product.SEOEnglishTitle,
+               
+                
+
+            };
+            return View(productEditViewModel);
         }
         [HttpPost]
         public IActionResult Edit(ProductEditViewModel productEditViewModel)
         {
+            if (ModelState.IsValid)
+            {
+                var product = unitOfWork.Products.GetByIDAsNotTracking(a => a.ProductID == productEditViewModel.ProductID);
+                //use auto mapper later
+
+
+                var editedProduct = new Product()
+                {
+                    CategoryID = productEditViewModel.CategoryID,
+                    DescriptionArabic = productEditViewModel.DescriptionArabic,
+                    DescriptionEnglish = productEditViewModel.DescriptionEnglish,
+                    Discount = productEditViewModel.Discount,
+                    ImageURL = productEditViewModel.ImageURL == null ? product.ImageURL : ImageHelpers.ConvertMainImage(productEditViewModel.ImageURL, webHostEnvironment),
+                    ImageAlternativeText = productEditViewModel.ImageAlternativeText,
+                    IsActive = true,
+                    ProductID = product.ProductID,
+                    ProductNameArabic = productEditViewModel.ProductNameArabic,
+                    ProductNameEnglish = productEditViewModel.ProductNameEnglish,
+                    PurchasingPrice = productEditViewModel.PurchasingPrice,
+                    SellingPrice = productEditViewModel.SellingPrice,
+                    Quantity = productEditViewModel.Quantity,
+                    SEOArabicKeyWords = productEditViewModel.SEOArabicKeyWords,
+                    SEOArabicTitle = productEditViewModel.SEOArabicTitle,
+                    SEOEnglishKeyWords = productEditViewModel.SEOEnglishKeyWords,
+                    SEOEnglishTitle = productEditViewModel.SEOEnglishTitle
+                };
+                unitOfWork.Products.Edit(editedProduct);
+                unitOfWork.Complete();
+                return RedirectToAction(nameof(Index));
+            }
+            
+
             return View(productEditViewModel);
         }
 
-        
+        [HttpPost]
+        public IActionResult Delete([FromBody]int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest("The ID is not Specified");
+            }
+            var product = unitOfWork.Products.GetByID(ID.Value);
+
+            if(product == null)
+            {
+                return NotFound("The Product is not found");
+
+            }
+
+            unitOfWork.Products.Delete(product);
+            unitOfWork.Complete();
+            return NoContent();
+        }
+
+
+
     }
 }
