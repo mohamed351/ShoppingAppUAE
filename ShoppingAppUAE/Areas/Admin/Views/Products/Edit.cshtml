@@ -10,11 +10,11 @@
     <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
 }
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post">
     <div class="card">
         <div class="card-body">
             <div class="d-flex mb-2 justify-content-end">
-                <button type="submit" class="btn btn-success">Add Product</button>
+                <button type="submit" class="btn btn-success">Edit Product</button>
             </div>
 
             <div class="row">
@@ -98,8 +98,8 @@
 
                 <div class="col-md-6">
                     <div class="panel panel-body" style="display: flex; justify-content: center;">
-                        <input type="hidden" asp-for="ImageURL" />
-                        <div class="span4 cropme" style="width: 400px; height: 400px;"></div>
+                        <input type="hidden" asp-for="ImageURL"  />
+                        <div class="span4 cropme" style="width: 400px; height: 400px; background-image: url(/images/@Model.ImageURL)"></div>
                     </div>
                 </div>
 

@@ -112,6 +112,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 
 
             };
+            ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish",productEditViewModel.CategoryID);
             return View(productEditViewModel);
         }
         [HttpPost]

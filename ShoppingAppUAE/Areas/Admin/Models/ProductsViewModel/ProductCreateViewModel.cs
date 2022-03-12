@@ -25,7 +25,6 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
         public decimal Discount { get; set; }
 
 
-        [Required]
         public string ImageURL { get; set; }
 
         public string ImageAlternativeText { get; set; }
