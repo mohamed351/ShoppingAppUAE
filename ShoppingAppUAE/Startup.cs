@@ -12,6 +12,7 @@ using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ShoppingAppUAE
@@ -36,9 +37,13 @@ namespace ShoppingAppUAE
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
+
+         
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +67,7 @@ namespace ShoppingAppUAE
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors(a => a.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
