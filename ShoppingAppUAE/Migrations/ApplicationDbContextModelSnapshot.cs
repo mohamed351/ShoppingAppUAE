@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppingAppUAE.Data;
 
-namespace ShoppingAppUAE.Data.Migrations
+namespace ShoppingAppUAE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220306162753_addCategory")]
-    partial class addCategory
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,6 +219,30 @@ namespace ShoppingAppUAE.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BrandNameArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BrandNameEnglish")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageAlternativeText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Category", b =>
                 {
                     b.Property<int>("CategoryID")
@@ -271,8 +293,17 @@ namespace ShoppingAppUAE.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BrandID")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<string>("DescriptionArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescriptionEnglish")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
@@ -317,6 +348,8 @@ namespace ShoppingAppUAE.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("BrandID");
 
                     b.HasIndex("CategoryID");
 
@@ -396,11 +429,17 @@ namespace ShoppingAppUAE.Data.Migrations
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
+                    b.HasOne("ShoppingAppUAE.Data.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandID");
+
                     b.HasOne("ShoppingAppUAE.Data.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Brand");
 
                     b.Navigation("Category");
                 });
@@ -414,6 +453,11 @@ namespace ShoppingAppUAE.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Category", b =>

@@ -62,6 +62,12 @@ namespace ShoppingAppUAE.Data
         [ForeignKey(nameof(Category))]
         public int CategoryID { get; set; }
 
+       [ForeignKey(nameof(Brand))]
+        public int? BrandID { get; set; }
+
+
+        public Brand Brand { get; set; }
+
 
         public Category Category { get; set; }
 

@@ -18,5 +18,8 @@ namespace ShoppingAppUAE.Data
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductImage> ProductImages { get; set; }
+
+
+        public DbSet<Brand> Brands { get; set; }
     }
 }

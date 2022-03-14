@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppingAppUAE.Data;
 
-namespace ShoppingAppUAE.Data.Migrations
+namespace ShoppingAppUAE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220307145519_AddDescriptionArabic")]
-    partial class AddDescriptionArabic
+    [Migration("20220314170031_initialModel")]
+    partial class initialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,30 @@ namespace ShoppingAppUAE.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BrandNameArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BrandNameEnglish")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageAlternativeText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Category", b =>
                 {
                     b.Property<int>("CategoryID")
@@ -270,6 +294,9 @@ namespace ShoppingAppUAE.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BrandID")
+                        .HasColumnType("int");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
@@ -323,6 +350,8 @@ namespace ShoppingAppUAE.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("BrandID");
 
                     b.HasIndex("CategoryID");
 
@@ -402,11 +431,17 @@ namespace ShoppingAppUAE.Data.Migrations
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
+                    b.HasOne("ShoppingAppUAE.Data.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandID");
+
                     b.HasOne("ShoppingAppUAE.Data.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Brand");
 
                     b.Navigation("Category");
                 });
@@ -420,6 +455,11 @@ namespace ShoppingAppUAE.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Category", b =>
