@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Models;
 using System;
@@ -71,7 +72,7 @@ namespace ShoppingAppUAE.Controllers
             {
                 return BadRequest("The ID is not specifed");
             }
-           var product = context.Products.Find(ID);
+            var product = context.Products.Include(a => a.Category).FirstOrDefault(a => a.ProductID == ID);
             if(product == null)
             {
                 return NotFound("The Product is not found");
