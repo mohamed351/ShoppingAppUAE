@@ -13,6 +13,8 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
          
         IProductRepository Products { get; }
 
+        IBrandRepository Brands { get; }
+
         int Complete();
 
 

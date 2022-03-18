@@ -32,6 +32,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
 
             ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish");
+            ViewBag.Brand = new SelectList(this.unitOfWork.Brands.GetAll(), "ID", "BrandNameEnglish");
             return View();
         }
 
@@ -73,7 +74,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
               
 
             }
-
+            ViewBag.Brand = new SelectList(this.unitOfWork.Brands.GetAll(), "ID", "BrandNameEnglish");
+            ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish", productCreateViewModel.CategoryID);
             return View(productCreateViewModel);
 
         }
@@ -108,10 +110,12 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 SEOArabicTitle = product.SEOArabicTitle,
                 SEOEnglishKeyWords = product.SEOEnglishKeyWords,
                 SEOEnglishTitle = product.SEOEnglishTitle,
+                BrandID = product.BrandID.Value
                
                 
 
             };
+            ViewBag.Brand = new SelectList(this.unitOfWork.Brands.GetAll(), "ID", "BrandNameEnglish",productEditViewModel.BrandID );
             ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish",productEditViewModel.CategoryID);
             return View(productEditViewModel);
         }
@@ -148,8 +152,9 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
             }
-            
 
+            ViewBag.Brand = new SelectList(this.unitOfWork.Brands.GetAll(), "ID", "BrandNameEnglish");
+            ViewBag.Categories = new SelectList(this.unitOfWork.Categories.GetAll(), "CategoryID", "CategoryNameEnglish", productEditViewModel.CategoryID);
             return View(productEditViewModel);
         }
 

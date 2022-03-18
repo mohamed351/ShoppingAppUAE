@@ -50,13 +50,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label asp-for="BrandID"></label>
+                        <select asp-for="BrandID" class="form-control" asp-items="  ViewBag.Brand"></select>
+                    </div>
+
+                    <div class="form-group">
                         <label asp-for="Discount"></label>
                         <input type="number" step="any" class="form-control" asp-for="Discount" />
                     </div>
 
                     <div class="form-group">
                         <label asp-for="ImageAlternativeText"></label>
-                        <input   class="form-control" asp-for="ImageAlternativeText" />
+                        <input class="form-control" asp-for="ImageAlternativeText" />
                     </div>
 
 
@@ -86,6 +91,8 @@
                         <select class="form-control" type="text" id="SEOEnglishKeyWordsselect"></select>
                         <input type="hidden" asp-for="SEOEnglishKeyWords" />
                     </div>
+
+
 
 
 
