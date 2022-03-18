@@ -31,5 +31,52 @@ namespace ShoppingAppUAE.Controllers
            
             return View(ProductViewModel);
         }
+        [HttpGet]
+        public IActionResult GetProducts(ProductSelectionViewModel productViewModel)
+        {
+            IQueryable<Product> products = null;
+            int totalProduct = 0;
+            if (productViewModel.CategoryID == null)
+            {
+                products = context.Products;
+                totalProduct = context.Products.Count();
+            }
+            else
+            {
+                products = context.Products.Where(a => a.CategoryID == productViewModel.CategoryID);
+                totalProduct = context.Products.Where(a => a.CategoryID == productViewModel.CategoryID).Count();
+            }
+
+
+            var product = products.Select(a => new {
+                a.ProductID,
+                a.ProductNameEnglish,
+                a.ProductNameArabic,
+                a.PurchasingPrice,
+                a.ImageURL
+            }).OrderBy(a => a.ProductID).Skip((productViewModel.pageNumber - 1) * productViewModel.pageSize)
+              .Take(productViewModel.pageSize)
+              .ToList();
+
+
+
+
+            return Json(new { product, totalProduct });
+
+        }
+        [HttpGet]
+        public IActionResult CurrentProduct(int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest("The ID is not specifed");
+            }
+           var product = context.Products.Find(ID);
+            if(product == null)
+            {
+                return NotFound("The Product is not found");
+            }
+            return View(product);
+        }
     }
 }
