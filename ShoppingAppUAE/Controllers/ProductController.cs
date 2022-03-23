@@ -74,10 +74,20 @@ namespace ShoppingAppUAE.Controllers
             return Json(new { product, totalProduct });
 
         }
-        [HttpGet]
-        public IActionResult GetProductPrices([FromQuery]List<string> prices)
+        [HttpPost()]
+        public IActionResult GetProductPrices([FromBody] ProductQuery query)
         {
-            return Json(prices);
+           var currentQuery =  context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a=> new {  a.ProductID , a.PurchasingPrice});
+            return Json(currentQuery);
+        }
+
+        public class ProductQuery
+        {
+            public ProductQuery()
+            {
+                this.producIds = new List<int>();
+            }
+            public List<int> producIds { get; set; }
         }
         [HttpGet]
         public IActionResult CurrentProduct(int? ID)
@@ -92,6 +102,17 @@ namespace ShoppingAppUAE.Controllers
                 return NotFound("The Product is not found");
             }
             return View(product);
+        }
+
+        public IActionResult AddToCardModel(int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest("The ID is not found");
+            }
+
+
+            return PartialView();
         }
     }
 }
