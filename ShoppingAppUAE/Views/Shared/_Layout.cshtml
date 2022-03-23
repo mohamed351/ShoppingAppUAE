@@ -122,9 +122,9 @@
                                             <a href="#ltn__utilize-cart-menu" class="ltn__utilize-toggle">
                                                 <span class="mini-cart-icon">
                                                     <i class="icon-handbag"></i>
-                                                    <sup>2</sup>
+                                                    <sup id="totalCount">0</sup>
                                                 </span>
-                                                <h6><span>Your Cart</span> <span class="ltn__secondary-color">$89.25</span></h6>
+                                               
                                             </a>
                                         </div>
                                     </li>
@@ -189,8 +189,10 @@
                     <span class="ltn__utilize-menu-title">Cart</span>
                     <button class="ltn__utilize-close">×</button>
                 </div>
-                <div class="mini-cart-product-area ltn__scrollbar">
-                    <div class="mini-cart-item clearfix">
+                <div class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
+
+
+                    @*<div class="mini-cart-item clearfix">
                         <div class="mini-cart-img">
                             <a href="#"><img src="img/product/1.png" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
@@ -224,11 +226,11 @@
                         <div class="mini-cart-img">
                             <a href="#"><img src="img/product/4.png" alt="Image"></a>
                             <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
-                        </div>
-                        <div class="mini-cart-info">
+                        </div>*@
+                        @*<div class="mini-cart-info">
                             <h6><a href="#">Pink Flower Tree</a></h6>
                             <span class="mini-cart-quantity">1 x $68.00</span>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <div class="mini-cart-footer">
@@ -250,7 +252,7 @@
             <div class="ltn__utilize-menu-inner ltn__scrollbar">
                 <div class="ltn__utilize-menu-head">
                     <div class="site-logo">
-                        <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                        <a href="index.html"><img src="/template-user/ltr/img/logo.png" alt="Logo"></a>
                     </div>
                     <button class="ltn__utilize-close">×</button>
                 </div>
@@ -264,56 +266,16 @@
                     <ul>
                         <li>
                             <a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Home Style - 01</a></li>
-                                <li><a href="index-2.html">Home Style - 02</a></li>
-                                <li><a href="index-3.html">Home Style - 03</a></li>
-                                <li><a href="index-4.html">Home Style - 04</a></li>
-                            </ul>
+                           
                         </li>
                         <li><a href="about.html">About Us</a></li>
                         <li>
                             <a href="#">Shop</a>
-                            <ul class="sub-menu">
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="shop-grid.html">Shop Grid</a></li>
-                                <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
-                                <li><a href="shop-right-sidebar.html">Shop right sidebar</a></li>
-                                <li><a href="product-details.html">Shop details </a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="order-tracking.html">Order Tracking</a></li>
-                                <li><a href="account.html">My Account</a></li>
-                                <li><a href="login.html">Sign in</a></li>
-                                <li><a href="register.html">Register</a></li>
-                            </ul>
+                           
                         </li>
-                        <li>
-                            <a href="#">News</a>
-                            <ul class="sub-menu">
-                                <li><a href="blog.html">News</a></li>
-                                <li><a href="blog-grid.html">News Grid</a></li>
-                                <li><a href="blog-left-sidebar.html">News Left sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html">News Right sidebar</a></li>
-                                <li><a href="blog-details.html">News details</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="portfolio.html">Portfolio</a></li>
-                                <li><a href="portfolio-2.html">Portfolio - 02</a></li>
-                                <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="locations.html">Google Map Locations</a></li>
-                                <li><a href="404.html">404</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+                     
+                     
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
                 <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
@@ -339,7 +301,7 @@
                             <a href="cart.html" title="Shoping Cart">
                                 <span class="utilize-btn-icon">
                                     <i class="icon-handbag"></i>
-                                    <sup>5</sup>
+                                    <sup>0</sup>
                                 </span>
                                 Shoping Cart
                             </a>
@@ -362,11 +324,49 @@
 
          @RenderBody()
 
-    </div>
+   
+   
   
 
     <script src="~/template-user/ltr/js/plugins.js"></script>
     <script src="~/template-user/ltr/js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let currentCart = localStorage.getItem("cart");
+            if (currentCart) {
+               let  cartItems = JSON.parse(currentCart);
+                $("#totalCount").text(cartItems.length);
+                let cartItemsHtml = cartItems.map(function (data) {
+                    return `<div class="mini-cart-item clearfix">
+                        <div class="mini-cart-img">
+                            <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
+                            <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
+                        </div>
+                        <div class="mini-cart-info">
+                            <h6><a href="#">${data.productName}</a></h6>
+                            <span class="mini-cart-quantity">${data.Quantity} x <div class="reloader"> <div> </span>
+                        </div>
+                    </div>`
+                });
+
+                $("#cartInfo").html("");
+                $("#cartInfo").html(cartItemsHtml);
+
+                $.ajax({
+                    url: "/Product/GetProductPrices",
+                    method: "GET",
+                    data: {producIds: [1, 2]},
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+            console.log(currentCart);
+
+        });
+    
+    </script>
 
     @RenderSection("scripts",required:false)
 </body>

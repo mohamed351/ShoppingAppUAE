@@ -27,7 +27,10 @@ namespace ShoppingAppUAE.Controllers
                     ID = a.CategoryID,
                     NameArabic = a.CategoryNameArabic,
                     NameEnglish = a.CategoryNameEnglish
-                }).ToList()
+                }).ToList(),
+                BrandViewModel = context.Brands.Select(a => new BrandViewModel() { ID = a.ID, ArabicName = a.BrandNameArabic, EnglishName = a.BrandNameEnglish }).ToList()
+
+               
             };
            
             return View(ProductViewModel);
@@ -37,16 +40,22 @@ namespace ShoppingAppUAE.Controllers
         {
             IQueryable<Product> products = null;
             int totalProduct = 0;
-            if (productViewModel.CategoryID == null)
-            {
+            
                 products = context.Products;
-                totalProduct = context.Products.Count();
-            }
-            else
-            {
-                products = context.Products.Where(a => a.CategoryID == productViewModel.CategoryID);
-                totalProduct = context.Products.Where(a => a.CategoryID == productViewModel.CategoryID).Count();
-            }
+
+            if (productViewModel.CategoryID != null)
+                products = products.Where(a => a.CategoryID == productViewModel.CategoryID);
+            if (productViewModel.BrandID != null)
+                products = products.Where(a => a.BrandID == productViewModel.BrandID);
+            if (productViewModel.Search != null)
+                products = products.Where(a => a.ProductNameArabic.Contains(productViewModel.Search) || a.ProductNameEnglish.Contains(productViewModel.Search));
+
+
+
+
+
+            totalProduct = products.Count();
+
 
 
             var product = products.Select(a => new {
@@ -64,6 +73,11 @@ namespace ShoppingAppUAE.Controllers
 
             return Json(new { product, totalProduct });
 
+        }
+        [HttpGet]
+        public IActionResult GetProductPrices([FromQuery]List<string> prices)
+        {
+            return Json(prices);
         }
         [HttpGet]
         public IActionResult CurrentProduct(int? ID)

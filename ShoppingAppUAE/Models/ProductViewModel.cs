@@ -9,6 +9,8 @@ namespace ShoppingAppUAE.Models
     {
 
         public List<CategoryViewModel> CategoryViewModels { get; set; }
+
+        public List<BrandViewModel> BrandViewModel { get; set; }
     }
     public class CategoryViewModel
     {
@@ -16,6 +18,13 @@ namespace ShoppingAppUAE.Models
 
         public string NameArabic { get; set; }
         public string NameEnglish { get; set; }
+    }
+
+    public class BrandViewModel
+    {
+        public int ID { get; set; }
+        public string ArabicName { get; set; }
+        public string EnglishName { get; set; }
     }
 
 
