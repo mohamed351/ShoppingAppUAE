@@ -1,0 +1,35 @@
+﻿@model ShoppingAppUAE.Data.Product
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="ltn__quick-view-modal-inner">
+            <div class="modal-product-item">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="modal-add-to-cart-content clearfix">
+                            <div class="modal-product-img">
+                                <img src="/images/@Model.ImageURL" alt="@Model.ProductNameEnglish">
+                            </div>
+                            <div class="modal-product-info">
+                                <h5><a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@Model.ProductID">@Model.ProductNameEnglish </a></h5>
+                              
+                                <div class="btn-wrapper">
+                                    <a href="#" data-id="@Model.ProductID" class="theme-btn-1 btn btn-effect-1 add-cart-local" >Add to Cart</a>
+                                    <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="additional-info d-none--">
+                             @Html.Raw(Model.DescriptionEnglish)
+                        </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  

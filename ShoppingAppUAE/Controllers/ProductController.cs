@@ -110,9 +110,13 @@ namespace ShoppingAppUAE.Controllers
             {
                 return BadRequest("The ID is not found");
             }
+          var product =  context.Products.Find(ID);
+            if(product == null)
+            {
+                return NotFound("The Product is not Found");
+            }
 
-
-            return PartialView();
+            return PartialView(product);
         }
     }
 }
