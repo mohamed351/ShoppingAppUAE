@@ -18,7 +18,7 @@
                                 <h5><a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@Model.ProductID">@Model.ProductNameEnglish </a></h5>
                               
                                 <div class="btn-wrapper">
-                                    <a href="#" data-id="@Model.ProductID" class="theme-btn-1 btn btn-effect-1 add-cart-local" >Add to Cart</a>
+                                    <a href="#" data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" class="theme-btn-1 btn btn-effect-1 add-cart-local" >Add to Cart</a>
                                     <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
                                 </div>
                             </div>

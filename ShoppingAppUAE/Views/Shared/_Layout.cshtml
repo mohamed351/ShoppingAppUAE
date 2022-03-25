@@ -193,57 +193,10 @@
                 <div class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
 
 
-                    @*<div class="mini-cart-item clearfix">
-                            <div class="mini-cart-img">
-                                <a href="#"><img src="img/product/1.png" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
-                            </div>
-                            <div class="mini-cart-info">
-                                <h6><a href="#">Premium Joyful</a></h6>
-                                <span class="mini-cart-quantity">1 x $65.00</span>
-                            </div>
-                        </div>
-                        <div class="mini-cart-item clearfix">
-                            <div class="mini-cart-img">
-                                <a href="#"><img src="img/product/2.png" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
-                            </div>
-                            <div class="mini-cart-info">
-                                <h6><a href="#">The White Rose</a></h6>
-                                <span class="mini-cart-quantity">1 x $85.00</span>
-                            </div>
-                        </div>
-                        <div class="mini-cart-item clearfix">
-                            <div class="mini-cart-img">
-                                <a href="#"><img src="img/product/3.png" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
-                            </div>
-                            <div class="mini-cart-info">
-                                <h6><a href="#">Red Rose Bouquet</a></h6>
-                                <span class="mini-cart-quantity">1 x $92.00</span>
-                            </div>
-                        </div>
-                        <div class="mini-cart-item clearfix">
-                            <div class="mini-cart-img">
-                                <a href="#"><img src="img/product/4.png" alt="Image"></a>
-                                <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
-                            </div>*@
-                    @*<div class="mini-cart-info">
-                            <h6><a href="#">Pink Flower Tree</a></h6>
-                            <span class="mini-cart-quantity">1 x $68.00</span>
-                        </div>*@
+                  
                 </div>
             </div>
-            <div class="mini-cart-footer">
-                <div class="mini-cart-sub-total">
-                    <h5>Subtotal: <span>$310.00</span></h5>
-                </div>
-                <div class="btn-wrapper">
-                    <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                    <a href="cart.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
-                </div>
-                <p>Free Shipping on All Orders Over $100!</p>
-            </div>
+           
 
         </div>
     </div>
@@ -340,7 +293,6 @@
         </div>
     </div>
 
-
     <!--End Cart-->
 
     <script src="~/template-user/ltr/js/plugins.js"></script>
@@ -352,6 +304,7 @@
         function buildCart(currentCart) {
             let cartItems = JSON.parse(currentCart);
             $("#totalCount").text(cartItems.length);
+            console.log(currentCart);
             let cartItemsHtml = cartItems.map(function (data) {
                 return `<div class="mini-cart-item clearfix">
                                                 <div class="mini-cart-img">
@@ -370,6 +323,11 @@
             return cartItems;
         }
         $(document).ready(function () {
+           
+            getPrices();
+        });
+
+        function getPrices() {
             let currentCart = localStorage.getItem("cart");
             if (currentCart) {
                 let cartItems = buildCart(currentCart);
@@ -388,9 +346,8 @@
                     }
                 });
             }
-            console.log(currentCart);
 
-        });
+        }
 
         $(document).on("click", ".product-cart-item", function () {
             let productId = $(this).attr("data-id");
@@ -405,9 +362,31 @@
             })
         });
         $(document).on("click", ".add-cart-local", function () {
-            let productId = $(this).attr("data-id");
-            alert(productId);
+           
+            const productData = {
+                productId: $(this).attr("data-id"),
+                imageURL: $(this).attr("data-image"),
+                productName: $(this).attr("data-name")
+            };
+            
+            let currentCart = localStorage.getItem("cart");
+            if (currentCart == null) {
+                localStorage.setItem("cart", "[]");
+            }
+            currentCart = JSON.parse(localStorage.getItem("cart"));
+            let proceessCart = currentCart.find(a => a.productId == productData.productId);
+            if (proceessCart) {
+                proceessCart.Quantity++;
+            }
+            else {
+                currentCart.push({ ...productData, Quantity: 1 });
+            }
 
+            localStorage.setItem("cart", JSON.stringify(currentCart));
+            console.log(currentCart);
+            buildCart(localStorage.getItem("cart"));
+            alertify.success("Item Add to Cart Successfully", 300);
+            getPrices();
         });
 
     </script>

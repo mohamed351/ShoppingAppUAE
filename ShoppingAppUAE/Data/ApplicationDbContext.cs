@@ -21,5 +21,8 @@ namespace ShoppingAppUAE.Data
 
 
         public DbSet<Brand> Brands { get; set; }
+
+
+        public DbSet<Banner> Banners { get; set; }
     }
 }

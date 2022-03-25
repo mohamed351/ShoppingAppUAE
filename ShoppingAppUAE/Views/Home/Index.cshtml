@@ -1,8 +1,42 @@
-﻿@{
+﻿@model ShoppingAppUAE.Models.HomeViewModels.HomePageViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="ltn__slider-area ltn__slider-3 ltn__slider-6 section-bg-1">
+    <section class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1 arrow-white---">
+
+        @foreach (var item in Model.Banner)
+        {
+            <section class="ltn__slide-item ltn__slide-item-8 text-color-white---- bg-image bg-overlay-theme-black-80---" data-bg="/images/@item.ImageURL ">
+                <section class="ltn__slide-item-inner">
+                    <section class="container">
+                        <section class="row">
+                            <section class="col-lg-12 align-self-center">
+                                <section class="slide-item-info">
+                                    <section class="slide-item-info-inner ltn__slide-animation">
+                                        <header class="slide-item-info">
+                                            <section class="slide-item-info-inner ltn__slide-animation">
+                                                <h1 class="slide-title animated ">@item.Title </h1>
+                                               
+                                                <article class="slide-brief animated">
+                                                    <p style="color:#fff;">@item.Paragraph </p>
+                                                </article>
+                                                <section class="btn-wrapper animated">
+                                                    <a  asp-controller="Product" asp-action="Index" class="theme-btn-1 btn btn-round">Shop Now</a>
+                                                </section>
+                                            </section>
+                                        </header>
+                                    </section>
+                                </section>
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        }
+       
+    </section>
+</section>

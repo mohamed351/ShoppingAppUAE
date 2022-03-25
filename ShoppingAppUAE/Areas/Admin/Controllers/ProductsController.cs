@@ -110,7 +110,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 SEOArabicTitle = product.SEOArabicTitle,
                 SEOEnglishKeyWords = product.SEOEnglishKeyWords,
                 SEOEnglishTitle = product.SEOEnglishTitle,
-                BrandID = product.BrandID.Value
+                BrandID = product.BrandID
                
                 
 

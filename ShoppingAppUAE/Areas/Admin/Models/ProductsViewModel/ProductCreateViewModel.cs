@@ -52,12 +52,7 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
 
         public int CategoryID { get; set; }
 
-        public int BrandID { get; set; }
+        public int? BrandID { get; set; }
 
-    }
-
-    public class ProductEditViewModel : ProductCreateViewModel
-    {
-        public int ProductID { get; set; }
     }
 }
