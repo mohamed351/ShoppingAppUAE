@@ -41,13 +41,13 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Input.Password"></label>
-                            <input asp-for="Input.Password"  placeholder="Password" class="form-control" />
+                            <input asp-for="Input.Password" placeholder="Password" class="form-control" />
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="Input.ConfirmPassword"></label>
-                            <input asp-for="Input.ConfirmPassword"  placeholder="ConfirmPassword"  class="form-control" />
+                            <input asp-for="Input.ConfirmPassword" placeholder="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
 
@@ -72,6 +72,14 @@
                             <input placeholder="Phone" type="text" asp-for="Input.Phone" class="form-control" />
                             <span asp-validation-for="Input.Phone" class="text-danger"></span>
                         </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="Input.Address"></label>
+                            <input placeholder="Address" type="text" asp-for="Input.Address" class="form-control" />
+                            <span asp-validation-for="Input.Address" class="text-danger"></span>
+                        </div>
+
                         <label class="checkbox-inline">
                             <input type="checkbox" value="">
                             I consent to Herboil processing my personal data in order to send personalized marketing material in accordance with the consent form and the privacy policy.
