@@ -66,6 +66,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     SEOArabicTitle = productCreateViewModel.SEOArabicTitle,
                     SEOEnglishTitle = productCreateViewModel.SEOEnglishTitle,
                     ImageAlternativeText ="",
+                    BrandID = productCreateViewModel.BrandID
 
                 };
                 unitOfWork.Products.Add(product);
@@ -146,7 +147,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     SEOArabicKeyWords = productEditViewModel.SEOArabicKeyWords,
                     SEOArabicTitle = productEditViewModel.SEOArabicTitle,
                     SEOEnglishKeyWords = productEditViewModel.SEOEnglishKeyWords,
-                    SEOEnglishTitle = productEditViewModel.SEOEnglishTitle
+                    SEOEnglishTitle = productEditViewModel.SEOEnglishTitle,
+                    BrandID = productEditViewModel.BrandID,
                 };
                 unitOfWork.Products.Edit(editedProduct);
                 unitOfWork.Complete();

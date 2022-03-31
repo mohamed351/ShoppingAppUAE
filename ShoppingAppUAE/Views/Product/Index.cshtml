@@ -11,7 +11,7 @@
                     <ul>
                         <li>
                             <div class="showing-product-number text-right">
-                                <span>Showing 9 of 20 results</span>
+                                <span>Showing 12 of  <span id="totalProducts"></span> results</span>
                             </div>
                         </li>
                    
@@ -221,7 +221,7 @@
                             <li> <a href="#" class="brand-link"> All </a></li>
                             @foreach (var item in Model.BrandViewModel)
                             {
-                                <li class="brand-link" data-id="@item.ID"> @item.EnglishName</li>
+                                <li > <a href="#" class="brand-link" data-id="@item.ID">@item.EnglishName</a> </li>
                             }
                         </ul>
                     </nav>
@@ -270,12 +270,13 @@
             pageSize: 12,
             locator: "product",
             totalNumberLocator: function (response) {
-
+                $("#totalProducts").text(response.totalProduct);
                 return response.totalProduct;
+
             },
             callback: function (response, pagination) {
                 $("#product-grid").html("");
-
+               
                 for (var item of response) {
                     console.log(item);
                     $("#product-grid").append(BuildCard(item));
@@ -298,7 +299,7 @@
         $('#pageing').pagination("destroy");
         createPaging();
     });
-    $("#brand-link").on("click", function () {
+    $(".brand-link").on("click", function () {
         searchObject.brandId = $(this).attr("data-id");
         $('#pageing').pagination("destroy");
         createPaging();

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShoppingAppUAE.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,5 +24,11 @@ namespace ShoppingAppUAE.Data
 
 
         public DbSet<Banner> Banners { get; set; }
+
+        public DbSet<Counties> Counties { get; set; }
+
+
+
     }
+
 }

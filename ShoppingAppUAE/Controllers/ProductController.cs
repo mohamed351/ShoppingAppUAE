@@ -71,6 +71,8 @@ namespace ShoppingAppUAE.Controllers
 
 
 
+
+
             return Json(new { product, totalProduct });
 
         }

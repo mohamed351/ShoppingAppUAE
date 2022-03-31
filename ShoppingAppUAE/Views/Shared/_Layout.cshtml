@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="~/template-user/ltr/css/style.css" />
     <link rel="stylesheet" href="~/template-user/ltr/css/responsive.css" />
     <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
+    @RenderSection("styles",false)
 </head>
 
 <body>
@@ -62,26 +63,7 @@
                         <div class="col">
                             <div class="ltn__header-options">
                                 <ul>
-                                    <li class="d-none">
 
-                                        <div class="ltn__drop-menu ltn__currency-menu">
-                                            <ul>
-                                                <li>
-                                                    <a href="#" class="dropdown-toggle"><span class="active-currency">USD</span></a>
-                                                    <ul>
-                                                        <li><a href="login.html">USD - US Dollar</a></li>
-                                                        <li><a href="wishlist.html">CAD - Canada Dollar</a></li>
-                                                        <li><a href="register.html">EUR - Euro</a></li>
-                                                        <li><a href="account.html">GBP - British Pound</a></li>
-                                                        <li><a href="wishlist.html">INR - Indian Rupee</a></li>
-                                                        <li><a href="wishlist.html">BDT - Bangladesh Taka</a></li>
-                                                        <li><a href="wishlist.html">JPY - Japan Yen</a></li>
-                                                        <li><a href="wishlist.html">AUD - Australian Dollar</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
                                     <li class="d-none">
                                         <!-- header-search-1 -->
                                         <div class="header-search-wrap">
@@ -101,22 +83,29 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="d-none">
+
+
+                                    <li>
                                         <!-- user-menu -->
                                         <div class="ltn__drop-menu user-menu">
                                             <ul>
                                                 <li>
                                                     <a href="#"><i class="icon-user"></i></a>
                                                     <ul>
-                                                        <li><a href="login.html">Sign in</a></li>
-                                                        <li><a href="register.html">Register</a></li>
-                                                        <li><a href="account.html">My Account</a></li>
-                                                        <li><a href="wishlist.html">Wishlist</a></li>
+
+                                                        <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">Sign In</a></li>
+                                                        <li><a asp-action="Register" asp-area="Identity" asp-controller="Account">Register</a></li>
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+                                                            <li><a>My Account</a></li>
+                                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                                        }
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li>
+
                                     <li>
                                         <!-- mini-cart 2 -->
                                         <div class="mini-cart-icon mini-cart-icon-2">
@@ -128,7 +117,16 @@
 
                                             </a>
                                         </div>
+
+
+
                                     </li>
+
+
+
+
+
+
                                     <li>
                                         <!-- Mobile Menu Button -->
                                         <div class="mobile-menu-toggle d-lg-none">
@@ -162,11 +160,11 @@
                                     <div class="ltn__main-menu">
                                         <ul>
                                             <li>
-                                                <a asp-action="Index" asp-controller="Home">Home</a>
+                                                <a asp-area="" asp-action="Index" asp-controller="Home">Home</a>
 
                                             </li>
                                             <li>
-                                                <a asp-action="Index" asp-controller="Product">Products</a>
+                                                <a  asp-area="" asp-action="Index" asp-controller="Product">Products</a>
                                             </li>
 
                                             <li><a href="#">Contact</a></li>
@@ -252,7 +250,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="cart.html" title="Shoping Cart">
+                        <a href="#" title="Shoping Cart">
                             <span class="utilize-btn-icon">
                                 <i class="icon-handbag"></i>
                                 <sup>0</sup>
