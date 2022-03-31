@@ -182,6 +182,14 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -249,6 +257,61 @@ namespace ShoppingAppUAE.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Banners");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.Blog", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentEnglish")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeyWordArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeyWordsEnglish")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.BlogComment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BlogID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BlogID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("BlogComment");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>
@@ -322,6 +385,63 @@ namespace ShoppingAppUAE.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.ContactInfo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EmailAddress1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailAddress2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OpenFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OpenTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ContactInfos");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.ContactMessage", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ContactMessages");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Counties", b =>
@@ -490,6 +610,19 @@ namespace ShoppingAppUAE.Migrations
                     b.Navigation("Counties");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.BlogComment", b =>
+                {
+                    b.HasOne("ShoppingAppUAE.Data.Blog", null)
+                        .WithMany("BlogComments")
+                        .HasForeignKey("BlogID");
+
+                    b.HasOne("ShoppingAppUAE.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
                     b.HasOne("ShoppingAppUAE.Data.Brand", "Brand")
@@ -516,6 +649,11 @@ namespace ShoppingAppUAE.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.Blog", b =>
+                {
+                    b.Navigation("BlogComments");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Brand", b =>

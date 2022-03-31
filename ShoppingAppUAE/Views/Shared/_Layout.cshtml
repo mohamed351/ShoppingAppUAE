@@ -93,12 +93,24 @@
                                                     <a href="#"><i class="icon-user"></i></a>
                                                     <ul>
 
-                                                        <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">Sign In</a></li>
-                                                        <li><a asp-action="Register" asp-area="Identity" asp-controller="Account">Register</a></li>
+                                                        @if (!User.Identity.IsAuthenticated)
+                                                        {
+                                                            <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">Sign In</a></li>
+                                                            <li><a asp-action="Register" asp-area="Identity" asp-controller="Account">Register</a></li>
+
+                                                        }
                                                         @if (User.Identity.IsAuthenticated)
                                                         {
-                                                            <li><a>My Account</a></li>
+                                                            <li><a href="#">My Account</a></li>
                                                             <li><a href="wishlist.html">Wishlist</a></li>
+                                                            <li>
+                                                            <li>
+                                                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                                                </form>
+                                                            </li>
+</li>
+
                                                         }
                                                     </ul>
                                                 </li>

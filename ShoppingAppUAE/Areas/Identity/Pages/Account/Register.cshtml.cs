@@ -67,14 +67,18 @@ namespace ShoppingAppUAE.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-
+            [Required]
             public string County { get; set; }
-
+            [Required]
             public string City { get; set; }
-
+            [Required]
             public string Phone { get; set; }
-
+            [Required]
             public string Address { get; set; }
+            [Required]
+            public string FirstName { get; set; }
+            [Required]
+            public string LastName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -90,7 +94,7 @@ namespace ShoppingAppUAE.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email , City = Input.City , CountryCode = Input.County ,PhoneNumber = Input.Phone  , Address = Input.Address  };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email , City = Input.City , CountryCode = Input.County ,PhoneNumber = Input.Phone  , Address = Input.Address , FirstName = Input.FirstName , LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

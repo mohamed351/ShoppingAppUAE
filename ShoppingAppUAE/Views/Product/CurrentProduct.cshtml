@@ -39,7 +39,7 @@
                                     <div class="single-small-img">
                                         <img src="/images/@Model.ImageURL" alt="@Model.ProductNameEnglish">
                                     </div>
-                                   
+
                                 </section>
                                 <section class="ltn__shop-details-large-img">
                                     <section class="single-large-img">
@@ -48,10 +48,10 @@
 
                                         </a>
                                     </section>
-                                   
+
+                                </section>
                             </section>
                         </section>
-                            </section>
                         <section class="col-md-6">
                             <section class="modal-product-info shop-details-info pl-0">
                                 <h3>@Model.ProductNameEnglish</h3>
@@ -60,44 +60,40 @@
                                         <li>
                                             <div class="product-price">
                                                 <span>@Model.PurchasingPrice </span>
-                                             
+
                                             </div>
                                         </li>
-                                       
+
                                     </ul>
                                 </section>
                                 <section class="modal-product-brief">
                                     @Html.Raw(Model.DescriptionEnglish)
                                 </section>
-                            
+
                                 <section class="ltn__product-details-menu-2 product-cart-wishlist-btn mb-30">
                                     <ul>
-                                       
+
                                         <li>
-                                            <button  class="theme-btn-1 btn btn-effect-1 d-add-to-cart add-cart-local"  data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" title="Add to Cart" >
+                                            <button class="theme-btn-1 btn btn-effect-1 d-add-to-cart add-cart-local" data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" title="Add to Cart">
                                                 <span>ADD TO CART</span>
                                             </button>
                                         </li>
                                         <li>
-                                            <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="Add to Cart" >
+                                            <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="Add to Cart">
                                                 <i class="icon-heart"></i>
                                             </a>
                                         </li>
                                     </ul>
                                 </section>
                                 <section class="ltn__social-media mb-30">
-                                    <ul>
-                                        <li class="d-meta-title">Share:</li>
-                                        <li><a href="#" title="Facebook"><i class="icon-social-facebook"></i></a></li>
-                                        <li><a href="#" title="Twitter"><i class="icon-social-twitter"></i></a></li>
-                                        <li><a href="#" title="Pinterest"><i class="icon-social-pinterest"></i></a></li>
-                                        <li><a href="#" title="Instagram"><i class="icon-social-instagram"></i></a></li>
 
-                                    </ul>
+                                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                    <div class="addthis_inline_share_toolbox"></div>
+
                                 </section>
                                 <section class="modal-product-meta ltn__product-details-menu-1 mb-30">
                                     <ul>
-                                     
+
                                         <li>
                                             <strong>Categories:</strong>
                                             <span>
@@ -112,7 +108,7 @@
                                         </li>
                                     </ul>
                                 </section>
-                               
+
                             </section>
                         </section>
                     </section>
@@ -121,4 +117,11 @@
         </section>
     </section>
 </section>
+
+@section scripts{
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-624606018f86ebfc"></script>
+
+
+}
 

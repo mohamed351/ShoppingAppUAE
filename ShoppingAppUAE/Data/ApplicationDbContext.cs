@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace ShoppingAppUAE.Data
@@ -26,6 +25,14 @@ namespace ShoppingAppUAE.Data
         public DbSet<Banner> Banners { get; set; }
 
         public DbSet<Counties> Counties { get; set; }
+
+        public DbSet<ContactInfo> ContactInfos { get; set; }
+
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
+        public DbSet<Blog> Blogs { get; set; }
+
+        public DbSet<BlogComment> BlogComment { get; set; }
 
 
 

@@ -34,6 +34,21 @@
                 <div class="account-login-inner">
                     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.FirstName"></label>
+                            <input asp-for="Input.FirstName" placeholder="First Name" class="form-control" />
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="Input.LastName"></label>
+                            <input asp-for="Input.LastName" placeholder="Last Name" class="form-control" />
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Input.Email"></label>
                             <input asp-for="Input.Email" placeholder="Email" class="form-control" />
