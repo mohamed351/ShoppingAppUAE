@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore.SEOHelper.Sitemap;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Models;
 using ShoppingAppUAE.Models.HomeViewModels;
+using ShoppingAppUAE.Models.SitmapViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,15 +18,19 @@ namespace ShoppingAppUAE.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
+        private readonly IWebHostEnvironment webHost;
 
-        public HomeController(ILogger<HomeController> logger , ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger , ApplicationDbContext context , IWebHostEnvironment webHost )
         {
             _logger = logger;
             this.context = context;
+            this.webHost = webHost;
         }
 
         public IActionResult Index()
         {
+
+       
 
             HomePageViewModel viewModel = new HomePageViewModel()
             {
@@ -42,5 +49,8 @@ namespace ShoppingAppUAE.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
     }
 }

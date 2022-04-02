@@ -1,7 +1,32 @@
 ﻿@model ShoppingAppUAE.Models.HomeViewModels.HomePageViewModel
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 @{
     ViewData["Title"] = "Home Page";
+}
+
+
+@section metaTags{
+
+    <meta name="title" content="@ViewData["Title"]">
+    <meta name="description" content="@Configuration["CompanyInfo:HomeDescription"]">
+    <meta name="author" content="@Configuration["CompanyInfo:Author"]">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metatags.io/">
+    <meta property="og:title" content="Meta Tags — Preview, Edit and Generate">
+    <meta property="og:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
+    <meta property="og:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate">
+    <meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
+    <meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
+
 }
 
 <section class="ltn__slider-area ltn__slider-3 ltn__slider-6 section-bg-1">
@@ -19,12 +44,12 @@
                                         <header class="slide-item-info">
                                             <section class="slide-item-info-inner ltn__slide-animation">
                                                 <h1 class="slide-title animated ">@item.Title </h1>
-                                               
+
                                                 <article class="slide-brief animated">
                                                     <p style="color:#fff;">@item.Paragraph </p>
                                                 </article>
                                                 <section class="btn-wrapper animated">
-                                                    <a  asp-controller="Product" asp-action="Index" class="theme-btn-1 btn btn-round">Shop Now</a>
+                                                    <a asp-controller="Product" asp-action="Index" class="theme-btn-1 btn btn-round">Shop Now</a>
                                                 </section>
                                             </section>
                                         </header>
@@ -37,6 +62,6 @@
                 </section>
             </section>
         }
-       
+
     </section>
 </section>

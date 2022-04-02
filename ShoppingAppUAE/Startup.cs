@@ -1,3 +1,4 @@
+using AspNetCore.SEOHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -68,6 +69,9 @@ namespace ShoppingAppUAE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //app.UseHsts();
             }
+
+         
+
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
@@ -78,7 +82,8 @@ namespace ShoppingAppUAE
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors(a => a.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-
+            app.UseRobotsTxt(env.ContentRootPath);
+            app.UseXMLSitemap(env.ContentRootPath);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
