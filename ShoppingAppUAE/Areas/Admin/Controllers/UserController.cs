@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ShoppingAppUAE.Areas.Admin.Models.UserViewModel;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.Interfaces;
 using System;
@@ -15,10 +17,15 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ApplicationDbContext context;
 
-        public UserController(UserManager<ApplicationUser> userManager)
+        public UserController(UserManager<ApplicationUser> userManager ,
+            RoleManager<IdentityRole> roleManager , ApplicationDbContext context)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -35,11 +42,42 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
+            ViewBag.Countries = new SelectList(context.Counties, "Code", "EnglishName");
             return View();
         }
         [HttpPost]
-        public IActionResult Create(ApplicationUser user)
+        public async  Task< IActionResult> Create(UserCreateViewModel user)
         {
+            if (ModelState.IsValid)
+            {
+
+                var currentUser = new ApplicationUser()
+                {
+                    Email = user.Email,
+                    Address = user.Address,
+                    City = user.City,
+                    CountryCode = user.CountryCode,
+                    LastName = user.LastName,
+                    FirstName = user.FirstName,
+                    PhoneNumber = user.Phone,
+                    UserName = user.UserName
+                };
+              var result = await  userManager.CreateAsync(currentUser,user.Password);
+
+                if (result.Succeeded)
+                {
+                   await userManager.AddToRoleAsync(currentUser, user.RoleName);
+                }
+                else
+                {
+                    // append Error List
+                }
+
+                
+            }
+            ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
+            ViewBag.Countries = new SelectList(context.Counties, "Code", "EnglishName");
             return View();
         }
         public DataTableViewModel<ApplicationUser> GetUser(int start, int lenght, Expression<Func<ApplicationUser, bool>> search, Expression<Func<ApplicationUser, string>> OrderBy)
