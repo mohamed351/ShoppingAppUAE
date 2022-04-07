@@ -4,14 +4,15 @@
     ViewData["Title"] = "Register";
 }
 
-@section styles{ 
-  <style>
-      .nice-select {
-          width: 100% !important;
-          padding: 0 !important;
-          padding-left: 10px !important;
-      }
-  </style>
+@section styles{
+    <style>
+        .nice-select {
+            width: 100% !important;
+            padding: 0 !important;
+            padding-left: 10px !important;
+        }
+    </style>
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
 
 }
 
@@ -24,7 +25,7 @@
                 <div class="section-title-area text-center">
                     <h1>@ViewData["Title"]</h1>
                     <p>
-                       Have a greate Day
+                        Have a greate Day
                     </p>
                 </div>
             </div>
@@ -69,7 +70,9 @@
                         <div class="form-group">
                             <label asp-for="Input.County" class="control-label"></label>
                             <div>
-                                <select asp-for="Input.County" style="width:100% !important" class="form-control" asp-items="@((SelectList)ViewData["Country"])"></select>
+                                <select asp-for="Input.County" style="width:100% !important" class="form-control" asp-items="@((SelectList)ViewData["Country"])">
+                                    <option disabled selected>Select country</option>
+                                </select>
                                 <span asp-validation-for="Input.County" class="text-danger"></span>
                             </div>
                         </div>
@@ -84,7 +87,9 @@
 
                         <div class="form-group">
                             <label asp-for="Input.Phone"></label>
-                            <input placeholder="Phone" type="text" asp-for="Input.Phone" class="form-control" />
+                            <div>
+                                <input type="text" class="form-control" id="PhonePrefix" asp-for="Input.PhonePrefix" style="width:14%;display:inline-block;padding:5px;" readonly />  <input placeholder="Phone" type="text" asp-for="Input.Phone" class="form-control" style="display:inline-block;width:82%"/>
+                            </div>
                             <span asp-validation-for="Input.Phone" class="text-danger"></span>
                         </div>
 
@@ -95,12 +100,9 @@
                             <span asp-validation-for="Input.Address" class="text-danger"></span>
                         </div>
 
+                      
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="">
-                            I consent to Herboil processing my personal data in order to send personalized marketing material in accordance with the consent form and the privacy policy.
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="">
+                            <input type="checkbox" asp-for="Input.AcceptPolicy" >
                             By clicking "create account", I consent to the privacy policy.
                         </label>
                         <div class="btn-wrapper">
@@ -120,45 +122,69 @@
 
 
                     </form>
-                   
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-    @*<div class="col-md-6 col-md-offset-2">
-            <section>
-                <h4>Use another service to register.</h4>
-                <hr />
-                @{
-                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                    {
+@*<div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Use another service to register.</h4>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
                         <div>
                             <p>
-                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                                for details on setting up this ASP.NET application to support logging in via external services.
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
                             </p>
                         </div>
-                    }
-                    else
-                    {
-                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                            <div>
-                                <p>
-                                    @foreach (var provider in Model.ExternalLogins)
-                                    {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                    }
-                                </p>
-                            </div>
-                        </form>
-                    }
+                    </form>
                 }
-            </section>
-        </div>*@
-</div>
+            }
+        </section>
+    </div>*@
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script>
+        var currentCountries= [];
+        $.ajax({
+            url: "/api/Countries",
+            method: "GET",
+            success: function (result) {
+                currentCountries = result;
+            }
+        })
+        $("#Input_County").select2();
+
+        $("#Input_County").on("change", function () {
+            
+            let countryCode = $(this).val();
+            let selectedCountry = currentCountries.find(a => a.code === countryCode);
+            console.log(selectedCountry.prefix);
+            $("#PhonePrefix").val(selectedCountry.prefix);
+
+
+        });
+
+
+    </script>
 }

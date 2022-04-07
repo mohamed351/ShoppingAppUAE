@@ -52,7 +52,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                var selectCounty = context.Counties.Find(user.CountryCode);
                 var currentUser = new ApplicationUser()
                 {
                     Email = user.Email,
@@ -62,7 +62,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     LastName = user.LastName,
                     FirstName = user.FirstName,
                     PhoneNumber = user.Phone,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    PhonePrefix = selectCounty.Prefix
                 };
               var result = await  userManager.CreateAsync(currentUser,user.Password);
 
@@ -107,6 +108,21 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return View(applicationUser);
 
 
+        }
+        [HttpDelete]
+        public IActionResult DeleteUser(string id)
+        {
+            if(id == null)
+            {
+                return BadRequest("The ID is not Specified");
+            }
+
+            var userId =  userManager.FindByIdAsync(id);
+            if(userId == null)
+            {
+                return NotFound("The ");
+            }
+            return NoContent();
         }
         public DataTableViewModel<ApplicationUser> GetUser(int start, int lenght, Expression<Func<ApplicationUser, bool>> search, Expression<Func<ApplicationUser, string>> OrderBy)
         {

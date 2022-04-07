@@ -20,6 +20,9 @@ namespace ShoppingAppUAE.Data
         [Required]
         public string LastName { get; set; }
 
+        [Required]
+        public string PhonePrefix { get; set; }
+
 
 
 

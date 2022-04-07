@@ -56,6 +56,8 @@ namespace ShoppingAppUAE.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+           
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -79,6 +81,12 @@ namespace ShoppingAppUAE.Areas.Identity.Pages.Account
             public string FirstName { get; set; }
             [Required]
             public string LastName { get; set; }
+            [Required]
+            public string PhonePrefix { get; set; }
+
+
+            public bool AcceptPolicy { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -94,7 +102,14 @@ namespace ShoppingAppUAE.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email , City = Input.City , CountryCode = Input.County ,PhoneNumber = Input.Phone  , Address = Input.Address , FirstName = Input.FirstName , LastName = Input.LastName };
+                if (!Input.AcceptPolicy)
+                {
+                    ModelState.AddModelError(string.Empty, "You didn't accept the policy");
+                     ViewData["Country"] = new SelectList(context.Counties, "Code", "EnglishName");
+                    // If we got this far, something failed, redisplay form
+                    return Page();
+                }
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email , City = Input.City , CountryCode = Input.County ,PhoneNumber = Input.Phone  , Address = Input.Address , FirstName = Input.FirstName , LastName = Input.LastName ,PhonePrefix = Input.PhonePrefix };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
