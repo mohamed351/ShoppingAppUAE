@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Areas.Admin.Models.UserViewModel;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.Interfaces;
@@ -68,17 +69,44 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                    await userManager.AddToRoleAsync(currentUser, user.RoleName);
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
                     // append Error List
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError(item.Code, item.Description);
+                    }
+
+                    ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
+                    ViewBag.Countries = new SelectList(context.Counties, "Code", "EnglishName");
+                    return View(user);
                 }
 
                 
             }
             ViewBag.Roles = new SelectList(roleManager.Roles, "Name", "Name");
             ViewBag.Countries = new SelectList(context.Counties, "Code", "EnglishName");
-            return View();
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest("The ID is not exist");
+            }
+
+            var applicationUser = this.context.Users.Include(a => a.Counties).FirstOrDefault(a => a.Id == id);
+            if (applicationUser == null)
+            {
+                return NotFound("The Product is not found");
+            }
+
+            return View(applicationUser);
+
+
         }
         public DataTableViewModel<ApplicationUser> GetUser(int start, int lenght, Expression<Func<ApplicationUser, bool>> search, Expression<Func<ApplicationUser, string>> OrderBy)
         {

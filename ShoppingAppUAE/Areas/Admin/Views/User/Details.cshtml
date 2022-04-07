@@ -1,0 +1,64 @@
+﻿@model ShoppingAppUAE.Data.ApplicationUser
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        
+        <div>
+            <label>First Name</label>
+            <p>@Model.FirstName</p>
+        </div>
+
+        <div>
+            <label>Last Name</label>
+            <p>@Model.LastName</p>
+        </div>
+
+
+        <div>
+            <label>Email</label>
+            <p>@Model.Email</p>
+        </div>
+
+
+        <div>
+            <label>UserName</label>
+            <p>@Model.UserName</p>
+        </div>
+
+
+        <div>
+            <label>Phone</label>
+            <p>@Model.PhoneNumber</p>
+        </div>
+
+
+
+        <div>
+            <label>Address</label>
+            <p>@Model.Address</p>
+        </div>
+
+
+        <div>
+            <label>Country</label>
+            <p>@Model.Counties.EnglishName</p>
+        </div>
+
+
+        <div>
+            <label>City</label>
+            <p>@Model.City</p>
+        </div>
+
+        <div>
+            <a class="btn btn-primary" asp-action="Index" asp-controller="User" asp-area="Admin">Go back</a>
+        </div>
+    </div>
+
+
+</div>
+

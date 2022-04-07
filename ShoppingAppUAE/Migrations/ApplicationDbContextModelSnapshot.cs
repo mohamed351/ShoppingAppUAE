@@ -455,6 +455,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<string>("EnglishName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Prefix")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Code");
 
                     b.ToTable("Counties");

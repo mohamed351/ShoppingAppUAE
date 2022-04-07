@@ -16,7 +16,7 @@
         </div>
 
         <div>
-            <table id="UsersTable" class="table">
+            <table id="UsersTable" width="100%" class="table">
                 <thead>
                     <tr>
                         <th>FirstName</th>
@@ -51,10 +51,10 @@
                 { data: "email" },
                 { data:"phoneNumber"},
                 {
-                    data: "Id", render: function (data) {
-                        return `<a class="btn btn-primary" href="/Admin/User/Edit/${data}"> Edit </a> |
-                            <a class="btn btn-warning" href="/Admin/User/Details/${data}"> Details </a> |
-                           <a class="btn btn-danger" href="/Admin/User/Delete/${data}"> Delete </a>`
+                    data: "id", render: function (data) {
+                        return `<div class='d-flex justify-content-center'>
+                                <a class='btn btn-warning' href='/Admin/User/Details/${data}'> Details </a>
+                            <button class='btn btn-danger' data-id=${data}> Lock User </button> </div>`
                     }
                 }
 

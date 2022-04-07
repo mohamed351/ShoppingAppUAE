@@ -10,6 +10,8 @@ namespace ShoppingAppUAE.Data
         public string EnglishName { get; set; }
 
         public string ArabicName { get; set; }
+
+        public string Prefix { get; set; }
     }
 
 }

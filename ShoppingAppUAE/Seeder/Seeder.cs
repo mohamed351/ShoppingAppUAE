@@ -18,7 +18,7 @@ namespace ShoppingAppUAE.Seeder
             {
 
                 var roleManager = serviceScoped.ServiceProvider.GetService<RoleManager<IdentityRole>>();
-                
+                var dbContext = serviceScoped.ServiceProvider.GetService<ApplicationDbContext>();
                await BuildRoles(roleManager);
 
 
@@ -41,5 +41,11 @@ namespace ShoppingAppUAE.Seeder
             
         }
 
+
+        private static async Task BuildCountries(ApplicationDbContext context)
+        {
+           
+           
+        }
     }
 }

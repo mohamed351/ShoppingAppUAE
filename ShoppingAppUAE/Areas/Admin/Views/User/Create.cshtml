@@ -6,72 +6,80 @@
 
 <div class="card">
 
-    <form asp-action="Create" method="post" asp-controller="User" asp-area="Admin">
-        <div class="card-body">
-            <div class="d-flex justify-content-center align-items-center">
+
+
+    <div class="card-body">
+        <form asp-action="Create" method="post" asp-controller="User" asp-area="Admin">
+
+            <div class="text-danger">
+                @Html.ValidationSummary()
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
                 <h2>Create</h2>
                 <button type="submit" class="btn btn-success"> Create </button>
             </div>
-        </div>
-
-
-        <div class="form-group">
-            <label asp-for="FirstName"></label>
-            <input asp-for="FirstName" type="text" placeholder="First Name" class="form-control" />
-        </div>
-
-
-        <div class="form-group">
-            <label asp-for="LastName"></label>
-            <input asp-for="LastName" type="text" placeholder="Last Name" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="UserName"></label>
-            <input asp-for="UserName" type="text" placeholder="User Name" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control" type="password" placeholder="Password" />
-
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" type="text" placeholder="Email" />
-        </div>
-
-                </div>
-
-        <div class="form-group">
-            <label asp-for="Phone"></label>
-            <input asp-for="Phone" type="text" class="form-control" placeholder="Phone" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Address"></label>
-            <input asp-for="Address" type="text" class="form-control" placeholder="Address" />
-        </div>
 
 
 
-
-        <div class="form-group">
-            <label asp-for="City"></label>
-            <input asp-for="City" type="text" class="form-control" placeholder="City" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for="RoleName"></label>
-            <select asp-for="RoleName" class="form-control" asp-items="ViewBag.Roles"></select>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="CountryCode"></label>
-            <select asp-for="CountryCode" class="form-control" asp-items="ViewBag.Countries"></select>
-        </div>
-    </form>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" type="text" placeholder="First Name" class="form-control" />
+            </div>
 
 
-</div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" type="text" placeholder="Last Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" type="text" placeholder="User Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" type="password" placeholder="Password" />
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" type="text" placeholder="Email" />
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" type="text" class="form-control" placeholder="Phone" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" type="text" class="form-control" placeholder="Address" />
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label asp-for="City"></label>
+                <input asp-for="City" type="text" class="form-control" placeholder="City" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RoleName"></label>
+                <select asp-for="RoleName" class="form-control" asp-items="ViewBag.Roles"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryCode"></label>
+                <select asp-for="CountryCode" class="form-control" asp-items="ViewBag.Countries"></select>
+            </div>
+        </form>
+    </div>
+ </div>
+
+
