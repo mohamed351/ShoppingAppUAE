@@ -109,19 +109,58 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
 
         }
+        [HttpPut]
+        public async Task<IActionResult> LockUser(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest("The ID is not Specified");
+            }
+
+            var currentUser = await userManager.FindByIdAsync(id);
+            if (currentUser == null)
+            {
+                return NotFound("The User is Not Exist ");
+            }
+            await userManager.SetLockoutEnabledAsync(currentUser, true);
+
+            return NoContent();
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult> UnLockUser(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest("The ID is not Specified");
+            }
+
+            var currentUser = await userManager.FindByIdAsync(id);
+            if (currentUser == null)
+            {
+                return NotFound("The User is Not Exist ");
+            }
+            await userManager.SetLockoutEnabledAsync(currentUser, false);
+
+            return NoContent();
+        }
+
         [HttpDelete]
-        public IActionResult DeleteUser(string id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             if(id == null)
             {
                 return BadRequest("The ID is not Specified");
             }
 
-            var userId =  userManager.FindByIdAsync(id);
-            if(userId == null)
+            var currentUser =await  userManager.FindByIdAsync(id);
+            if(currentUser == null)
             {
-                return NotFound("The ");
+                return NotFound("The User is Not Exist ");
             }
+            await userManager.DeleteAsync(currentUser);
+
             return NoContent();
         }
         public DataTableViewModel<ApplicationUser> GetUser(int start, int lenght, Expression<Func<ApplicationUser, bool>> search, Expression<Func<ApplicationUser, string>> OrderBy)
