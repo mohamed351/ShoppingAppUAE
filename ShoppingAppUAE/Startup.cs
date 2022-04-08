@@ -50,6 +50,12 @@ namespace ShoppingAppUAE
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
 
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = Configuration["Google:ClientId"];
+                options.ClientSecret = Configuration["Google:ClientSecret"];
+            });
+
 
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
