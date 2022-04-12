@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\API\Views\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\template-user\ltr\img\others\" />

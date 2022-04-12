@@ -79,7 +79,9 @@ namespace ShoppingAppUAE.Controllers
         [HttpPost()]
         public IActionResult GetProductPrices([FromBody] ProductQuery query)
         {
+           
            var currentQuery =  context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a=> new {  a.ProductID , a.PurchasingPrice});
+           
             return Json(currentQuery);
         }
 
@@ -90,7 +92,10 @@ namespace ShoppingAppUAE.Controllers
                 this.producIds = new List<int>();
             }
             public List<int> producIds { get; set; }
+           
         }
+      
+
         [HttpGet]
         public IActionResult CurrentProduct(int? ID)
         {

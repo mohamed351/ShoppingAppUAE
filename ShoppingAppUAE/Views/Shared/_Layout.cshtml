@@ -200,10 +200,18 @@
                                 <button class="ltn__utilize-close">×</button>
                             </section>
                             <section class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
-
-
-
                             </section>
+
+                            <div class="mini-cart-footer">
+                                <div class="mini-cart-sub-total">
+                                    <h5>Subtotal: <span id="totalCartSum">0</span></h5>
+                                </div>
+                                <div class="btn-wrapper">
+                                    <a asp-action="Index" asp-controller="Cart" asp-area="" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                                    <a asp-action="Index" asp-controller="Checkout" asp-area="" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                </div>
+                                
+                            </div>
                         </section>
 
 
@@ -255,7 +263,7 @@
                                 <a href="#" title="Shoping Cart">
                                     <span class="utilize-btn-icon">
                                         <i class="icon-handbag"></i>
-                                        <sup>0</sup>
+                                        <sup id="totalCount-mobile">0</sup>
                                     </span>
                                     Shoping Cart
                                 </a>
@@ -297,16 +305,18 @@
                 function buildCart(currentCart) {
                     let cartItems = JSON.parse(currentCart);
                     $("#totalCount").text(cartItems.length);
+                    $("#totalCount-mobile").text(cartItems.length); 
+                    $(".totalCount")
                     console.log(currentCart);
                     let cartItemsHtml = cartItems.map(function (data) {
                         return `<div class="mini-cart-item clearfix">
                                                             <div class="mini-cart-img">
                                                                 <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
-                                                                <span class="mini-cart-item-delete"><i class="icon-trash"></i></span>
+                                                                <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
                                                             </div>
                                                             <div class="mini-cart-info">
                                                                 <h6><a href="#">${data.productName}</a></h6>
-                                                                <span class="mini-cart-quantity">${data.Quantity} x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
                                                             </div>
                                                         </div>`
                     });
@@ -319,12 +329,32 @@
 
                     getPrices();
                 });
+                $(document).on("click", ".mini-cart-item-delete", function () {
+             
+                    let currentDeletedItem = +$(this).attr("data-id");
+                    let jsonData = localStorage.getItem("cart");
+                    if (jsonData) {
+                        let oldCart = JSON.parse(jsonData);
+                        let newCart = oldCart.filter(a => a.productId != currentDeletedItem);
+                        localStorage.setItem("cart",JSON.stringify( newCart));
+                        buildCart(localStorage.getItem("cart"));
+                        $("#totalCartSum").text(buildTotal());
+                    }
+                });
+
+                function buildTotal() {
+                    let sumTotal = 0;
+                    $("#cartInfo .mini-cart-item").each(function () {
+                        sumTotal+= +$(this).find(".product-qtu-data").text() * +$(this).find(".product-price-data").text();
+                    });
+                    return sumTotal;
+                }
 
                 function getPrices() {
                     let currentCart = localStorage.getItem("cart");
                     if (currentCart) {
                         let cartItems = buildCart(currentCart);
-
+                       
                         $.ajax({
                             url: "/Product/GetProductPrices",
                             method: "POST",
@@ -332,10 +362,12 @@
                             type: "json",
                             data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
                             success: function (result) {
+                                
                                 for (let item of result) {
                                     $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
-
+                                 
                                 }
+                                $("#totalCartSum").text(buildTotal());
                             }
                         });
                     }
@@ -376,7 +408,7 @@
                     }
 
                     localStorage.setItem("cart", JSON.stringify(currentCart));
-                    console.log(currentCart);
+                  
                     buildCart(localStorage.getItem("cart"));
                     alertify.success("Item Add to Cart Successfully", 300);
                     getPrices();
