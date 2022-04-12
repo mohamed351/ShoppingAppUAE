@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,16 @@ namespace ShoppingAppUAE.Controllers
 {
     public class AboutUsController : Controller
     {
+        private readonly ILogger<AboutUsController> logger;
+
+        public AboutUsController(ILogger<AboutUsController> logger)
+        {
+            this.logger = logger;
+        }
         public IActionResult Index()
         {
+          
+            throw new Exception("Testing");
             return View();
         }
     }

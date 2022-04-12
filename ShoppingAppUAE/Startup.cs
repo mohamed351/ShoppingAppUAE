@@ -1,6 +1,7 @@
 using AspNetCore.SEOHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -47,8 +48,11 @@ namespace ShoppingAppUAE
             }).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddAuthentication().AddGoogle(options =>
             {
@@ -72,7 +76,7 @@ namespace ShoppingAppUAE
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+              
                 app.UseMigrationsEndPoint();
             }
             else
@@ -81,6 +85,7 @@ namespace ShoppingAppUAE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseDeveloperExceptionPage();
             Seeder.Seeder.PrePopulation(app).Wait();
          
 
