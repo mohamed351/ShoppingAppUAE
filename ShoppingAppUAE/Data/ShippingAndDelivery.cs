@@ -1,8 +1,11 @@
-﻿namespace ShoppingAppUAE.Data
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ShoppingAppUAE.Data
 {
     public class ShippingAndDelivery
     {
-        public int ShippingID { get; set; }
+        [Key]
+        public int ID { get; set; }
 
         public string ShippingCountry { get; set; }
 

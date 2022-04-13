@@ -362,11 +362,15 @@
                             type: "json",
                             data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
                             success: function (result) {
-                                
+                                let myCart =JSON.parse( localStorage.getItem("cart"));
+                               
                                 for (let item of result) {
                                     $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
+                                    myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
+
                                  
                                 }
+                                localStorage.setItem("cart", JSON.stringify(myCart));
                                 $("#totalCartSum").text(buildTotal());
                             }
                         });

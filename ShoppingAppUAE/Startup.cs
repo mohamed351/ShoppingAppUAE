@@ -2,6 +2,7 @@ using AspNetCore.SEOHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -87,7 +88,8 @@ namespace ShoppingAppUAE
             }
             app.UseDeveloperExceptionPage();
             Seeder.Seeder.PrePopulation(app).Wait();
-         
+            app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.All });
+
 
             app.UseSwagger();
             app.UseSwaggerUI();

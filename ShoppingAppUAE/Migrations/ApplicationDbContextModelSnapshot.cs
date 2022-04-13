@@ -16,7 +16,7 @@ namespace ShoppingAppUAE.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.14")
+                .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -555,6 +555,36 @@ namespace ShoppingAppUAE.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("ProductImages");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.ShippingAndDelivery", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ShippingCompany")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingCompanyAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingCompanyPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ShippingPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("shippingAndDeliveries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

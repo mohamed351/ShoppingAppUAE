@@ -34,6 +34,8 @@ namespace ShoppingAppUAE.Data
 
         public DbSet<BlogComment> BlogComment { get; set; }
 
+        public DbSet<ShippingAndDelivery> shippingAndDeliveries { get; set; }
+
 
 
     }
