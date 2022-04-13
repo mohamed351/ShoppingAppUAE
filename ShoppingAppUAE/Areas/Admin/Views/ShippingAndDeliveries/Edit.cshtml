@@ -1,0 +1,56 @@
+﻿@model ShoppingAppUAE.Data.ShippingAndDelivery
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ShippingAndDelivery</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="ShippingCountry" class="control-label"></label>
+                <input asp-for="ShippingCountry" class="form-control" />
+                <span asp-validation-for="ShippingCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingCompany" class="control-label"></label>
+                <input asp-for="ShippingCompany" class="form-control" />
+                <span asp-validation-for="ShippingCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingCompanyPhone" class="control-label"></label>
+                <input asp-for="ShippingCompanyPhone" class="form-control" />
+                <span asp-validation-for="ShippingCompanyPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingCompanyAddress" class="control-label"></label>
+                <input asp-for="ShippingCompanyAddress" class="form-control" />
+                <span asp-validation-for="ShippingCompanyAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingPrice" class="control-label"></label>
+                <input asp-for="ShippingPrice" class="form-control" />
+                <span asp-validation-for="ShippingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDefault" /> @Html.DisplayNameFor(model => model.IsDefault)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
