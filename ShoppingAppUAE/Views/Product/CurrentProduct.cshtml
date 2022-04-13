@@ -1,4 +1,5 @@
-﻿@model ShoppingAppUAE.Data.Product
+﻿@inject IConfiguration configuration
+@model ShoppingAppUAE.Data.Product
 @{
     ViewData["Title"] = "CurrentProduct";
 }
@@ -59,7 +60,7 @@
                                     <ul>
                                         <li>
                                             <div class="product-price">
-                                                <span>@Model.PurchasingPrice </span>
+                                                <span>@Model.PurchasingPrice @configuration["CompanyInfo:DefaultCurrency"] </span>
 
                                             </div>
                                         </li>

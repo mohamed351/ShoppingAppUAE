@@ -95,9 +95,9 @@
                                             <a href="product-details.html"><img src="/Images/${item.imageURL}" alt="#"></a>
                                         </td>
                                         <td class="cart-product-info">
-                                            <h4><a href="product-details.html">${item.productName}t</a></h4>
+                                            <h4><a href="/Product/CurrentProduct/${item.productId}">${item.productName}t</a></h4>
                                         </td>
-                                        <td class="cart-product-price">${item.price}</td>
+                                        <td class="cart-product-price">${item.price} ${$("#GlobalCurrencyCode").val()}</td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
                                                     <div class='dec qtybutton'> - </div>
@@ -105,7 +105,7 @@
                                               <div class='inc qtybutton'> + </div>
                                             </div>
                                         </td>
-                                        <td class="cart-product-subtotal">${(item.price * item.Quantity)}</td>
+                                        <td class="cart-product-subtotal">${(item.price * item.Quantity) + $("#GlobalCurrencyCode").val()}</td>
                                     </tr>`);
 
 

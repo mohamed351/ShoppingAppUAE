@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IConfiguration configuration
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,7 +22,7 @@
 
 <body>
 
-
+    <input type="hidden"  id="GlobalCurrencyCode" value="@configuration["CompanyInfo:DefaultCurrency"]" />
     <main class="body-wrapper">
 
      
@@ -339,6 +340,7 @@
                         localStorage.setItem("cart",JSON.stringify( newCart));
                         buildCart(localStorage.getItem("cart"));
                         $("#totalCartSum").text(buildTotal());
+                        getPrices();
                     }
                 });
 
@@ -365,13 +367,13 @@
                                 let myCart =JSON.parse( localStorage.getItem("cart"));
                                
                                 for (let item of result) {
-                                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
+                                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice );
                                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
 
                                  
                                 }
                                 localStorage.setItem("cart", JSON.stringify(myCart));
-                                $("#totalCartSum").text(buildTotal());
+                                $("#totalCartSum").text(buildTotal() + $("#GlobalCurrencyCode").val());
                             }
                         });
                     }
