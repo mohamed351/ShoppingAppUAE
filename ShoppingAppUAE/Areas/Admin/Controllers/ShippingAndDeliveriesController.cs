@@ -55,7 +55,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ShippingCountry,ShippingCompany,ShippingCompanyPhone,ShippingCompanyAddress,ShippingPrice,IsDefault")] ShippingAndDelivery shippingAndDelivery)
+        public async Task<IActionResult> Create([Bind("ID,ShippingCountry,ShippingCompany,ShippingCompanyPhone,ShippingCompanyAddress,ShippingPrice,IsDefault,FirstWeightLimit,PriceAfterExcedingTheLimit,AdditionalKgAfterExcedingTheLimit")] ShippingAndDelivery shippingAndDelivery)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ShippingCountry,ShippingCompany,ShippingCompanyPhone,ShippingCompanyAddress,ShippingPrice,IsDefault")] ShippingAndDelivery shippingAndDelivery)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ShippingCountry,ShippingCompany,ShippingCompanyPhone,ShippingCompanyAddress,ShippingPrice,IsDefault,FirstWeightLimit,PriceAfterExcedingTheLimit,AdditionalKgAfterExcedingTheLimit")] ShippingAndDelivery shippingAndDelivery)
         {
             if (id != shippingAndDelivery.ID)
             {

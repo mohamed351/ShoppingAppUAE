@@ -33,9 +33,29 @@
                 <input asp-for="ShippingCompanyAddress" class="form-control" />
                 <span asp-validation-for="ShippingCompanyAddress" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="FirstWeightLimit" class="control-label"></label>
+                <input asp-for="FirstWeightLimit" class="form-control" />
+                <span asp-validation-for="FirstWeightLimit" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AdditionalKgAfterExcedingTheLimit" class="control-label"></label>
+                <input asp-for="AdditionalKgAfterExcedingTheLimit" class="form-control" />
+                <span asp-validation-for="AdditionalKgAfterExcedingTheLimit" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="PriceAfterExcedingTheLimit" class="control-label"></label>
+                <input asp-for="PriceAfterExcedingTheLimit" class="form-control" />
+                <span asp-validation-for="PriceAfterExcedingTheLimit" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="ShippingPrice" class="control-label"></label>
-                <input type="number" step="any"  asp-for="ShippingPrice" class="form-control" />
+                <input type="number" step="any" asp-for="ShippingPrice" class="form-control" />
                 <span asp-validation-for="ShippingPrice" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

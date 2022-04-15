@@ -528,6 +528,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<decimal>("SellingPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ProductID");
 
                     b.HasIndex("BrandID");
@@ -564,8 +567,17 @@ namespace ShoppingAppUAE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("AdditionalKgAfterExcedingTheLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FirstWeightLimit")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
+
+                    b.Property<decimal>("PriceAfterExcedingTheLimit")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ShippingCompany")
                         .HasColumnType("nvarchar(max)");

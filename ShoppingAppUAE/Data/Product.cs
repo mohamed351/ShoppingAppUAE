@@ -46,6 +46,8 @@ namespace ShoppingAppUAE.Data
 
         public int Quantity { get; set; }
 
+        public decimal Weight { get; set; }
+
         public ICollection<ProductImage> ProductImages { get; set; }
 
 
@@ -57,6 +59,8 @@ namespace ShoppingAppUAE.Data
         public string DescriptionArabic { get; set; }
 
 
+      
+
         public bool IsActive { get; set; }
 
         [ForeignKey(nameof(Category))]
@@ -67,6 +71,9 @@ namespace ShoppingAppUAE.Data
 
 
         public Brand Brand { get; set; }
+
+
+       
 
 
         public Category Category { get; set; }

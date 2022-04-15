@@ -15,6 +15,12 @@ namespace ShoppingAppUAE.Data
 
         public string ShippingCompanyAddress { get; set; }
 
+        public decimal FirstWeightLimit { get; set; }
+
+        public decimal PriceAfterExcedingTheLimit { get; set; }
+
+        public decimal AdditionalKgAfterExcedingTheLimit { get; set; }
+
 
         public decimal ShippingPrice { get; set; }
         public bool IsDefault { get; set; }

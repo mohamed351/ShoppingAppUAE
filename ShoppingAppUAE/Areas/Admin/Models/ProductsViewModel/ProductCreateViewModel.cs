@@ -47,6 +47,8 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
 
 
         public string DescriptionArabic { get; set; }
+        [Required]
+        public decimal Weight { get; set; }
 
 
 
