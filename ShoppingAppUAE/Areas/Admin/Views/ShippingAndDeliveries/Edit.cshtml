@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
                 <label asp-for="ShippingCountry" class="control-label"></label>
-                <input asp-for="ShippingCountry" class="form-control" />
+                <select asp-items="@ViewBag.CountryCode " class="form-control" asp-for="ShippingCountry"></select>
                 <span asp-validation-for="ShippingCountry" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ShippingPrice" class="control-label"></label>
-                <input asp-for="ShippingPrice" class="form-control" />
+                <input type="number"  step="any"  asp-for="ShippingPrice" class="form-control" />
                 <span asp-validation-for="ShippingPrice" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

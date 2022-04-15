@@ -46,6 +46,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         // GET: Admin/ShippingAndDeliveries/Create
         public IActionResult Create()
         {
+            ViewBag.CountryCode = new SelectList(_context.Counties, "Code", "EnglishName");
             return View();
         }
 
@@ -78,6 +79,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.CountryCode = new SelectList(_context.Counties, "Code", "EnglishName");
             return View(shippingAndDelivery);
         }
 
@@ -113,6 +115,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.CountryCode = new SelectList(_context.Counties, "Code", "EnglishName");
             return View(shippingAndDelivery);
         }
 
