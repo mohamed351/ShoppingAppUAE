@@ -47,10 +47,10 @@
                     <div class="shoping-cart-total mt-50">
                         <h4>Cart Totals</h4>
                         <table class="table">
-                            <tbody>
+                            <tbody >
                                 <tr>
                                     <td>Cart Subtotal</td>
-                                    <td>$618.00</td>
+                                    <td id="subTotalPriceInCart"></td>
                                 </tr>
                                 @*<tr>
                                     <td>Shipping and Handing</td>
@@ -81,7 +81,44 @@
         $(document).ready(function () {
            
             buildCartRefresh();
+           
+
+            $("#cart-items-data").on("click", ".dec", function () {
+                let productId = $(this).attr("product-id");
+              
+                decreseQuantity(productId);
+                $("#cart-items-data").html("");
+                buildCartRefresh();
+                //build sidebar cart
+                buildCart(localStorage.getItem("cart"));
+
+            });
+
+
+            $("#cart-items-data").on("click", ".inc", function () {
+
+                let productId = $(this).attr("product-id");
+                IncreseQuantity(productId);
+                $("#cart-items-data").html("");
+                buildCartRefresh();
+
+
+            });
+
+            
+            $("#cart-items-data").on("click", ".cart-product-remove", function () {
+
+                let productId = $(this).attr("data-id");
+                deleteItem(productId);
+                $("#cart-items-data").html("");
+                buildCartRefresh();
+               
+
+
+            });
         });
+
+        
 
         function buildCartRefresh() {
 
@@ -92,7 +129,7 @@
                     $("#cart-items-data").append(` <tr>
                                         <td class="cart-product-remove" data-id=${item.productId}>x</td>
                                         <td class="cart-product-image">
-                                            <a href="product-details.html"><img src="/Images/${item.imageURL}" alt="#"></a>
+                                            <a href="product-details.html"><img src="/Images/${item.imageURL}" alt="${item.productName}"></a>
                                         </td>
                                         <td class="cart-product-info">
                                             <h4><a href="/Product/CurrentProduct/${item.productId}">${item.productName}t</a></h4>
@@ -100,9 +137,9 @@
                                         <td class="cart-product-price">${item.price} ${$("#GlobalCurrencyCode").val()}</td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
-                                                    <div class='dec qtybutton'> - </div>
-                                                <input type="text" value="${item.Quantity}" name="qtybutton" class="cart-plus-minus-box">
-                                              <div class='inc qtybutton'> + </div>
+                                                    <div class='dec qtybutton' product-id="${item.productId}"> - </div>
+                                                <input type="text" readonly value="${item.Quantity}" name="qtybutton" class="cart-plus-minus-box">
+                                              <div class='inc qtybutton' product-id="${item.productId}"> + </div>
                                             </div>
                                         </td>
                                         <td class="cart-product-subtotal">${(item.price * item.Quantity) + $("#GlobalCurrencyCode").val()}</td>
@@ -111,7 +148,54 @@
 
 
                 }
+                $("#subTotalPriceInCart").text(calculateTotal() + $("#GlobalCurrencyCode").val());
+
             }
+        }
+
+        function decreseQuantity(productId) {
+            let currentArray = JSON.parse(localStorage.getItem("cart"));
+            if (currentArray) {
+                let obj = currentArray.find(a => a.productId == productId)
+                if (obj != null) {
+                    obj.Quantity--;
+                    if (obj.Quantity === 0) {
+                        deleteItem(productId);
+                        return;
+                    }
+                    localStorage.setItem("cart", JSON.stringify(currentArray));
+                 
+                }
+            }
+        }
+
+        function IncreseQuantity(productId) {
+            let currentArray = JSON.parse(localStorage.getItem("cart"));
+            if (currentArray) {
+                let obj = currentArray.find(a => a.productId == productId)
+                if (obj != null) {
+                    obj.Quantity++;
+                    localStorage.setItem("cart", JSON.stringify(currentArray));
+                  
+                }
+            }
+        }
+        function deleteItem(productId) {
+           
+            let currentArray = JSON.parse(localStorage.getItem("cart"));
+            let newArray = currentArray.filter(a => a.productId !== productId);
+        
+            localStorage.setItem("cart", JSON.stringify(newArray));
+           
+        }
+
+        function calculateTotal() {
+            let currentArray = JSON.parse(localStorage.getItem("cart"));
+            let sumSubTotals = 0;
+            for (let item of currentArray) {
+                sumSubTotals += (item.Quantity * item.price)
+            }
+            return sumSubTotals;
         }
     </script>
 
