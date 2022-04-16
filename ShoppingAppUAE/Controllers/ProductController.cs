@@ -80,7 +80,7 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult GetProductPrices([FromBody] ProductQuery query)
         {
            
-           var currentQuery =  context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a=> new {  a.ProductID , a.PurchasingPrice});
+           var currentQuery =  context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a=> new {  a.ProductID , a.PurchasingPrice , a.Weight});
            
             return Json(currentQuery);
         }

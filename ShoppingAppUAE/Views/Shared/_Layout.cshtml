@@ -369,7 +369,7 @@
                                 for (let item of result) {
                                     $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice );
                                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
-
+                                    myCart.find(a => a.productId == item.productID).weight = item.weight;
                                  
                                 }
                                 localStorage.setItem("cart", JSON.stringify(myCart));
