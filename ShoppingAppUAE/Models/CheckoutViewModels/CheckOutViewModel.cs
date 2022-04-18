@@ -23,8 +23,21 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
         public List<CartDetails> cartDetails { get; set; }
 
         public List<ShippingDetails> ShippingDetails { get; set; }
-    }
 
+        public string Note { get; set; }
+
+        public CheckoutType CheckoutType { get; set; }
+
+
+        public string CardFirstName { get; set; }
+
+        public string CardLastName { get; set; }
+    }
+    public enum CheckoutType
+    {
+        CashOnDelivery = 0 ,
+        Card =1
+    }
     public class CartDetails
     {
         public int ProductId { get; set; }

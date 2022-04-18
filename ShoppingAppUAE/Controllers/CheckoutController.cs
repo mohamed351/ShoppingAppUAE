@@ -24,12 +24,30 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult Index()
         {
             string userId = User.GetUserId();
-            return View();
+            CheckOutViewModel viewModel = new CheckOutViewModel()
+            {
+                ApplicationUser = context.Users.Find(userId),
+
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult CreatePayment(CheckOutViewModel checkOutView)
+        {
+            if (checkOutView.CheckoutType == CheckoutType.Card) {
+                Stripe.Card card = new Card()
+                {
+                    Name =checkOutView.CardFirstName + "" + checkOutView.CardLastName,
+                    
+                };
+
+            }
+            return Json(null);
         }
         [HttpPost]
         public IActionResult Create(PaymentIntentCreateRequest request)
         {
-
+            
 
             var paymentIntentService = new PaymentIntentService();
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
