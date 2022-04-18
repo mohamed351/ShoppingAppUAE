@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Stripe;
+using ShoppingAppUAE.Models.CheckoutViewModels;
 
 namespace ShoppingAppUAE
 {
@@ -67,7 +69,7 @@ namespace ShoppingAppUAE
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
             services.AddSwaggerGen();
-
+            services.Configure<StripSettings>(Configuration.GetSection("Stripe"));
 
             services.AddCors();
         }
@@ -75,6 +77,8 @@ namespace ShoppingAppUAE
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = Configuration["Stripe:SecretKey"];
+
             if (env.IsDevelopment())
             {
               
@@ -86,6 +90,8 @@ namespace ShoppingAppUAE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            
             app.UseDeveloperExceptionPage();
             Seeder.Seeder.PrePopulation(app).Wait();
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.All });

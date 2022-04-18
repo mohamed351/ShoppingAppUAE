@@ -115,6 +115,8 @@
         $(document).ready(function () {
            
             buildCartRefresh();
+            $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
+            CalculateShipping();
            
 
             $("#cart-items-data").on("click", ".dec", function () {
@@ -125,7 +127,7 @@
                 buildCartRefresh();
                 //build sidebar cart
                 buildCart(localStorage.getItem("cart"));
-
+                CalculateShipping();
             });
 
 
@@ -135,6 +137,7 @@
                 IncreseQuantity(productId);
                 $("#cart-items-data").html("");
                 buildCartRefresh();
+                CalculateShipping();
 
 
             });
@@ -146,6 +149,7 @@
                 deleteItem(productId);
                 $("#cart-items-data").html("");
                 buildCartRefresh();
+                CalculateShipping();
                
 
 
@@ -251,6 +255,22 @@
         });
 
         function CalculateShipping() {
+            let $selector = $("input[type='radio']:checked")
+            console.log($selector);
+            let totalWeight = calculateTotalWeight();
+            const firstCostLimitInWeight = +$selector.attr("data-price");
+            const firstWeightCost = +$selector.attr("data-weight-limit");
+            const eachKg = +$selector.attr("data-weight-afterExisting");
+            const eachPrice = +$selector.attr("data-price-afterExisting");
+            console.log(firstCostLimitInWeight);
+            if (totalWeight > firstWeightCost) {
+                const remaingKgs = totalWeight - firstWeightCost;
+                console.log(remaingKgs);
+                $("#shippingPirce").text(IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) + $("#GlobalCurrencyCode").val());
+            }
+            else {
+                $("#shippingPirce").text(firstCostLimitInWeight + $("#GlobalCurrencyCode").val());
+            }
 
         }
 
