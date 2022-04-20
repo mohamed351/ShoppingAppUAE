@@ -18,10 +18,19 @@ namespace ShoppingAppUAE.Data
 
         public string PhoneNumber2 { get; set; }
 
-        public DateTime OpenFrom { get; set; }
+        public string OpenHours { get; set; }
 
-        public DateTime OpenTo { get; set; }
+        public string HolyDays { get; set; }
 
+        public string DescriptionSEOEnglish { get; set; }
+
+        public string DescriptionSEOArabic { get; set; }
+
+        public string KeyWordsEnglish { get; set; }
+
+        public string KeyWordsArabic { get; set; }
+
+        
 
 
 

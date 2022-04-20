@@ -1,5 +1,6 @@
 ﻿const stripe = Stripe("pk_test_51KidVZLdvjUTqFPT98xoNOoadXuLcfN5zm5LXxx0iOr4TKs7ILpObTpAcwGniE5cTCJaCHNaU2fMmGvjhHKN3HoE00by7OVcII");
-
+// get from localstorage
+const items = [{ id: "xl-tshirt" }];
 
 var elementStyles = {
     base: {

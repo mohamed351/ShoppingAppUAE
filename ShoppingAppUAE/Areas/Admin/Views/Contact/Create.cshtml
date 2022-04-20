@@ -1,0 +1,125 @@
+﻿@model ShoppingAppUAE.Data.ContactInfo
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section styles{
+
+
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
+}
+
+
+<form asp-action="Create" method="post" asp-controller="Contact" asp-area="Admin">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Create</h2>
+                <button type="submit" class="btn btn-success">Edit Contct</button>
+            </div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="EmailAddress1"></label>
+                <input type="text" class="form-control" asp-for="EmailAddress1" />
+                <span asp-validation-for="EmailAddress1"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmailAddress2"></label>
+                <input type="text" class="form-control" asp-for="EmailAddress2" />
+                <span asp-validation-for="EmailAddress2"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber1"></label>
+                <input type="text" class="form-control" asp-for="PhoneNumber1" />
+                <span asp-validation-for="PhoneNumber1"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber2"></label>
+                <input type="text" class="form-control" asp-for="PhoneNumber2" />
+                <span asp-validation-for="PhoneNumber2"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" class="form-control" asp-for="OpenHours" />
+                <span asp-validation-for="OpenHours"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" asp-for="HolyDays" />
+                <span asp-validation-for="HolyDays"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DescriptionSEOEnglish"></label>
+                <textarea type="text" class="form-control" asp-for="DescriptionSEOEnglish"></textarea>
+                <span asp-validation-for="DescriptionSEOEnglish"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="DescriptionSEOArabic"></label>
+                <textarea type="text" class="form-control" asp-for="DescriptionSEOArabic"></textarea>
+                <span asp-validation-for="DescriptionSEOArabic"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="KeyWordsEnglish"></label>
+                <input type="hidden" asp-for="KeyWordsEnglish">
+                <select class="form-control" id="SEOEnglishKeyWordsselect"></select>
+                <span asp-validation-for="KeyWordsEnglish"></span>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="KeyWordsArabic"></label>
+                <input type="hidden" class="form-control" asp-for="KeyWordsArabic">
+                <select class="form-control" id="SEOArabicKeyWordsselect"></select>
+                <span asp-validation-for="KeyWordsArabic"></span>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</form>
+
+@section scripts{
+
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#SEOEnglishKeyWordsselect").select2({
+                tags: true,
+                multiple: true,
+                width: 'resolve',
+                tokenSeparators: [',', ' '],
+            });
+            $("#SEOArabicKeyWordsselect").select2({
+                tags: true,
+                multiple: true,
+                width: 'resolve',
+                tokenSeparators: [',', ' ']
+            });
+        });
+        $("form").on("submit", () => {
+            $("#KeyWordsEnglish").val($("#SEOEnglishKeyWordsselect").val().join(","));
+            $("#KeyWordsArabic").val($("#DescriptionSEOArabic").val().join(","));
+
+         
+        });
+    </script>
+
+}
+
+

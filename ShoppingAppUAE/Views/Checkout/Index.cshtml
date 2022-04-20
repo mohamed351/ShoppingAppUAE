@@ -5,7 +5,7 @@
 
 @section styles{
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="~/strip/checkout.js" defer></script>
+    <script src="~/strip/checkout2.js" defer></script>
 
 }
 
@@ -196,7 +196,7 @@
     <script>
         $(document).ready(function () {
             $("#checkout_accordion_1").on("shown.bs.collapse", function () {
-                alert("testing");
+                initialize();
             });
         });
     </script>

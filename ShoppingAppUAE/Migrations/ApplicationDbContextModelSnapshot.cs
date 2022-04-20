@@ -398,17 +398,29 @@ namespace ShoppingAppUAE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("DescriptionSEOArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DescriptionSEOEnglish")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EmailAddress1")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OpenFrom")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("HolyDays")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OpenTo")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("KeyWordsArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeyWordsEnglish")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenHours")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber1")
                         .HasColumnType("nvarchar(max)");
