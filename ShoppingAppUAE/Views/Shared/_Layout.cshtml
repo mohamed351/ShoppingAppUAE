@@ -65,7 +65,7 @@
 
     <section class="d-flex justify-content-end setting-top-bar">
 
-        <form asp-action="Cookie" asp-controller="Home" method="post" class="d-flex align-items-center">
+        <form asp-action="Cookie" asp-area="" asp-controller="Home" method="post" class="d-flex align-items-center">
 
             <i class="fa fa-globe icon-size"></i>
             <input type="hidden" id="language-app-hidden" value="@CultureInfo.CurrentCulture.Name" />
@@ -107,14 +107,14 @@
                                         <i class="icon-phone"></i>
                                     </section>
                                     <article class="header-feature-info">
-                                        <h6>Phone</h6>
+                                        <h6>@locaization["Phone"]</h6>
                                         <p><a href="tel:0123456789">+0123-456-789</a></p>
                                     </article>
                                 </section>
                                 <!-- header-search-2 -->
                                 <section class="header-search-2">
                                     <form id="#123" method="get" action="#">
-                                        <input type="text" name="search" value="" placeholder="Search here..." />
+                                        <input type="text" name="search" value="" placeholder="@locaization["Seachhere"] ..." />
                                         <button type="submit">
                                             <span><i class="icon-magnifier"></i></span>
                                         </button>
@@ -137,7 +137,7 @@
                                             </section>
                                             <section class="header-search-1-form">
                                                 <form id="#" method="get" action="#">
-                                                    <input type="text" name="search" value="" placeholder="Search here..." />
+                                                    <input type="text" name="search" value="" placeholder="@locaization["Seachhere"] ..." />
                                                     <button type="submit">
                                                         <span><i class="icon-magnifier"></i></span>
                                                     </button>
@@ -154,21 +154,21 @@
                                                 <li>
                                                     <a href="#"><i class="icon-user"></i></a>
                                                     <ul>
-
+                                                       
                                                         @if (!User.Identity.IsAuthenticated)
                                                         {
-                                                            <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">Sign In</a></li>
-                                                            <li><a asp-action="Register" asp-area="Identity" asp-controller="Account">Register</a></li>
+                                                            <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">@locaization["SignIn"]</a></li>
+                                                            <li><a asp-action="Register" asp-area="Identity" asp-controller="Account">@locaization["Register"]</a></li>
 
                                                         }
                                                         @if (User.Identity.IsAuthenticated)
                                                         {
-                                                            <li><a href="#">My Account</a></li>
-                                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                                            <li><a asp-action="Index" asp-controller="Account" asp-area="">@locaization["MyAccount"]</a></li>
+                                                            <li><a  asp-action="Index" asp-controller="WishList" asp-area="">@locaization["Wishlist"]</a></li>
                                                             <li>
                                                             <li>
                                                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                                                    <button type="submit" class="nav-link btn btn-link text-dark">@locaization["Logout"]</button>
                                                                 </form>
                                                             </li>
                                                     </li>
@@ -236,16 +236,16 @@
                                             <section class="ltn__main-menu">
                                                 <ul>
                                                     <li>
-                                                        <a asp-area="" title="Home" asp-action="Index" asp-controller="Home">Home</a>
+                                                        <a asp-area="" title="Home" asp-action="Index" asp-controller="Home">@locaization["Home"]</a>
 
                                                     </li>
                                                     <li>
-                                                        <a asp-area="" title="Products" asp-action="Index" asp-controller="Product">Products</a>
+                                                        <a asp-area="" title="Products" asp-action="Index" asp-controller="Product">@locaization["Products"]</a>
                                                     </li>
 
-                                                    <li><a asp-area="" title="Contact" asp-action="Index" asp-controller="Contact">Contact</a></li>
+                                                    <li><a asp-area="" title="Contact" asp-action="Index" asp-controller="Contact">@locaization["Contact"]</a></li>
 
-                                                    <li><a asp-area="" title="About" asp-action="Index" asp-controller="AboutUs">About</a></li>
+                                                    <li><a asp-area="" title="About" asp-action="Index" asp-controller="AboutUs">@locaization["About"]</a></li>
                                                 </ul>
                                             </section>
                                         </nav>
@@ -268,11 +268,11 @@
 
                         <div class="mini-cart-footer">
                             <div class="mini-cart-sub-total">
-                                <h5>Subtotal: <span id="totalCartSum">0</span></h5>
+                                <h5>@locaization["Subtotal"]: <span id="totalCartSum">0</span></h5>
                             </div>
                             <div class="btn-wrapper">
-                                <a asp-action="Index" asp-controller="Cart" asp-area="" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                <a asp-action="Index" asp-controller="Checkout" asp-area="" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                <a asp-action="Index" asp-controller="Cart" asp-area="" class="theme-btn-1 btn btn-effect-1">@locaization["ViewCart"]</a>
+                                <a asp-action="Index" asp-controller="Checkout" asp-area="" class="theme-btn-2 btn btn-effect-2">@locaization["Checkout"]</a>
                             </div>
 
                         </div>
@@ -292,24 +292,24 @@
                     </section>
                     <section class="ltn__utilize-menu-search-form">
                         <form action="#">
-                            <input type="text" placeholder="Search...">
+                            <input type="text" placeholder="@locaization["Search"]...">
                             <button><i class="icon-magnifier"></i></button>
                         </form>
                     </section>
                     <section class="ltn__utilize-menu">
                         <ul>
                             <li>
-                                <a asp-action="Index" asp-controller="Home" asp-area="">Home</a>
+                                <a asp-action="Index" asp-controller="Home" asp-area="">@locaization["Home"]</a>
 
                             </li>
-                            <li><a asp-action="Index" asp-controller="AboutUs" asp-area="">About Us</a></li>
+                            <li><a asp-action="Index" asp-controller="AboutUs" asp-area="">@locaization["About"]</a></li>
                             <li>
-                                <a asp-area="" asp-action="Index" asp-controller="Product">Products</a>
+                                <a asp-area="" asp-action="Index" asp-controller="Product">@locaization["Products"]</a>
 
                             </li>
 
 
-                            <li><a asp-area="" asp-action="Index" asp-controller="Contact">Contact</a></li>
+                            <li><a asp-area="" asp-action="Index" asp-controller="Contact">@locaization["Contact"]</a></li>
                         </ul>
                     </section>
                     <section class="ltn__utilize-buttons ltn__utilize-buttons-2">
@@ -319,7 +319,7 @@
                                     <span class="utilize-btn-icon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    My Account
+                                  @locaization["MyAccount"]
                                 </a>
                             </li>
 
@@ -329,7 +329,7 @@
                                         <i class="icon-handbag"></i>
                                         <sup id="totalCount-mobile">0</sup>
                                     </span>
-                                    Shoping Cart
+                                  @locaization["ShopingCart"]
                                 </a>
                             </li>
                         </ul>
@@ -381,15 +381,15 @@
                     console.log(currentCart);
                     let cartItemsHtml = cartItems.map(function (data) {
                         return `<div class="mini-cart-item clearfix">
-                                                                                                <div class="mini-cart-img">
-                                                                                                    <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
-                                                                                                    <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
-                                                                                                </div>
-                                                                                                <div class="mini-cart-info">
-                                                                                                    <h6><a href="#">${data.productName}</a></h6>
-                                                                                                    <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
-                                                                                                </div>
-                                                                                            </div>`
+                               <div class="mini-cart-img">
+                                   <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
+                                                <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
+                                                           </div>
+                                                               <div class="mini-cart-info">
+                                                                        <h6><a href="#">${data.productName}</a></h6>
+                                                                         <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                </div>
+                                                          </div>`
                     });
 
                     $("#cartInfo").html("");

@@ -14,6 +14,10 @@ namespace ShoppingAppUAE.Data
 
         public string Pragraph { get; set; }
 
+        public string TitleArabic { get; set; }
+
+        public string ParagrapArabic { get; set; }
+
         public string ImageURL { get; set; }
     }
 }

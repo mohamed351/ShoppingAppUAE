@@ -18,7 +18,7 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult Index()
         {
           
-            throw new Exception("Testing");
+          
             return View();
         }
     }

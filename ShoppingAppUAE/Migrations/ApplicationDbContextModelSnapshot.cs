@@ -252,10 +252,16 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParagrapArabic")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Pragraph")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleArabic")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
