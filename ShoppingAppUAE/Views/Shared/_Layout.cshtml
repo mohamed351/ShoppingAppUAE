@@ -1,4 +1,8 @@
 ﻿@inject IConfiguration configuration
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+@inject IViewLocalizer locaization
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +11,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title> Shopping Application - @ViewData["Title"] </title>
 
-    @RenderSection("metaTags",false)
+    @RenderSection("metaTags", false)
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
@@ -17,17 +21,54 @@
     <link rel="stylesheet" href="~/template-user/ltr/css/style.css" />
     <link rel="stylesheet" href="~/template-user/ltr/css/responsive.css" />
     <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
-    @RenderSection("styles",false)
+    <link href="~/css/icons/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <style>
+        .setting-top-bar {
+            background-color: #FCFCFC;
+            overflow-y: visible;
+            padding: 0 10px;
+        }
+
+        .nice-select {
+            z-index: 9999999999999;
+        }
+        .icon-size{
+            font-size:25px;
+            padding: 0 10px;
+
+        }
+    </style>
 </head>
 
 <body>
 
-    <input type="hidden"  id="GlobalCurrencyCode" value="@configuration["CompanyInfo:DefaultCurrency"]" />
+    <section class="d-flex justify-content-end setting-top-bar">
+
+        <div class="d-flex align-items-center">
+            <i class="fa fa-globe icon-size"></i>
+            <form>
+                <select>
+                    <option value="en-GB">العربية </option>
+                    <option value="ar-EG">English </option>
+                </select>
+
+
+                <i class="fa  fa-money-bill-alt icon-size"></i>
+                <select>
+                    <option value="AED"> AED</option>
+                    <option value="USD"> USD</option>
+                </select>
+            </form>
+        </div>
+    </section>
+
+    <input type="hidden" id="GlobalCurrencyCode" value="@configuration["CompanyInfo:DefaultCurrency"]" />
     <main class="body-wrapper">
 
-     
+
         <header class="ltn__header-area ltn__header-3 section-bg-6">
-         
+
             <section class="ltn__header-middle-area">
                 <section class="container">
                     <section class="row">
@@ -38,7 +79,7 @@
                         </section>
                         <section class="col header-contact-serarch-column d-none d-xl-block">
                             <div class="header-contact-search">
-                              
+
                                 <section class="header-feature-item">
                                     <section class="header-feature-icon">
                                         <i class="icon-phone"></i>
@@ -165,7 +206,7 @@
                                 <section class="col header-menu-column justify-content-center">
                                     <section class="sticky-logo">
                                         <div class="site-logo">
-                                            <a asp-area="" asp-action="Index"  title="Home" asp-controller="Home"><img src="~/template-user/ltr/img/logo.png" alt="Logo"></a>
+                                            <a asp-area="" asp-action="Index" title="Home" asp-controller="Home"><img src="~/template-user/ltr/img/logo.png" alt="Logo"></a>
                                         </div>
                                     </section>
                                     <section class="header-menu header-menu-2">
@@ -182,7 +223,7 @@
 
                                                     <li><a asp-area="" title="Contact" asp-action="Index" asp-controller="Contact">Contact</a></li>
 
-                                                    <li><a asp-area="" title="About" asp-action="Index" asp-controller="AboutUs" >About</a></li>
+                                                    <li><a asp-area="" title="About" asp-action="Index" asp-controller="AboutUs">About</a></li>
                                                 </ul>
                                             </section>
                                         </nav>
@@ -193,32 +234,32 @@
                     </section>
                     <!-- header-bottom-area end -->
                 </header>
-            
-                    <section id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
-                        <section class="ltn__utilize-menu-inner ltn__scrollbar">
-                            <section class="ltn__utilize-menu-head">
-                                <span class="ltn__utilize-menu-title">Cart</span>
-                                <button class="ltn__utilize-close">×</button>
-                            </section>
-                            <section class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
-                            </section>
 
-                            <div class="mini-cart-footer">
-                                <div class="mini-cart-sub-total">
-                                    <h5>Subtotal: <span id="totalCartSum">0</span></h5>
-                                </div>
-                                <div class="btn-wrapper">
-                                    <a asp-action="Index" asp-controller="Cart" asp-area="" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                    <a asp-action="Index" asp-controller="Checkout" asp-area="" class="theme-btn-2 btn btn-effect-2">Checkout</a>
-                                </div>
-                                
-                            </div>
+                <section id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
+                    <section class="ltn__utilize-menu-inner ltn__scrollbar">
+                        <section class="ltn__utilize-menu-head">
+                            <span class="ltn__utilize-menu-title">Cart</span>
+                            <button class="ltn__utilize-close">×</button>
+                        </section>
+                        <section class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
                         </section>
 
+                        <div class="mini-cart-footer">
+                            <div class="mini-cart-sub-total">
+                                <h5>Subtotal: <span id="totalCartSum">0</span></h5>
+                            </div>
+                            <div class="btn-wrapper">
+                                <a asp-action="Index" asp-controller="Cart" asp-area="" class="theme-btn-1 btn btn-effect-1">View Cart</a>
+                                <a asp-action="Index" asp-controller="Checkout" asp-area="" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                            </div>
 
+                        </div>
                     </section>
+
+
+                </section>
             </main>
-           
+
             <section id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
                 <section class="ltn__utilize-menu-inner ltn__scrollbar">
                     <section class="ltn__utilize-menu-head">
@@ -239,7 +280,7 @@
                                 <a asp-action="Index" asp-controller="Home" asp-area="">Home</a>
 
                             </li>
-                            <li><a asp-action="Index" asp-controller="AboutUs" asp-area="" >About Us</a></li>
+                            <li><a asp-action="Index" asp-controller="AboutUs" asp-area="">About Us</a></li>
                             <li>
                                 <a asp-area="" asp-action="Index" asp-controller="Product">Products</a>
 
@@ -259,7 +300,7 @@
                                     My Account
                                 </a>
                             </li>
-                           
+
                             <li>
                                 <a href="#" title="Shoping Cart">
                                     <span class="utilize-btn-icon">
@@ -271,15 +312,15 @@
                             </li>
                         </ul>
                     </section>
-                 
+
                 </section>
             </section>
-       
+
 
             <div class="ltn__utilize-overlay"></div>
 
             @RenderBody()
-        
+
 
 
             <!--Cart Module-->
@@ -306,20 +347,20 @@
                 function buildCart(currentCart) {
                     let cartItems = JSON.parse(currentCart);
                     $("#totalCount").text(cartItems.length);
-                    $("#totalCount-mobile").text(cartItems.length); 
+                    $("#totalCount-mobile").text(cartItems.length);
                     $(".totalCount")
                     console.log(currentCart);
                     let cartItemsHtml = cartItems.map(function (data) {
                         return `<div class="mini-cart-item clearfix">
-                                                            <div class="mini-cart-img">
-                                                                <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
-                                                                <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
-                                                            </div>
-                                                            <div class="mini-cart-info">
-                                                                <h6><a href="#">${data.productName}</a></h6>
-                                                                <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
-                                                            </div>
-                                                        </div>`
+                                                                        <div class="mini-cart-img">
+                                                                            <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
+                                                                            <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
+                                                                        </div>
+                                                                        <div class="mini-cart-info">
+                                                                            <h6><a href="#">${data.productName}</a></h6>
+                                                                            <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                        </div>
+                                                                    </div>`
                     });
 
                     $("#cartInfo").html("");
@@ -331,13 +372,13 @@
                     getPrices();
                 });
                 $(document).on("click", ".mini-cart-item-delete", function () {
-             
+
                     let currentDeletedItem = +$(this).attr("data-id");
                     let jsonData = localStorage.getItem("cart");
                     if (jsonData) {
                         let oldCart = JSON.parse(jsonData);
                         let newCart = oldCart.filter(a => a.productId != currentDeletedItem);
-                        localStorage.setItem("cart",JSON.stringify( newCart));
+                        localStorage.setItem("cart", JSON.stringify(newCart));
                         buildCart(localStorage.getItem("cart"));
                         $("#totalCartSum").text(buildTotal());
                         getPrices();
@@ -347,7 +388,7 @@
                 function buildTotal() {
                     let sumTotal = 0;
                     $("#cartInfo .mini-cart-item").each(function () {
-                        sumTotal+= +$(this).find(".product-qtu-data").text() * +$(this).find(".product-price-data").text();
+                        sumTotal += +$(this).find(".product-qtu-data").text() * +$(this).find(".product-price-data").text();
                     });
                     return sumTotal;
                 }
@@ -356,7 +397,7 @@
                     let currentCart = localStorage.getItem("cart");
                     if (currentCart) {
                         let cartItems = buildCart(currentCart);
-                       
+
                         $.ajax({
                             url: "/Product/GetProductPrices",
                             method: "POST",
@@ -364,13 +405,13 @@
                             type: "json",
                             data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
                             success: function (result) {
-                                let myCart =JSON.parse( localStorage.getItem("cart"));
-                               
+                                let myCart = JSON.parse(localStorage.getItem("cart"));
+
                                 for (let item of result) {
-                                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice );
+                                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
                                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
                                     myCart.find(a => a.productId == item.productID).weight = item.weight;
-                                 
+
                                 }
                                 localStorage.setItem("cart", JSON.stringify(myCart));
                                 $("#totalCartSum").text(buildTotal() + $("#GlobalCurrencyCode").val());
@@ -414,7 +455,7 @@
                     }
 
                     localStorage.setItem("cart", JSON.stringify(currentCart));
-                  
+
                     buildCart(localStorage.getItem("cart"));
                     alertify.success("Item Add to Cart Successfully", 300);
                     getPrices();
@@ -425,4 +466,4 @@
             @RenderSection("scripts", required: false)
         </body>
 
-</html>
+    </html>

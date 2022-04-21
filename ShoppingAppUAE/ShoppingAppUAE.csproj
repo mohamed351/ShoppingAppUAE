@@ -35,4 +35,10 @@
     <Folder Include="wwwroot\template-user\rtl\img\others\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Contact\Index.ar-EG.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

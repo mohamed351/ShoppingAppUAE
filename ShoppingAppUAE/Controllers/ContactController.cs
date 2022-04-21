@@ -29,7 +29,8 @@ namespace ShoppingAppUAE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SubmitContact([FromForm]ContactMessage contactMessage)
         {
-            
+            context.ContactMessages.Add(contactMessage);
+            context.SaveChanges();
 
             return View();
         }

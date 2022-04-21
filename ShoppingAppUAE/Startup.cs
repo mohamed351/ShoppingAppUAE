@@ -20,6 +20,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Stripe;
 using ShoppingAppUAE.Models.CheckoutViewModels;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace ShoppingAppUAE
 {
@@ -35,10 +38,13 @@ namespace ShoppingAppUAE
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddLocalization(opt => opt.ResourcesPath = "Resources");
 
             services.AddDefaultIdentity<ApplicationUser>(options => {
                 options.User.RequireUniqueEmail = true;
@@ -50,6 +56,25 @@ namespace ShoppingAppUAE
                 
             }).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                List<CultureInfo> supportedCultures = new List<CultureInfo>
+                {
+
+                 new CultureInfo("en-GB"),
+                new CultureInfo("ar-EG")
+                 };
+                options.DefaultRequestCulture = new RequestCulture("en-GB");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                 {
+                  new QueryStringRequestCultureProvider(),
+                         new CookieRequestCultureProvider()
+                 };
+            });
 
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
@@ -67,7 +92,7 @@ namespace ShoppingAppUAE
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix); ;
             services.AddSwaggerGen();
             services.Configure<StripSettings>(Configuration.GetSection("Stripe"));
 
@@ -90,8 +115,31 @@ namespace ShoppingAppUAE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRequestLocalization(new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture("en-GB"),
+                SupportedCultures = new List<CultureInfo>
+                {
 
-            
+                    new CultureInfo("en-GB"),
+                     new CultureInfo("ar-EG")
+                 },
+                SupportedUICultures = new List<CultureInfo>
+                {
+
+                    new CultureInfo("en-GB"),
+                     new CultureInfo("ar-EG")
+                 },
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                 {
+                  new QueryStringRequestCultureProvider(),
+                         new CookieRequestCultureProvider()
+                 }
+
+
+
+            });
+
             app.UseDeveloperExceptionPage();
             Seeder.Seeder.PrePopulation(app).Wait();
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.All });
