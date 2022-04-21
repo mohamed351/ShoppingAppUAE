@@ -126,6 +126,12 @@
   <data name="Home" xml:space="preserve">
     <value>الرئيسية</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
   <data name="NeedOurHelpMessage" xml:space="preserve">
     <value>تحتاج الي مساعد قم بمراسلة البريد الالكتروني</value>
   </data>
@@ -134,5 +140,11 @@
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>رقم الهاتف</value>
+  </data>
+  <data name="SubmitMessage" xml:space="preserve">
+    <value>قم بارسال</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>العنوان</value>
   </data>
 </root>

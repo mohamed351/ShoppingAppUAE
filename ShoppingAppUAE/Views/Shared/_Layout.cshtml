@@ -15,12 +15,28 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+    {
+        <link rel="stylesheet" href="~/template-user/rtl/css/font-icons.css" />
+        <link rel="stylesheet" href="~/template-user/rtl/css/plugins.css" />
+        <link rel="stylesheet" href="~/template-user/rtl/css/style.css" />
+        <link rel="stylesheet" href="~/template-user/rtl/css/responsive.css" />
+        <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="~/template-user/ltr/css/font-icons.css" />
-    <link rel="stylesheet" href="~/template-user/ltr/css/plugins.css" />
-    <link rel="stylesheet" href="~/template-user/ltr/css/style.css" />
-    <link rel="stylesheet" href="~/template-user/ltr/css/responsive.css" />
-    <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
+    }
+    else
+    {
+
+        <link rel="stylesheet" href="~/template-user/ltr/css/font-icons.css" />
+        <link rel="stylesheet" href="~/template-user/ltr/css/plugins.css" />
+        <link rel="stylesheet" href="~/template-user/ltr/css/style.css" />
+        <link rel="stylesheet" href="~/template-user/ltr/css/responsive.css" />
+        <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+    }
+
+
+
     <link href="~/css/icons/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     @RenderSection("styles", false)
     <style>
@@ -31,12 +47,16 @@
         }
 
         .nice-select {
-            z-index: 9999999999999;
+            z-index: 9999;
         }
-        .icon-size{
-            font-size:25px;
-            padding: 0 10px;
 
+        .icon-size {
+            font-size: 25px;
+            padding: 0 10px;
+        }
+
+        .ltn__utilize-cart-menu {
+            z-index: 99999;
         }
     </style>
 </head>
@@ -45,22 +65,24 @@
 
     <section class="d-flex justify-content-end setting-top-bar">
 
-        <div class="d-flex align-items-center">
+        <form asp-action="Cookie" asp-controller="Home" method="post" class="d-flex align-items-center">
+
             <i class="fa fa-globe icon-size"></i>
-            <form>
-                <select>
-                    <option value="en-GB">العربية </option>
-                    <option value="ar-EG">English </option>
-                </select>
+            <input type="hidden" id="language-app-hidden" value="@CultureInfo.CurrentCulture.Name" />
+            <select name="culture" id="language-app">
+
+                <option value="ar-EG">العربية </option>
+                <option value="en-GB">English </option>
+            </select>
 
 
-                <i class="fa  fa-money-bill-alt icon-size"></i>
-                <select>
-                    <option value="AED"> AED</option>
-                    <option value="USD"> USD</option>
-                </select>
-            </form>
-        </div>
+            <i class="fa  fa-money-bill-alt icon-size"></i>
+            <select>
+                <option value="AED"> AED</option>
+                <option value="USD"> USD</option>
+            </select>
+
+        </form>
     </section>
 
     <input type="hidden" id="GlobalCurrencyCode" value="@configuration["CompanyInfo:DefaultCurrency"]" />
@@ -337,9 +359,16 @@
             </div>
 
             <!--End Cart-->
-
-            <script src="~/template-user/ltr/js/plugins.js"></script>
-            <script src="~/template-user/ltr/js/main.js"></script>
+            @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+            {
+                <script src="~/template-user/rtl/js/plugins.js"></script>
+                <script src="~/template-user/rtl/js/main.js"></script>
+            }
+            else
+            {
+                <script src="~/template-user/ltr/js/plugins.js"></script>
+                <script src="~/template-user/ltr/js/main.js"></script>
+            }
             <script src="~/lib/alertifyjs/alertify.js"></script>
 
             <script>
@@ -352,15 +381,15 @@
                     console.log(currentCart);
                     let cartItemsHtml = cartItems.map(function (data) {
                         return `<div class="mini-cart-item clearfix">
-                                                                        <div class="mini-cart-img">
-                                                                            <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
-                                                                            <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
-                                                                        </div>
-                                                                        <div class="mini-cart-info">
-                                                                            <h6><a href="#">${data.productName}</a></h6>
-                                                                            <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
-                                                                        </div>
-                                                                    </div>`
+                                                                                                <div class="mini-cart-img">
+                                                                                                    <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
+                                                                                                    <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
+                                                                                                </div>
+                                                                                                <div class="mini-cart-info">
+                                                                                                    <h6><a href="#">${data.productName}</a></h6>
+                                                                                                    <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                                                </div>
+                                                                                            </div>`
                     });
 
                     $("#cartInfo").html("");
@@ -368,7 +397,9 @@
                     return cartItems;
                 }
                 $(document).ready(function () {
-
+                    let currentCulture = $("#language-app-hidden").val();
+                    $("#language-app").val(currentCulture);
+                    $("#language-app").niceSelect("update")
                     getPrices();
                 });
                 $(document).on("click", ".mini-cart-item-delete", function () {
@@ -459,6 +490,13 @@
                     buildCart(localStorage.getItem("cart"));
                     alertify.success("Item Add to Cart Successfully", 300);
                     getPrices();
+                });
+
+
+                //language app
+
+                $("#language-app").on("change", function () {
+                    $(this).parents("form").submit();
                 });
 
             </script>

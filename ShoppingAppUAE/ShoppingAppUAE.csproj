@@ -36,6 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Views\Contact\Index.en-GB.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Index.en-GB.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Contact\Index.en-GB.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.en-GB.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Contact\Index.ar-EG.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
