@@ -1,5 +1,6 @@
 ﻿@model ShoppingAppUAE.Models.HomeViewModels.HomePageViewModel
-@using Microsoft.Extensions.Configuration
+
+@inject IViewLocalizer locaization
 @inject IConfiguration Configuration
 
 @{
@@ -43,13 +44,33 @@
                                     <section class="slide-item-info-inner ltn__slide-animation">
                                         <header class="slide-item-info">
                                             <section class="slide-item-info-inner ltn__slide-animation">
-                                                <h1 class="slide-title animated ">@item.Title </h1>
+                                                <h1 class="slide-title animated ">
+
+                                                    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                                    {
+                                                        @item.ArabicTitle
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.Title
+                                                    }
+
+
+                                                </h1>
 
                                                 <article class="slide-brief animated">
-                                                    <p style="color:#fff;">@item.Paragraph </p>
+                                                    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                                    {
+                                                        <p style="color:#fff;">@item.ArabicParagrap </p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="color:#fff;">@item.Paragraph </p>
+                                                    }
+
                                                 </article>
                                                 <section class="btn-wrapper animated">
-                                                    <a asp-controller="Product" asp-action="Index" class="theme-btn-1 btn btn-round">Shop Now</a>
+                                                    <a asp-controller="Product" asp-action="Index" class="theme-btn-1 btn btn-round"> @locaization["ShoppingNow"] </a>
                                                 </section>
                                             </section>
                                         </header>

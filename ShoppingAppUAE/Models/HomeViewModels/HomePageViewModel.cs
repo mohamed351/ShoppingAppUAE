@@ -21,6 +21,10 @@ namespace ShoppingAppUAE.Models.HomeViewModels
 
         public string Paragraph { get; set; }
 
+        public string ArabicTitle { get; set; }
+
+
+        public string ArabicParagrap { get; set; }
 
     }
 }

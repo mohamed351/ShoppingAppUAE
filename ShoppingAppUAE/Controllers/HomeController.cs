@@ -36,7 +36,12 @@ namespace ShoppingAppUAE.Controllers
 
             HomePageViewModel viewModel = new HomePageViewModel()
             {
-                Banner = context.Banners.Select(a => new BannerViewModel { ID = a.ID, ImageURL = a.ImageURL, Paragraph = a.Pragraph, Title = a.Title }).ToList()
+                Banner = context.Banners.Select(a => new BannerViewModel { ID = a.ID,
+                    ImageURL = a.ImageURL,
+                    Paragraph = a.Pragraph,
+                    Title = a.Title ,
+                    ArabicParagrap =
+                    a.ParagrapArabic, ArabicTitle = a.TitleArabic }).ToList()
             };
             return View(viewModel);
         }
