@@ -1,0 +1,83 @@
+﻿@model ShoppingAppUAE.Areas.Admin.Models.BannerViewModel.BannerEditViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section styles{
+
+    <link href="~/lib/image-cropper/css/jquery.Jcrop.css" rel="stylesheet" />
+    <link href="~/lib/image-cropper/css/style.css" rel="stylesheet" />
+    <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
+
+}
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>
+                    Edit
+                </h2>
+
+                <button type="submit" class="btn btn-success"> Edit</button>
+            </div>
+
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input type="text" class="form-control" asp-for="Title" placeholder="Title" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Pragraph"></label>
+                <textarea class="form-control" asp-for="Pragraph"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ArabicTitle"></label>
+                <textarea class="form-control" asp-for="ArabicTitle"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArabicParagraph"></label>
+                <textarea class="form-control" asp-for="ArabicParagraph"></textarea>
+            </div>
+
+
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="panel panel-body" style="display: flex; justify-content: center;">
+                        <input type="hidden" asp-for="ImageURL"  />
+                        <div class="span4 cropme" style="width: 1920px; height: 780px;background-image:url(/images/@Model.ImageURL)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section scripts{
+
+
+    <script src="~/lib/image-cropper/scripts/jquery.Jcrop.js"></script>
+    <script src="~/lib/image-cropper/scripts/jquery.SimpleCropper.js"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $('.cropme').simpleCropper();
+        });
+
+        $("form").on("submit", () => {
+            $("#ImageURL").val($(".cropme img").attr("src"));
+
+
+        });
+    </script>
+}

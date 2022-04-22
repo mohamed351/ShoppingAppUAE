@@ -13,7 +13,11 @@ namespace ShoppingAppUAE.Areas.Admin.Models.BannerViewModel
         public string Title { get; set; }
         [Required]
         public string Pragraph { get; set; }
-        [Required]
+       
         public string ImageURL { get; set; }
+        [Required]
+        public string ArabicTitle { get; set; }
+        [Required]
+        public string ArabicParagraph { get; set; }
     }
 }

@@ -15,7 +15,7 @@ function buildCart(currentCart) {
                                                                         <h6><a href="#">${data.productName}</a></h6>
                                                                          <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
                                                                 </div>
-                                                          </div>`
+                                                          </div>`;
     });
 
     $("#cartInfo").html("");
