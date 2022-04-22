@@ -4,7 +4,7 @@
 @using System.Globalization
 @inject IViewLocalizer locaization
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@(CultureInfo.CurrentCulture.Name.Contains("ar") ?"ar":"en" )">
 
 <head>
     <meta charset="utf-8">
@@ -17,26 +17,25 @@
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
     {
-        <link rel="stylesheet" href="~/template-user/rtl/css/font-icons.css" />
-        <link rel="stylesheet" href="~/template-user/rtl/css/plugins.css" />
-        <link rel="stylesheet" href="~/template-user/rtl/css/style.css" />
-        <link rel="stylesheet" href="~/template-user/rtl/css/responsive.css" />
-        <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
+        <link href="~/template-user/rtl/css/arabic-plugin-bundle.rtl.min.css" rel="stylesheet" />
+        <link href="~/template-user/rtl/css/arabic-style-bundle.rtl.min.css" rel="stylesheet" />
 
     }
     else
     {
 
-        <link rel="stylesheet" href="~/template-user/ltr/css/font-icons.css" />
-        <link rel="stylesheet" href="~/template-user/ltr/css/plugins.css" />
-        <link rel="stylesheet" href="~/template-user/ltr/css/style.css" />
-        <link rel="stylesheet" href="~/template-user/ltr/css/responsive.css" />
-        <link href="~/lib/alertifyjs/css/alertify.css" rel="stylesheet" />
+        <link href="~/template-user/ltr/css/english-plugin-bundle.ltr.min.css" rel="stylesheet" />
+        <link href="~/template-user/ltr/css/english-style-bundle.ltr.min.css" rel="stylesheet" />
+
 
     }
 
-
-
+<link href="~/lib/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <style>
+        html {
+            overflow-x: hidden !important;
+        }
+    </style>
     <link href="~/css/icons/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     @RenderSection("styles", false)
     <style>
@@ -154,7 +153,7 @@
                                                 <li>
                                                     <a href="#"><i class="icon-user"></i></a>
                                                     <ul>
-                                                       
+
                                                         @if (!User.Identity.IsAuthenticated)
                                                         {
                                                             <li><a asp-action="Login" asp-area="Identity" asp-controller="Account">@locaization["SignIn"]</a></li>
@@ -164,7 +163,7 @@
                                                         @if (User.Identity.IsAuthenticated)
                                                         {
                                                             <li><a asp-action="Index" asp-controller="Account" asp-area="">@locaization["MyAccount"]</a></li>
-                                                            <li><a  asp-action="Index" asp-controller="WishList" asp-area="">@locaization["Wishlist"]</a></li>
+                                                            <li><a asp-action="Index" asp-controller="WishList" asp-area="">@locaization["Wishlist"]</a></li>
                                                             <li>
                                                             <li>
                                                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -319,7 +318,7 @@
                                     <span class="utilize-btn-icon">
                                         <i class="icon-user"></i>
                                     </span>
-                                  @locaization["MyAccount"]
+                                    @locaization["MyAccount"]
                                 </a>
                             </li>
 
@@ -329,7 +328,7 @@
                                         <i class="icon-handbag"></i>
                                         <sup id="totalCount-mobile">0</sup>
                                     </span>
-                                  @locaization["ShopingCart"]
+                                    @locaization["ShopingCart"]
                                 </a>
                             </li>
                         </ul>
@@ -361,145 +360,18 @@
             <!--End Cart-->
             @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
             {
-                <script src="~/template-user/rtl/js/plugins.js"></script>
-                <script src="~/template-user/rtl/js/main.js"></script>
+                <script src="~/template-user/rtl/js/plugins.min.js"></script>
+                <script src="~/template-user/rtl/js/main.min.js"></script>
             }
             else
             {
-                <script src="~/template-user/ltr/js/plugins.js"></script>
-                <script src="~/template-user/ltr/js/main.js"></script>
+                <script src="~/template-user/ltr/js/plugins.min.js"></script>
+                <script src="~/template-user/ltr/js/main.min.js"></script>
             }
-            <script src="~/lib/alertifyjs/alertify.js"></script>
-
-            <script>
-
-                function buildCart(currentCart) {
-                    let cartItems = JSON.parse(currentCart);
-                    $("#totalCount").text(cartItems.length);
-                    $("#totalCount-mobile").text(cartItems.length);
-                    $(".totalCount")
-                    console.log(currentCart);
-                    let cartItemsHtml = cartItems.map(function (data) {
-                        return `<div class="mini-cart-item clearfix">
-                               <div class="mini-cart-img">
-                                   <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
-                                                <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
-                                                           </div>
-                                                               <div class="mini-cart-info">
-                                                                        <h6><a href="#">${data.productName}</a></h6>
-                                                                         <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
-                                                                </div>
-                                                          </div>`
-                    });
-
-                    $("#cartInfo").html("");
-                    $("#cartInfo").html(cartItemsHtml);
-                    return cartItems;
-                }
-                $(document).ready(function () {
-                    let currentCulture = $("#language-app-hidden").val();
-                    $("#language-app").val(currentCulture);
-                    $("#language-app").niceSelect("update")
-                    getPrices();
-                });
-                $(document).on("click", ".mini-cart-item-delete", function () {
-
-                    let currentDeletedItem = +$(this).attr("data-id");
-                    let jsonData = localStorage.getItem("cart");
-                    if (jsonData) {
-                        let oldCart = JSON.parse(jsonData);
-                        let newCart = oldCart.filter(a => a.productId != currentDeletedItem);
-                        localStorage.setItem("cart", JSON.stringify(newCart));
-                        buildCart(localStorage.getItem("cart"));
-                        $("#totalCartSum").text(buildTotal());
-                        getPrices();
-                    }
-                });
-
-                function buildTotal() {
-                    let sumTotal = 0;
-                    $("#cartInfo .mini-cart-item").each(function () {
-                        sumTotal += +$(this).find(".product-qtu-data").text() * +$(this).find(".product-price-data").text();
-                    });
-                    return sumTotal;
-                }
-
-                function getPrices() {
-                    let currentCart = localStorage.getItem("cart");
-                    if (currentCart) {
-                        let cartItems = buildCart(currentCart);
-
-                        $.ajax({
-                            url: "/Product/GetProductPrices",
-                            method: "POST",
-                            contentType: "application/json",
-                            type: "json",
-                            data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
-                            success: function (result) {
-                                let myCart = JSON.parse(localStorage.getItem("cart"));
-
-                                for (let item of result) {
-                                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
-                                    myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
-                                    myCart.find(a => a.productId == item.productID).weight = item.weight;
-
-                                }
-                                localStorage.setItem("cart", JSON.stringify(myCart));
-                                $("#totalCartSum").text(buildTotal() + $("#GlobalCurrencyCode").val());
-                            }
-                        });
-                    }
-
-                }
-
-                $(document).on("click", ".product-cart-item", function () {
-                    let productId = $(this).attr("data-id");
-                    $.ajax({
-                        url: "/Product/AddToCardModel",
-                        data: { id: productId },
-                        success: function (result) {
-                            $("#Card-Product").html(result);
-                            $("#add_to_cart_modal").modal("show");
-
-                        }
-                    })
-                });
-                $(document).on("click", ".add-cart-local", function () {
-
-                    const productData = {
-                        productId: $(this).attr("data-id"),
-                        imageURL: $(this).attr("data-image"),
-                        productName: $(this).attr("data-name")
-                    };
-
-                    let currentCart = localStorage.getItem("cart");
-                    if (currentCart == null) {
-                        localStorage.setItem("cart", "[]");
-                    }
-                    currentCart = JSON.parse(localStorage.getItem("cart"));
-                    let proceessCart = currentCart.find(a => a.productId == productData.productId);
-                    if (proceessCart) {
-                        proceessCart.Quantity++;
-                    }
-                    else {
-                        currentCart.push({ ...productData, Quantity: 1 });
-                    }
-
-                    localStorage.setItem("cart", JSON.stringify(currentCart));
-
-                    buildCart(localStorage.getItem("cart"));
-                    alertify.success("Item Add to Cart Successfully", 300);
-                    getPrices();
-                });
+            <script src="~/lib/alertifyjs/alertify.min.js"></script>
 
 
-                //language app
-
-                $("#language-app").on("change", function () {
-                    $(this).parents("form").submit();
-                });
-
-            </script>
+            <script src="~/template-user/all/cart.js"></script>
 
             @RenderSection("scripts", required: false)
         </body>
