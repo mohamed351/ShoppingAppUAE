@@ -26,35 +26,5 @@
       "wwwroot/template-user/rtl/css/style.min.css",
       "wwwroot/template-user/rtl/css/responsive.min.css"
     ]
-  },
-  {
-    "outputFileName": "wwwroot/template-user/all/cart.min.js",
-    "inputFiles": [
-      "wwwroot/template-user/all/cart.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/template-user/ltr/js/main.min.js",
-    "inputFiles": [
-      "wwwroot/template-user/ltr/js/main.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/template-user/ltr/js/plugins.min.js",
-    "inputFiles": [
-      "wwwroot/template-user/ltr/js/plugins.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/template-user/rtl/js/main.min.js",
-    "inputFiles": [
-      "wwwroot/template-user/rtl/js/main.js"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/template-user/rtl/js/plugins.min.js",
-    "inputFiles": [
-      "wwwroot/template-user/rtl/js/plugins.js"
-    ]
   }
 ]
