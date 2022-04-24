@@ -276,6 +276,9 @@ namespace ShoppingAppUAE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ArabicTitle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ContentArabic")
                         .HasColumnType("nvarchar(max)");
 

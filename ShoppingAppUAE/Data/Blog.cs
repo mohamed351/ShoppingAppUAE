@@ -12,6 +12,8 @@ namespace ShoppingAppUAE.Data
         public int ID { get; set; }
         public string Title { get; set; }
 
+        public string ArabicTitle { get; set; }
+
         public string ImageURL { get; set; }
 
         public string ContentEnglish { get; set; }
