@@ -51,7 +51,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <h3 class="ltn__blog-title blog-title-line"><a href="blog-details.html"> 
+                            <h3 class="ltn__blog-title blog-title-line"><a asp-action="Blog" asp-controller="News" asp-route-id="@item.ID"> 
                                   @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
                                     {
                                       @item.ArabicTitle

@@ -33,7 +33,7 @@ namespace ShoppingAppUAE.Controllers
             {
                 return NotFound();
             }
-            return View();
+            return View(blog);
 
         }
     }
