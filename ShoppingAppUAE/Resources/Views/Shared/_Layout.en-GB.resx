@@ -135,6 +135,9 @@
   <data name="MyAccount" xml:space="preserve">
     <value>My Account</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>

@@ -164,7 +164,7 @@
                                                         {
                                                             <li><a asp-action="Index" asp-controller="Account" asp-area="">@locaization["MyAccount"]</a></li>
                                                             <li><a asp-action="Index" asp-controller="WishList" asp-area="">@locaization["Wishlist"]</a></li>
-                                                            <li><a asp-action="Index" asp-controller="News" asp-area="">@locaization["News"]</a></li>
+                                                      
                                                             <li>
                                                             <li>
                                                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -246,6 +246,8 @@
                                                     <li><a asp-area="" title="Contact" asp-action="Index" asp-controller="Contact">@locaization["Contact"]</a></li>
 
                                                     <li><a asp-area="" title="About" asp-action="Index" asp-controller="AboutUs">@locaization["About"]</a></li>
+
+                                                    <li><a asp-action="Index" asp-controller="News" asp-area="">@locaization["News"]</a></li>
                                                 </ul>
                                             </section>
                                         </nav>

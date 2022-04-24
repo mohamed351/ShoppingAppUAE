@@ -135,6 +135,9 @@
   <data name="MyAccount" xml:space="preserve">
     <value>حسابي</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>اخبار</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>هاتف</value>
   </data>
