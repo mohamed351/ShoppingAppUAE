@@ -112,8 +112,8 @@
                                 </section>
                                 <!-- header-search-2 -->
                                 <section class="header-search-2">
-                                    <form id="#123" method="get" action="#">
-                                        <input type="text" name="search" value="" placeholder="@locaization["Seachhere"] ..." />
+                                    <form  method="get" asp-action="Search" asp-controller="Product" asp-area="" >
+                                        <input type="text" name="search"  autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
                                         <button type="submit">
                                             <span><i class="icon-magnifier"></i></span>
                                         </button>
@@ -136,7 +136,7 @@
                                             </section>
                                             <section class="header-search-1-form">
                                                 <form id="#" method="get" action="#">
-                                                    <input type="text" name="search" value="" placeholder="@locaization["Seachhere"] ..." />
+                                                    <input type="text" name="search" autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
                                                     <button type="submit">
                                                         <span><i class="icon-magnifier"></i></span>
                                                     </button>
@@ -293,8 +293,8 @@
                         <button class="ltn__utilize-close">×</button>
                     </section>
                     <section class="ltn__utilize-menu-search-form">
-                        <form action="#">
-                            <input type="text" placeholder="@locaization["Search"]...">
+                        <form asp-action="Search" asp-controller="Product" asp-area="">
+                            <input type="text" autocomplete="off" placeholder="@locaization["Search"]...">
                             <button><i class="icon-magnifier"></i></button>
                         </form>
                     </section>

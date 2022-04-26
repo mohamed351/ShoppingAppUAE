@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Models;
+using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace ShoppingAppUAE.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly IUnitOfWork unit;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, IUnitOfWork unit)
         {
             this.context = context;
+            this.unit = unit;
         }
         public IActionResult Index()
         {
@@ -30,9 +33,9 @@ namespace ShoppingAppUAE.Controllers
                 }).ToList(),
                 BrandViewModel = context.Brands.Select(a => new BrandViewModel() { ID = a.ID, ArabicName = a.BrandNameArabic, EnglishName = a.BrandNameEnglish }).ToList()
 
-               
+
             };
-           
+
             return View(ProductViewModel);
         }
         [HttpGet]
@@ -40,8 +43,8 @@ namespace ShoppingAppUAE.Controllers
         {
             IQueryable<Product> products = null;
             int totalProduct = 0;
-            
-                products = context.Products;
+
+            products = context.Products;
 
             if (productViewModel.CategoryID != null)
                 products = products.Where(a => a.CategoryID == productViewModel.CategoryID);
@@ -79,10 +82,21 @@ namespace ShoppingAppUAE.Controllers
         [HttpPost()]
         public IActionResult GetProductPrices([FromBody] ProductQuery query)
         {
-           
-           var currentQuery =  context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a=> new {  a.ProductID , a.PurchasingPrice , a.Weight});
-           
+
+            var currentQuery = context.Products.Where(a => query.producIds.Contains(a.ProductID)).Select(a => new { a.ProductID, a.PurchasingPrice, a.Weight });
+
             return Json(currentQuery);
+        }
+        [HttpGet]
+        public IActionResult Search([FromQuery] string search, [FromQuery] int page = 1)
+        {
+            int currentPage = page - 1;
+
+
+            var query = unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
+            a.ProductNameArabic.Contains(search) ||
+            a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a=> a.ProductID);
+            return View(query);
         }
 
         public class ProductQuery
