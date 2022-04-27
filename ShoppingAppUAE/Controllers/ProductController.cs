@@ -96,6 +96,8 @@ namespace ShoppingAppUAE.Controllers
             var query = unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
             a.ProductNameArabic.Contains(search) ||
             a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a=> a.ProductID);
+            ViewBag.Search = search;
+            ViewBag.PageNumber = page;
             return View(query);
         }
 
