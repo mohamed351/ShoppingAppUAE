@@ -59,7 +59,12 @@ namespace ShoppingAppUAE.Data
         public string DescriptionArabic { get; set; }
 
 
-      
+
+        public string BreifDescriptionArabic { get; set; }
+
+        public string BreifDescriptionEnglish { get; set; }
+
+
 
         public bool IsActive { get; set; }
 

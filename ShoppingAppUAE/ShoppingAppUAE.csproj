@@ -69,6 +69,12 @@
     <EmbeddedResource Update="Resources\Views\News\Index.en-GB.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Product\CurrentProduct.ar-EG.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Product\CurrentProduct.en-GB.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Shared\_Layout.ar-EG.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>

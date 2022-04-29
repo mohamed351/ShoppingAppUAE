@@ -1,7 +1,67 @@
 ﻿@inject IConfiguration configuration
+@inject IViewLocalizer locaization
 @model ShoppingAppUAE.Data.Product
 @{
-    ViewData["Title"] = "CurrentProduct";
+
+    if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+    {
+        ViewData["Title"] = Model.ProductNameArabic;
+    }
+    else
+    {
+
+        ViewData["Title"] = Model.ProductNameEnglish;
+    }
+
+}
+
+@section metaTags{
+
+    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+    {
+        <meta name="title" content="@Model.SEOArabicTitle">
+        <meta name="description" content="@Model.BreifDescriptionArabic" />
+        <meta name="keywords" content="@Model.SEOArabicKeyWords" />
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="@configuration["SEO:DomainName"]">
+        <meta property="og:title" content="@Model.SEOArabicTitle">
+        <meta property="og:description" content="@Model.BreifDescriptionArabic">
+        <meta property="og:image" content="@configuration["SEO:DomainName"]/images/@Model.ImageURL">
+
+
+
+        <meta property="twitter:card" content="website">
+        <meta property="twitter:url" content="@configuration["SEO:DomainName"]">
+        <meta property="twitter:title" content="@Model.SEOArabicTitle">
+        <meta property="twitter:description" content="@Model.BreifDescriptionArabic">
+        <meta property="twitter:image" content="@configuration["SEO:DomainName"]/images/@Model.ImageURL">
+
+
+
+    }
+    else
+    {
+
+        <meta name="title" content="@Model.SEOEnglishTitle">
+        <meta name="description" content="@Model.BreifDescriptionEnglish" />
+        <meta name="keywords" content="@Model.SEOEnglishKeyWords" />
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="@configuration["SEO:DomainName"]">
+        <meta property="og:title" content="@Model.SEOEnglishTitle">
+        <meta property="og:description" content="@Model.BreifDescriptionEnglish">
+        <meta property="og:image" content="@configuration["SEO:DomainName"]/images/@Model.ImageURL">
+
+
+
+        <meta property="twitter:card" content="website">
+        <meta property="twitter:url" content="@configuration["SEO:DomainName"]">
+        <meta property="twitter:title" content="@Model.SEOEnglishTitle">
+        <meta property="twitter:description" content="@Model.BreifDescriptionEnglish">
+        <meta property="twitter:image" content="@configuration["SEO:DomainName"]/images/@Model.ImageURL">
+
+    }
 }
 
 
@@ -9,23 +69,38 @@
 <div class="ltn__utilize-overlay"></div>
 
 
-<div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
-    <div class="container">
+<section class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
+    <section class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="ltn__breadcrumb-inner text-center">
-                    <h1 class="ltn__page-title">Product</h1>
-                    <div class="ltn__breadcrumb-list">
+            <section class="col-lg-12">
+                <section class="ltn__breadcrumb-inner text-center">
+                    <h1 class="ltn__page-title">@locaization["Product"]</h1>
+                    <nav class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a asp-action="Index" asp-controller="Product">Prouct</a></li>
-                            <li>@Model.ProductNameEnglish</li>
+                            <li><a asp-action="Index" asp-controller="Product">@locaization["Product"]</a></li>
+                            <li>
+
+                                @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                {
+
+                                    @Model.ProductNameArabic
+
+                                }
+                                else
+                                {
+                                    @Model.ProductNameEnglish
+                                }
+
+
+
+                            </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
+                    </nav>
+                </section>
+            </section>
         </div>
-    </div>
-</div>
+    </section>
+</section>
 
 
 <section class="ltn__shop-details-area pb-70">
@@ -55,7 +130,23 @@
                         </section>
                         <section class="col-md-6">
                             <section class="modal-product-info shop-details-info pl-0">
-                                <h3>@Model.ProductNameEnglish</h3>
+                                <h3>
+
+                                    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                    {
+
+                                        @Model.ProductNameArabic
+
+                                    }
+                                    else
+                                    {
+                                        @Model.ProductNameEnglish
+                                    }
+
+
+
+
+                                </h3>
                                 <section class="product-price-ratting mb-20">
                                     <ul>
                                         <li>
@@ -76,11 +167,11 @@
 
                                         <li>
                                             <button class="theme-btn-1 btn btn-effect-1 d-add-to-cart add-cart-local" data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" title="Add to Cart">
-                                                <span>ADD TO CART</span>
+                                                <span>@locaization["AddToCart"]</span>
                                             </button>
                                         </li>
                                         <li>
-                                            <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="Add to Cart">
+                                            <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="@locaization["AddToCart"]">
                                                 <i class="icon-heart"></i>
                                             </a>
                                         </li>
@@ -92,30 +183,30 @@
                                     <div class="addthis_inline_share_toolbox"></div>
 
                                 </section>
-                                <section class="modal-product-meta ltn__product-details-menu-1 mb-30">
+                                <nav class="modal-product-meta ltn__product-details-menu-1 mb-30">
                                     <ul>
 
                                         <li>
-                                            <strong>Categories:</strong>
+                                            <strong>@locaization["Category"]:</strong>
                                             <span>
                                                 <a href="#">@Model.Category.CategoryNameEnglish</a>
                                             </span>
                                         </li>
 
                                         <li>
-                                            <strong>Weight:</strong>
+                                            <strong>@locaization["Weight"]:</strong>
                                             <span>
                                                 <a href="#">@Model.Weight</a>
                                             </span>
                                         </li>
                                         <li>
-                                            <strong>Tags:</strong>
+                                            <strong>@locaization["Tags"]:</strong>
                                             <span>
                                                 @Model.SEOEnglishKeyWords
                                             </span>
                                         </li>
                                     </ul>
-                                </section>
+                                </nav>
 
                             </section>
                         </section>

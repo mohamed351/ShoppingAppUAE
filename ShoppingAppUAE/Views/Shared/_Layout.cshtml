@@ -8,10 +8,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title> Shopping Application - @ViewData["Title"] </title>
 
-    @RenderSection("metaTags", false)
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+  
+    <meta name="author" content="@configuration["SEO:DefaultAuthor"]" />
+    @RenderSection("metaTags", false)
     @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
     {
         <link href="~/template-user/rtl/css/arabic-plugin-bundle.rtl.min.css" rel="stylesheet" />
@@ -27,7 +29,7 @@
 
     }
 
-<link href="~/lib/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/lib/alertifyjs/css/alertify.min.css" rel="stylesheet" />
     <style>
         html {
             overflow-x: hidden !important;

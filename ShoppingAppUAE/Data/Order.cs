@@ -35,6 +35,8 @@ namespace ShoppingAppUAE.Data
         public decimal TaxTotal { get; set; }
         public decimal TotalNet { get; set; }
 
+      
+
         public decimal Total { get; set; }
 
         [ForeignKey(nameof(ShippingAndDelivery))]

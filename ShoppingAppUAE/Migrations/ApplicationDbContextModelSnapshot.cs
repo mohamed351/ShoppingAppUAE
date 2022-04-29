@@ -488,6 +488,25 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("Counties");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Currency", b =>
+                {
+                    b.Property<string>("CurrencyCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ArabicName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnglishName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("CurrencyCode");
+
+                    b.ToTable("Currencies");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
                     b.Property<int>("ProductID")
@@ -497,6 +516,12 @@ namespace ShoppingAppUAE.Migrations
 
                     b.Property<int?>("BrandID")
                         .HasColumnType("int");
+
+                    b.Property<string>("BreifDescriptionArabic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BreifDescriptionEnglish")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");

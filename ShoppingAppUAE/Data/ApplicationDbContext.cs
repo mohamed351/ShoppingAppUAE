@@ -36,6 +36,8 @@ namespace ShoppingAppUAE.Data
 
         public DbSet<ShippingAndDelivery> shippingAndDeliveries { get; set; }
 
+        public DbSet<Currency> Currencies { get; set; }
+
 
         public DbSet<SEOData> SEODatas { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
