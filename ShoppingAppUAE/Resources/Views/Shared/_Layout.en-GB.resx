@@ -147,11 +147,11 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="Seachhere" xml:space="preserve">
+    <value>Search here </value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
-  </data>
-  <data name="Searchhere" xml:space="preserve">
-    <value>Search here</value>
   </data>
   <data name="ShopingCart" xml:space="preserve">
     <value>Shoping Cart</value>

@@ -132,7 +132,7 @@
                                                 </section>
                                             </section>
                                             <section class="header-search-1-form">
-                                                <form id="#" method="get" action="#">
+                                                <form method="get" asp-action="Search" asp-controller="Product" asp-area="">
                                                     <input type="text" id="txtSearchPhone" name="search" autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
                                                     <button type="submit">
                                                         <span><i class="icon-magnifier"></i></span>
@@ -290,8 +290,8 @@
                         <button class="ltn__utilize-close">×</button>
                     </section>
                     <section class="ltn__utilize-menu-search-form">
-                        <form asp-action="Search" asp-controller="Product" asp-area="">
-                            <input type="text" autocomplete="off" placeholder="@locaization["Search"]...">
+                        <form asp-action="Search" asp-controller="Product" method="get" asp-area="">
+                            <input type="text" name="search" autocomplete="off" placeholder="@locaization["Search"]...">
                             <button><i class="icon-magnifier"></i></button>
                         </form>
                     </section>
