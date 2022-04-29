@@ -37,6 +37,14 @@ namespace ShoppingAppUAE.Data
         public DbSet<ShippingAndDelivery> shippingAndDeliveries { get; set; }
 
 
+        public DbSet<SEOData> SEODatas { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<SEOData>().HasKey(a => new { a.ActionName, a.ControllerName });
+            base.OnModelCreating(builder);  
+        }
+
+
 
     }
 

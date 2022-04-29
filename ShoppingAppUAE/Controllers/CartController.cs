@@ -21,6 +21,7 @@ namespace ShoppingAppUAE.Controllers
         }
         public IActionResult Index()
         {
+            
             var ip = HttpContext.GetRemoteIPAddress().ToString();
             var currentUserID = User.GetUserId();
            var currentUserData =  _context.Users.Find(currentUserID);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Models;
@@ -13,6 +14,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ShoppingAppUAE.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -21,12 +24,19 @@ namespace ShoppingAppUAE.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
         private readonly IWebHostEnvironment webHost;
+        private readonly IActionContextAccessor actionContext;
+        private readonly IConfiguration configuration;
 
-        public HomeController(ILogger<HomeController> logger , ApplicationDbContext context , IWebHostEnvironment webHost )
+        public HomeController(ILogger<HomeController> logger , 
+            ApplicationDbContext context ,
+            IWebHostEnvironment webHost, 
+            IActionContextAccessor actionContext, IConfiguration configuration )
         {
             _logger = logger;
             this.context = context;
             this.webHost = webHost;
+            this.actionContext = actionContext;
+            this.configuration = configuration;
         }
 
         public IActionResult Index()
@@ -43,6 +53,7 @@ namespace ShoppingAppUAE.Controllers
                     ArabicParagrap =
                     a.ParagrapArabic, ArabicTitle = a.TitleArabic }).ToList()
             };
+          ViewBag.SEO =actionContext.ActionContext.GetURLData(context, configuration);
             return View(viewModel);
         }
 

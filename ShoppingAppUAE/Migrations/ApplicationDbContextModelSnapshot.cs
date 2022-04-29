@@ -581,6 +581,30 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.SEOData", b =>
+                {
+                    b.Property<string>("ActionName")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("ControllerName")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("AnotherTags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ActionName", "ControllerName");
+
+                    b.ToTable("SEODatas");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.ShippingAndDelivery", b =>
                 {
                     b.Property<int>("ID")

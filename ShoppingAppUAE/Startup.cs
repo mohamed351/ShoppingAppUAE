@@ -23,6 +23,7 @@ using ShoppingAppUAE.Models.CheckoutViewModels;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ShoppingAppUAE
 {
@@ -80,6 +81,7 @@ namespace ShoppingAppUAE
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 
             services.AddAuthentication().AddGoogle(options =>
