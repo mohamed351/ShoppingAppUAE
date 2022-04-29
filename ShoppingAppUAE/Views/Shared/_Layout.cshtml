@@ -1,7 +1,4 @@
 ﻿@inject IConfiguration configuration
-
-@using Microsoft.AspNetCore.Mvc.Localization
-
 @inject IViewLocalizer locaization
 <!DOCTYPE html>
 <html lang="@(CultureInfo.CurrentCulture.Name.Contains("ar") ?"ar":"en" )">
@@ -113,7 +110,7 @@
                                 <!-- header-search-2 -->
                                 <section class="header-search-2">
                                     <form  method="get" asp-action="Search" asp-controller="Product" asp-area="" >
-                                        <input type="text" name="search"  autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
+                                        <input type="text" id="txtSearch" name="search"  autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
                                         <button type="submit">
                                             <span><i class="icon-magnifier"></i></span>
                                         </button>
@@ -136,7 +133,7 @@
                                             </section>
                                             <section class="header-search-1-form">
                                                 <form id="#" method="get" action="#">
-                                                    <input type="text" name="search" autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
+                                                    <input type="text" id="txtSearchPhone" name="search" autocomplete="off" value="" placeholder="@locaization["Seachhere"] ..." />
                                                     <button type="submit">
                                                         <span><i class="icon-magnifier"></i></span>
                                                     </button>

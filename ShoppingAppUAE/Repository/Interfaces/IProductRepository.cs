@@ -10,6 +10,11 @@ namespace ShoppingAppUAE.Repository.Interfaces
    public interface IProductRepository :IRepository<Product,int>
     {
 
-        public DataTableViewModel<Product> SeacrchProduct(int start, int lenght, Expression<Func<Product, bool>> search, Expression<Func<Product, int>> OrderBy);
+        public DataTableViewModel<Product> SeacrchProduct(int start, int lenght, Expression<Func<Product, bool>> search, Expression<Func<Product, decimal>> OrderBy);
+
+        public DataTableViewModel<Product> SeacrchProductSortPriceHighertoLower(int start, int lenght, Expression<Func<Product, bool>> search);
+
+        public DataTableViewModel<Product> SeacrchProductSortPricelowerToHigher(int start, int lenght, Expression<Func<Product, bool>> search);
+
     }
 }

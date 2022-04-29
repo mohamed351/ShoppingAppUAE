@@ -6,6 +6,7 @@ using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ShoppingAppUAE.Controllers
@@ -88,17 +89,44 @@ namespace ShoppingAppUAE.Controllers
             return Json(currentQuery);
         }
         [HttpGet]
-        public IActionResult Search([FromQuery] string search, [FromQuery] int page = 1)
+        public IActionResult Search([FromQuery] string search, [FromQuery] int page = 1, ProductSort sort = 0)
         {
-            int currentPage = page - 1;
-
-
-            var query = unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
-            a.ProductNameArabic.Contains(search) ||
-            a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a=> a.ProductID);
+            int currentPage = (page - 1)*12;
             ViewBag.Search = search;
             ViewBag.PageNumber = page;
-            return View(query);
+            ViewBag.sort = (int) sort;
+            switch (sort)
+            {
+                case ProductSort.ProductID:
+                  return View( unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
+                     a.ProductNameArabic.Contains(search) ||
+                     a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a => a.ProductID));
+                    
+                case ProductSort.HigherPrice:
+                    return View(unit.Products.SeacrchProductSortPriceHighertoLower(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
+                      a.ProductNameArabic.Contains(search) ||
+                     a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search)));
+                  
+                    
+                case ProductSort.LowPrice:
+                    return View(unit.Products.SeacrchProductSortPriceHighertoLower(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
+                     a.ProductNameArabic.Contains(search) ||
+                     a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search)));
+
+                default:
+                    return View(unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
+                       a.ProductNameArabic.Contains(search) ||
+                       a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a => a.ProductID));
+
+            }
+
+
+        }
+        public enum ProductSort
+        {
+            ProductID =0,
+            HigherPrice =1,
+            LowPrice =2
         }
 
         public class ProductQuery

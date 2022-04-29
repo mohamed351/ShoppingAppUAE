@@ -6,6 +6,7 @@
 <input type="hidden" id="pagetotal" value="@Model.recordsTotal" />
 <input type="hidden" id="search" value="@ViewBag.Search" />
 <input type="hidden" id="pageNumber" value="@ViewBag.PageNumber" />
+<input type="hidden" id="sort" value="@ViewBag.sort" />
 
 <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
     <div class="container">
@@ -37,10 +38,13 @@
                         </li>
                         <li>
                             <div class="short-by text-center">
-                                <select class="nice-select">
-                                    <option value="0">Default sorting</option>
-                                    <option value="1">Sort by price: low to high</option>
-                                    <option value="2">Sort by price: high to low</option>
+
+                                <select class="nice-select" id="sortData">
+
+                                    <option value="0" >Default sorting</option>
+                                    <option value="1" >Sort by price: high to low</option>
+                                    <option value="2">Sort by price: low to high</option>
+
                                 </select>
                             </div>
                             <div class="ltn__grid-list-tab-menu ">
@@ -186,7 +190,11 @@
         pageSize: 12,
         pageNumber: +$("#pageNumber").val() ,
         callback: function (data, pagination) {
-          
+            let currentUrl = new URL(window.location.href);
+            $("#txtSearchPhone").val(currentUrl.searchParams.get("search"));
+            $("#txtSearch").val(currentUrl.searchParams.get("search"));
+            $("#sortData").val($("#sort").val());
+            $("#sortData").niceSelect('update');
         },
         beforePageOnClick: function (data, x) {
             let currentUrl = new URL(window.location.href);
@@ -197,9 +205,13 @@
         }
        
     });
-    //$(document).on("click", ".paginationjs-page a", function (e) {
-    //    alert("testing");
-    //});
+    $("#sortData").on("change", function () {
+        let currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.delete("sort");
+        currentUrl.searchParams.append("sort",+$(this).val());
+        window.location.href = currentUrl.toString();
+    });
+   
 </script>
 
 }

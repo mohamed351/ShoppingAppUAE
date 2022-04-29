@@ -19,7 +19,7 @@ namespace ShoppingAppUAE.Repository.implementation
             this.context = context;
         }
 
-        public DataTableViewModel<Product> SeacrchProduct(int start, int lenght, Expression<Func<Product, bool>> search, Expression<Func<Product, int>> OrderBy)
+        public DataTableViewModel<Product> SeacrchProduct(int start, int lenght, Expression<Func<Product, bool>> search, Expression<Func<Product, decimal>> OrderBy)
         {
             var query = context.Products.Include(a => a.Category).Include(a => a.Brand).Where(search)
                 .OrderBy(OrderBy).Skip(start)
@@ -34,5 +34,41 @@ namespace ShoppingAppUAE.Repository.implementation
                 recordsTotal = count
             };
         }
+
+        
+
+        public DataTableViewModel<Product> SeacrchProductSortPriceHighertoLower(int start, int lenght, Expression<Func<Product, bool>> search)
+        {
+            var query = context.Products.Include(a => a.Category).Include(a => a.Brand).Where(search)
+               .OrderBy(a=> a.PurchasingPrice).Skip(start)
+               .Take(lenght);
+            ///Get the Total Count 
+            var count = context.Products.Include(a => a.Category).Include(a => a.Brand).Where(search).Count();
+            ///Return The ViewModel That DataTable will take it in Json 
+            return new DataTableViewModel<Product>()
+            {
+                data = query.ToList(),
+                recordsFiltered = count,
+                recordsTotal = count
+            };
+        }
+
+        public DataTableViewModel<Product> SeacrchProductSortPricelowerToHigher(int start, int lenght, Expression<Func<Product, bool>> search)
+        {
+            var query = context.Products.Include(a => a.Category).Include(a => a.Brand).Where(search)
+               .OrderByDescending(a => a.PurchasingPrice).Skip(start)
+               .Take(lenght);
+            ///Get the Total Count 
+            var count = context.Products.Include(a => a.Category).Include(a => a.Brand).Where(search).Count();
+            ///Return The ViewModel That DataTable will take it in Json 
+            return new DataTableViewModel<Product>()
+            {
+                data = query.ToList(),
+                recordsFiltered = count,
+                recordsTotal = count
+            };
+        }
+
+       
     }
 }
