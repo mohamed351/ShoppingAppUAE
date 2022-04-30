@@ -99,7 +99,7 @@
                             </tbody>
                         </table>
                         <div class="btn-wrapper text-right">
-                            <a class="theme-btn-1 btn btn-effect-1" asp-controller="Checkout" asp-action="Index" asp-area="">Proceed to checkout</a>
+                            <button type="submit" class="theme-btn-1 btn btn-effect-1" asp-controller="Checkout" asp-action="Index" asp-area="">Proceed to checkout</button>
                         </div>
                     </div>
                 </div>
@@ -112,10 +112,23 @@
 
 @section scripts{ 
     <script>
+        function setShipping(shippingId) {
+            localStorage.setItem("shippingId", shippingId);
+        }
+        function getShipping(shippingId) {
+            return localStorage.getItem("shippingId")
+        }
+
         $(document).ready(function () {
            
             buildCartRefresh();
-            $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
+            if (!getShipping()) {
+                $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
+            }
+            else {
+              
+                $(".shipping-cart-item-radio[data-id='" + getShipping()+"']").attr("checked", "checked");
+            }
             CalculateShipping();
            
 
@@ -236,7 +249,8 @@
             return sumSubTotals;
         }
         $(".shipping-cart-item-radio").on("change", function () {
-       
+
+            setShipping($(this).attr("data-id"))
             let totalWeight = calculateTotalWeight();
             const firstCostLimitInWeight = +$(this).attr("data-price");
             const firstWeightCost = $(this).attr("data-weight-limit");

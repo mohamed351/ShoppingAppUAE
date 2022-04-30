@@ -30,16 +30,17 @@
 
 
 <!-- WISHLIST AREA START -->
-<div class="ltn__checkout-area mb-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ltn__checkout-inner">
+<form id="payment-form" asp-controller="Checkout" asp-action="SubmitCheckout" method="post">
+    <div class="ltn__checkout-area mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__checkout-inner">
 
-                    <div class="ltn__checkout-single-content mt-50">
-                        <h4 class="title-2">Billing Details</h4>
-                        <div class="ltn__checkout-single-content-info">
-                            <form action="#">
+                        <div class="ltn__checkout-single-content mt-50">
+                            <h4 class="title-2">Billing Details</h4>
+                            <div class="ltn__checkout-single-content-info">
+
                                 <h6>Personal Information</h6>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -87,86 +88,87 @@
 
 
                                 </div>
-                                <p><label class="input-info-save mb-0"><input type="checkbox" name="agree"> Create an account?</label></p>
+
                                 <h6>Order Notes (optional)</h6>
                                 <div class="input-item input-item-textarea ltn__custom-icon">
                                     <textarea asp-for="Note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                 </div>
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="ltn__checkout-payment-method mt-50">
-                    <h4 class="title-2">Payment Method</h4>
-                    <div id="checkout_accordion_1">
 
-                        <div class="card">
-                            <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
-                                Cash on delivery
-                            </h5>
-                            <div id="faq-item-2-2" class="collapse show" data-parent="#checkout_accordion_1">
-                                <div class="card-body">
-                                    <p>Pay with cash upon delivery.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- card -->
-                        <div class="card">
-                            <h5 class="collapsed ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
-                                Card Debit /Credit
-                            </h5>
-                            <div id="faq-item-2-3" class="collapse" data-parent="#checkout_accordion_1">
-                                <div class="card-body" id="payment-element">
-
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="ltn__payment-note mt-30 mb-30">
-                        <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
-                    </div>
-                    <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Place order</button>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="shoping-cart-total mt-50">
-                    <h4 class="title-2">Cart Totals</h4>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Brake Conversion Kit <strong>× 2</strong></td>
-                                <td>$298.00</td>
-                            </tr>
-                            <tr>
-                                <td>OE Replica Wheels <strong>× 2</strong></td>
-                                <td>$170.00</td>
-                            </tr>
-                            <tr>
-                                <td>Wheel Bearing Retainer <strong>× 2</strong></td>
-                                <td>$150.00</td>
-                            </tr>
-                            <tr>
-                                <td>Shipping and Handing</td>
-                                <td>$15.00</td>
-                            </tr>
-                            <tr>
-                                <td>Vat</td>
-                                <td>$00.00</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Order Total</strong></td>
-                                <td><strong>$633.00</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-lg-6">
+                    <div class="ltn__checkout-payment-method mt-50">
+                        <h4 class="title-2">Payment Method</h4>
+                        <div id="checkout_accordion_1">
+
+                            <div class="card">
+                                <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
+                                    Cash on delivery
+                                </h5>
+                                <div id="faq-item-2-2" class="collapse show" data-parent="#checkout_accordion_1">
+                                    <div class="card-body">
+                                        <p>Pay with cash upon delivery.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- card -->
+                            <div class="card">
+                                <h5 class="collapsed ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
+                                    Card Debit /Credit
+                                </h5>
+                                <div id="faq-item-2-3" class="collapse" data-parent="#checkout_accordion_1">
+                                    <div class="card-body" id="payment-element">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ltn__payment-note mt-30 mb-30">
+                            <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+                        </div>
+                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" id="submit" type="submit">Place order</button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping-cart-total mt-50">
+                        <h4 class="title-2">Cart Totals</h4>
+                        <table class="table">
+                            <tbody id="payment-details">
+                                @*<tr>
+                                    <td>Brake Conversion Kit <strong>× 2</strong></td>
+                                    <td>$298.00</td>
+                                </tr>
+                                <tr>
+                                    <td>OE Replica Wheels <strong>× 2</strong></td>
+                                    <td>$170.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Wheel Bearing Retainer <strong>× 2</strong></td>
+                                    <td>$150.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping and Handing</td>
+                                    <td>$15.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Vat</td>
+                                    <td>$00.00</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Order Total</strong></td>
+                                    <td><strong>$633.00</strong></td>
+                                </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 @*@section styles{
         <script src="https://js.stripe.com/v3/"></script>

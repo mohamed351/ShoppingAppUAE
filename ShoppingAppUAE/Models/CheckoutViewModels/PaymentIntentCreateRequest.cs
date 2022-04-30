@@ -9,7 +9,11 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
     public class Item
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
+        [JsonProperty("price")]
+        public decimal Price { get; set; }
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
     }
 
     public class PaymentIntentCreateRequest

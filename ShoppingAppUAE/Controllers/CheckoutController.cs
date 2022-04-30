@@ -31,28 +31,23 @@ namespace ShoppingAppUAE.Controllers
             };
             return View(viewModel);
         }
-
-        public IActionResult CreatePayment(CheckOutViewModel checkOutView)
-        {
-            if (checkOutView.CheckoutType == CheckoutType.Card) {
-                Stripe.Card card = new Card()
-                {
-                    Name =checkOutView.CardFirstName + "" + checkOutView.CardLastName,
-                    
-                };
-
-            }
-            return Json(null);
-        }
         [HttpPost]
-        public IActionResult Create(PaymentIntentCreateRequest request)
+        public IActionResult SubmitCheckout()
+        {
+            return View();
+        }
+
+        
+     
+        [HttpPost]
+        public IActionResult Create([FromBody]PaymentIntentCreateRequest request)
         {
             
 
             var paymentIntentService = new PaymentIntentService();
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
             {
-                Amount = 1400,
+                Amount = CalculateOrderAmount(request.Items),
                 Currency = "usd",
                 //Shipping = new ChargeShippingOptions()
                 //{
@@ -73,12 +68,14 @@ namespace ShoppingAppUAE.Controllers
             return View();
         }
 
-        private int CalculateOrderAmount(Item[] items)
+        private long CalculateOrderAmount(Item[] items)
         {
-            // Replace this constant with a calculation of the order's amount
-            // Calculate the order total on the server to prevent
-            // people from directly manipulating the amount on the client
-            return 1400;
+            decimal totalPrice = 0;
+            foreach (var item in items)
+            {
+                totalPrice += item.Price * item.Quantity;   
+            }
+            return Convert.ToInt64(totalPrice * 100);
         }
     }
 }
