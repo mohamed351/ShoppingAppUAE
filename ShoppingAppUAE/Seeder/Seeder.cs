@@ -23,6 +23,7 @@ namespace ShoppingAppUAE.Seeder
                 var roleManager = serviceScoped.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var dbContext = serviceScoped.ServiceProvider.GetService<ApplicationDbContext>();
                await BuildRoles(roleManager);
+                await BuildCurrnies(dbContext);
                 //await BuildCountries(dbContext);
 
             }
@@ -76,5 +77,36 @@ namespace ShoppingAppUAE.Seeder
 
            
         //}
+
+
+        private static async Task BuildCurrnies(ApplicationDbContext context)
+        {
+
+           
+                if (!context.Currencies.Any())
+                {
+                    string jsonCountires = File.ReadAllText("Seeder/currncyCode.json");
+                var list = JsonConvert.DeserializeObject<List<CurrencyCodeDTO>>(jsonCountires).Where(a=> a.AlphabeticCode != null).Select(a=> new { a.Currency , a.AlphabeticCode}).Distinct().ToList();
+                   
+                    foreach (var item in list)
+                    {
+                    context.Currencies.Add(new Currency()
+                        {
+                            ArabicName = item.Currency,
+                            EnglishName = item.Currency,
+                            CurrencyCode = item.AlphabeticCode,
+                            ExchangeRate = 0,
+                            IsActive = false
+                        });
+              
+                    await context.SaveChangesAsync();
+                }
+            
+               
+
+                }
+
+           
+        }
     }
 }
