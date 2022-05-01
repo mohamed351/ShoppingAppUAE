@@ -18,6 +18,8 @@ namespace ShoppingAppUAE.Data
 
         public bool IsActive { get; set; }
 
+        public bool IsDefault { get; set; }
+
 
 
     }

@@ -505,6 +505,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
                     b.HasKey("CurrencyCode");
 
                     b.ToTable("Currencies");

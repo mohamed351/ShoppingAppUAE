@@ -69,7 +69,7 @@ namespace ShoppingAppUAE.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cookie(string culture)
+        public IActionResult Cookie(string culture , string code)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -77,8 +77,15 @@ namespace ShoppingAppUAE.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddMonths(1) }
             );
 
+
+            Response.Cookies.Append(
+            "currency", code
+          );
+
             return RedirectToAction("Index");
         }
+
+     
 
 
 

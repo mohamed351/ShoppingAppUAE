@@ -1,5 +1,6 @@
 ﻿@inject IConfiguration configuration
 @inject IViewLocalizer locaization
+@inject IExchangeRateService exchangeRate
 <!DOCTYPE html>
 <html lang="@(CultureInfo.CurrentCulture.Name.Contains("ar") ?"ar":"en" )">
 
@@ -75,9 +76,13 @@
 
 
             <i class="fa  fa-money-bill-alt icon-size"></i>
-            <select>
-                <option value="AED"> AED</option>
-                <option value="USD"> USD</option>
+            <select id="currency-app" name="code">
+                @foreach(var item in exchangeRate.ActiveCurrencies)
+                 {
+                    <option value="@item.CurrencyCode" data-rate="@item.ExchangeRate ">@item.CurrencyCode</option>
+
+                }
+             
             </select>
 
         </form>

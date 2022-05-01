@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ShoppingAppUAE.Data.Currency>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section styles{
+
+
+    <link href="~/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Currency</h2>
+            <button id="btnUpdate" class="btn btn-success">Update Exchange Rate</button>
+        </div>
+        <table class="table mt-3" id="currenies">
+            <thead>
+                <tr>
+                    <th>Currency Code </th>
+                    <th>CurrencyName</th>
+                    <th>Exchange Rate</th>
+                    <th>IsActive</th>
+                </tr>
+            </thead>
+            <tbody id="currency-data">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @item.CurrencyCode </td>
+                        <td> @item.EnglishName </td>
+                        <td>
+
+                            <input type="text" class="form-control currency-is-exchangeRate" data-code="@item.CurrencyCode" value="@item.ExchangeRate" />
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <input type="checkbox" class="currency-is-active" checked data-code="@item.CurrencyCode" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="currency-is-active" data-code="@item.CurrencyCode" />
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script>
+
+        $("#currenies").dataTable();
+        $("#btnUpdate").on("click", function () {
+             array_of_currencies = [
+
+            ]
+
+            $("#currency-data tr").each(function () {
+                array_of_currencies.push({
+                    code: $(this).find(".currency-is-exchangeRate").attr("data-code"),
+                    exchangeRate: $(this).find(".currency-is-exchangeRate").val(),
+                    isActive: $(this).find(".currency-is-active").is(":checked")
+                });
+            });
+            $.ajax({
+                url: "/Admin/Currency/Update",
+                method: "POST",
+                contentType: "application/json",
+                type: "json",
+                data: JSON.stringify(array_of_currencies),
+                success: function (result) {
+                    swal("successfully updated", "", "success");
+
+                }
+            });
+        });
+    </script>
+}
+

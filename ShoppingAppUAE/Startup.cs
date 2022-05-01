@@ -24,6 +24,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using ShoppingAppUAE.Services.ExchangeRate;
 
 namespace ShoppingAppUAE
 {
@@ -82,6 +83,7 @@ namespace ShoppingAppUAE
             services.AddTransient<IMailService, MailService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddTransient<IExchangeRateService, ExchangeRateService>();
 
 
             services.AddAuthentication().AddGoogle(options =>
