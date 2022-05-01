@@ -16,6 +16,8 @@ namespace ShoppingAppUAE.Data
         public string EnglishName { get; set; }
         public decimal ExchangeRate { get; set; }
 
+        public bool IsActive { get; set; }
+
 
 
     }

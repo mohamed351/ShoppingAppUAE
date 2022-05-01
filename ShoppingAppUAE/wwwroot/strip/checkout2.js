@@ -66,6 +66,7 @@ async function handleSubmit(e) {
     e.preventDefault();
     console.log("testing");
     setLoading(true);
+    
 
     const { error } = await stripe.confirmPayment({
         elements,

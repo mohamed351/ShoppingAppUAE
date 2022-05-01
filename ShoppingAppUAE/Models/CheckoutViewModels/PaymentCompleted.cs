@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ShoppingAppUAE.Models.CheckoutViewModels
+{
+    public class PaymentCompleted
+    {
+
+        public string userId { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Address { get; set; }
+
+        public string City { get; set; }
+
+        public string OrderNote { get; set; }
+
+        public string CurrenyCode { get; set; }
+
+        public List<PaymentCart> PaymentCarts { get; set; }
+    }
+
+    public class PaymentCart
+    {
+        public int ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public decimal Price { get; set; }
+
+        public int Quantity { get; set; }
+    }
+    public class ShipmentData
+    {
+        public int ShipmentID { get; set; }
+        public decimal ShipmentTotal { get; set; }
+    }
+
+
+}

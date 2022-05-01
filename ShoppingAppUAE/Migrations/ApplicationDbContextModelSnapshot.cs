@@ -502,6 +502,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<decimal>("ExchangeRate")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("CurrencyCode");
 
                     b.ToTable("Currencies");
