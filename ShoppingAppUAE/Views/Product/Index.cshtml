@@ -309,6 +309,9 @@
         });
 
         function BuildCard(currentItem) {
+            
+            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+
             return ` <section class="col-xl-4 col-sm-6 col-12">
                                         <div class="ltn__product-item text-center">
                                             <div class="product-img">
@@ -330,7 +333,7 @@
                                             <div class="product-info">
                                                 <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
                                                 <div class="product-price">
-                                                    <span>${currentItem.purchasingPrice} ${$("#GlobalCurrencyCode").val()}</span>
+                                                    <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
                                                 </div>
                                             </div>
                                         </div>

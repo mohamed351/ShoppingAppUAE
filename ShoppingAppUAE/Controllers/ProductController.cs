@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Data;
+using ShoppingAppUAE.Helpers;
 using ShoppingAppUAE.Models;
 using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
@@ -95,6 +96,11 @@ namespace ShoppingAppUAE.Controllers
             ViewBag.Search = search;
             ViewBag.PageNumber = page;
             ViewBag.sort = (int) sort;
+           var  selectedCurrency  = HttpContext.Request.GetCookieValue("currency");
+            if (selectedCurrency == null)
+                ViewBag.Currency = (Currency)context.Currencies.FirstOrDefault(a => a.IsDefault);
+            else
+                ViewBag.Currency = (Currency)context.Currencies.Find(selectedCurrency);
             switch (sort)
             {
                 case ProductSort.ProductID:
