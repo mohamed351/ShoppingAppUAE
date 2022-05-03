@@ -24,11 +24,14 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult Index()
         {
             string userId = User.GetUserId();
+            var user = context.Users.Find(userId);
             CheckOutViewModel viewModel = new CheckOutViewModel()
             {
-                ApplicationUser = context.Users.Find(userId),
+                ApplicationUser = user,
+                ShippingDetails = context.shippingAndDeliveries.Where(a=> a.ShippingCountry == user.CountryCode).ToList()
 
             };
+           
             return View(viewModel);
         }
         [HttpPost]

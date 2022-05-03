@@ -12,7 +12,7 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
         public CheckOutViewModel()
         {
             cartDetails = new List<CartDetails>();
-            ShippingDetails = new List<ShippingDetails>();
+            ShippingDetails = new List<ShippingAndDelivery>();
         }
 
         public ApplicationUser ApplicationUser { get; set; }
@@ -22,7 +22,7 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
 
         public List<CartDetails> cartDetails { get; set; }
 
-        public List<ShippingDetails> ShippingDetails { get; set; }
+        public List<ShippingAndDelivery> ShippingDetails { get; set; }
 
         public string Note { get; set; }
 
