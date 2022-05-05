@@ -126,6 +126,9 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact us</value>
   </data>
+  <data name="FAQs" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>

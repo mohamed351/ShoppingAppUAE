@@ -126,8 +126,14 @@
   <data name="Contact" xml:space="preserve">
     <value>التواصل</value>
   </data>
+  <data name="FAQs" xml:space="preserve">
+    <value>اسئلة متكررة</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>الرئسية</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>معلومات</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>خروج</value>
