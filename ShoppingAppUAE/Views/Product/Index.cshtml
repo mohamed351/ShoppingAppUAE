@@ -1,6 +1,14 @@
-﻿@model ShoppingAppUAE.Models.ProductViewModel
+﻿@inject IViewLocalizer localization
+@model ShoppingAppUAE.Models.ProductViewModel
 
+@section styles{ 
 
+<style>
+    .category-link.active, .brand-link.active {
+        color: var(--danger);
+    }
+</style>
+}
 
 
 
@@ -13,12 +21,30 @@
             <div class="col-lg-9 order-lg-2 mb-100">
                 <div class="ltn__shop-options">
                     <ul>
+
+
                         <li>
                             <div class="showing-product-number text-right">
                                 <span>Showing 12 of  <span id="totalProducts"></span> results</span>
                             </div>
                         </li>
 
+                        <li>
+                            <div class="short-by text-center">
+                                <select class="nice-select">
+                                    <option>Default sorting</option>
+ 
+                                    <option>Sort by price: low to high</option>
+                                    <option>Sort by price: high to low</option>
+                                </select>
+                            </div>
+                            <div class="ltn__grid-list-tab-menu ">
+                                <div class="nav">
+                                    <a class="active show" data-toggle="tab" href="#liton_product_grid"><i class="icon-grid"></i></a>
+                                    <a data-toggle="tab" href="#liton_product_list"><i class="icon-menu"></i></a>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -28,164 +54,13 @@
                             </section>
                         </section>
                     </section>
+
+
+
                     <div class="tab-pane fade" id="liton_product_list">
                         <div class="ltn__product-tab-content-inner ltn__product-list-view">
-                            <div class="row">
-                                <!-- ltn__product-item -->
-                                <div class="col-lg-12">
-                                    <div class="ltn__product-item">
-                                        <div class="product-img">
-                                            <a href="product-details.html"><img src="img/product/2.png" alt="#"></a>
-                                            <div class="product-badge">
-                                                <ul>
-                                                    <li class="badge-1">Hot</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h2 class="product-title"><a href="product-details.html">Red Rose Bouquet</a></h2>
-                                            <div class="product-price">
-                                                <span>$16</span>
-                                            </div>
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-brief">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae asperiores sit odit nesciunt,  aliquid, deleniti non et ut dolorem!</p>
-                                            </div>
-                                            <div class="product-hover-action product-hover-action-2">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-magnifier"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="add-to-cart">
-                                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
-                                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ltn__product-item -->
-                                <div class="col-lg-12">
-                                    <div class="ltn__product-item">
-                                        <div class="product-img">
-                                            <a href="product-details.html"><img src="img/product/1.png" alt="#"></a>
-                                            <div class="product-badge">
-                                                <ul>
-                                                    <li class="badge-2">12%</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h2 class="product-title"><a href="product-details.html">Red Rose Bouquet</a></h2>
-                                            <div class="product-price">
-                                                <span>$16</span>
-                                                <del>$19</del>
-                                            </div>
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-brief">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae asperiores sit odit nesciunt,  aliquid, deleniti non et ut dolorem!</p>
-                                            </div>
-                                            <div class="product-hover-action product-hover-action-2">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-magnifier"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="add-to-cart">
-                                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
-                                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ltn__product-item -->
-                                <div class="col-lg-12">
-                                    <div class="ltn__product-item">
-                                        <div class="product-img">
-                                            <a href="product-details.html"><img src="img/product/4.png" alt="#"></a>
-                                            <div class="product-badge">
-                                                <ul>
-                                                    <li class="badge-1">Hot</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h2 class="product-title"><a href="product-details.html">Red Rose Bouquet</a></h2>
-                                            <div class="product-price">
-                                                <span>$16</span>
-                                            </div>
-                                            <div class="product-ratting">
-                                                <ul>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    <li><a href="#"><i class="icon-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="product-brief">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae asperiores sit odit nesciunt,  aliquid, deleniti non et ut dolorem!</p>
-                                            </div>
-                                            <div class="product-hover-action product-hover-action-2">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-magnifier"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="add-to-cart">
-                                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
-                                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
-                                                            <i class="icon-shuffle"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--  -->
+                            <div class="row" id="product-full-grid-item">
+                              
                             </div>
                         </div>
                     </div>
@@ -206,10 +81,16 @@
                         </form>
                     </div>
 
+
+                    <div class="widget ltn__price-filter-widget">
+                        <h4 class="ltn__widget-title">@localization["Pirce"]</h4>
+                        <div></div>
+                    </div>
+
                     <nav class="widget ltn__menu-widget">
                         <h4 class="ltn__widget-title">categories</h4>
                         <ul>
-                            <li> <a href="#" class="category-link"> All </a></li>
+                            <li> <a href="#" class="category-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.CategoryViewModels)
                             {
                                 <li> <a href="#" class="category-link" data-id="@item.ID">@item.NameEnglish </a></li>
@@ -221,7 +102,7 @@
                     <nav class="widget ltn__menu-widget">
                         <h4 class="ltn__widget-title">Brands</h4>
                         <ul>
-                            <li> <a href="#" class="brand-link"> All </a></li>
+                            <li> <a href="#" class="brand-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.BrandViewModel)
                             {
                                 <li> <a href="#" class="brand-link" data-id="@item.ID">@item.EnglishName</a> </li>
@@ -279,10 +160,11 @@
                 },
                 callback: function (response, pagination) {
                     $("#product-grid").html("");
-
+                    $("#product-full-grid-item").html("");
                     for (var item of response) {
                         console.log(item);
                         $("#product-grid").append(BuildCard(item));
+                        $("#product-full-grid-item").append(BuildBigCard(item));
                     }
                 }
             });
@@ -339,6 +221,49 @@
                                         </div>
                                     </section>
         `
+        }
+
+
+        function BuildBigCard(currentItem) {
+
+            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+           return `
+                         <div class="col-lg-12">
+                                    <div class="ltn__product-item">
+                                        <div class="product-img">
+                                            <a href="/Product/CurrentProduct/${currentItem.productID}"><img src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
+                                            <div class="product-badge">
+                                                <ul>
+                                                    <li class="badge-1">Hot</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
+                                            <div class="product-price">
+                                                <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
+                                            </div>
+                                         
+                                            <div class="product-brief">
+                                                       testing
+                                            </div>
+                                            <div class="product-hover-action product-hover-action-2">
+                                                <ul>
+                                                  
+                                                    <li class="add-to-cart">
+                                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
+                                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
+                                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                        </a>
+                                                    </li>
+                                                   
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+            `
         }
     </script>
 
