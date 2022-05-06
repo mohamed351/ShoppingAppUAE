@@ -20,5 +20,7 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
     {
         [JsonProperty("items")]
         public Item[] Items { get; set; }
+        [JsonProperty("currencyCode")]
+        public string CurrencyCode { get; set; }
     }
 }

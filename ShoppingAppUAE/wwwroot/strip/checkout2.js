@@ -3,6 +3,7 @@
 
 const currentCart = localStorage.getItem("cart");
 const items = [];
+const currencyCode = $("#currency-app").val().toLowerCase()
 if (currentCart) {
     let cartArray = JSON.parse(currentCart);
     for (let item of cartArray) {
@@ -48,7 +49,7 @@ async function initialize() {
     const response = await fetch("/Checkout/Create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, currencyCode = currencyCode}),
     });
     const { clientSecret } = await response.json();
 
@@ -67,25 +68,35 @@ async function handleSubmit(e) {
     console.log("testing");
     setLoading(true);
     
+    $.ajax({
+        url: "/Checkout/SubmitCheckout",
+        method: "POST",
+        data: {},
+        success: function (result) {
 
-    const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-            // Make sure to change this to your payment completion page
-            return_url: "https://localhost:44339/Checkout/PaymentCompleted",
-        },
-    });
 
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
-        showMessage(error.message);
-    } else {
-        showMessage("An unexpected error occured.");
-    }
+
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    // Make sure to change this to your payment completion page
+                    return_url: "https://localhost:44339/Checkout/PaymentCompleted",
+                },
+            });
+
+            // This point will only be reached if there is an immediate error when
+            // confirming the payment. Otherwise, your customer will be redirected to
+            // your `return_url`. For some payment methods like iDEAL, your customer will
+            // be redirected to an intermediate site first to authorize the payment, then
+            // redirected to the `return_url`.
+            if (error.type === "card_error" || error.type === "validation_error") {
+                showMessage(error.message);
+            } else {
+                showMessage("An unexpected error occured.");
+            }
+        }
+    })
+   
 
     setLoading(false);
 }

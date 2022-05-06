@@ -39,6 +39,11 @@ namespace ShoppingAppUAE.Data
         public DbSet<Currency> Currencies { get; set; }
 
 
+        public DbSet<Order> orders { get; set; }
+
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+
+
         public DbSet<SEOData> SEODatas { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

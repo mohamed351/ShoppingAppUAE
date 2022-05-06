@@ -513,6 +513,101 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("Currencies");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Order", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrencyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeIssued")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderGUID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReferenceID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShippingAndDeliveryShippingID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalShippingFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("OrderID");
+
+                    b.HasIndex("ShippingAndDeliveryShippingID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.OrderDetails", b =>
+                {
+                    b.Property<int>("OrderDetailsID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CurrencyCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderDetailsID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
                     b.Property<int>("ProductID")
@@ -748,6 +843,42 @@ namespace ShoppingAppUAE.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Order", b =>
+                {
+                    b.HasOne("ShoppingAppUAE.Data.ShippingAndDelivery", "ShippingAndDelivery")
+                        .WithMany()
+                        .HasForeignKey("ShippingAndDeliveryShippingID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShoppingAppUAE.Data.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("ShippingAndDelivery");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.OrderDetails", b =>
+                {
+                    b.HasOne("ShoppingAppUAE.Data.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShoppingAppUAE.Data.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
                     b.HasOne("ShoppingAppUAE.Data.Brand", "Brand")
@@ -789,6 +920,11 @@ namespace ShoppingAppUAE.Migrations
             modelBuilder.Entity("ShoppingAppUAE.Data.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>

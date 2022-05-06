@@ -35,9 +35,57 @@ namespace ShoppingAppUAE.Controllers
             return View(viewModel);
         }
         [HttpPost]
-        public IActionResult SubmitCheckout()
+        public IActionResult SubmitCheckout([FromBody]PaymentCompletedViewModel paymentCompletedView)
         {
-            return View();
+
+           var currency = context.Currencies.Find(paymentCompletedView.CurrenyCode);
+            if (ModelState.IsValid)
+            {
+
+
+                var order = new Data.Order()
+                {
+                    TotalShippingFees = paymentCompletedView.ShipmentFees,
+                    Address = paymentCompletedView.Address,
+                    UserID = User.GetUserId(),
+                    City = paymentCompletedView.City,
+                    CurrencyCode = paymentCompletedView.CurrenyCode,
+                    DateTimeIssued = DateTime.Now,
+                    FirstName = paymentCompletedView.FirstName,
+                    LastName = paymentCompletedView.LastName,
+                    ExchangeRate = currency.ExchangeRate,
+                    Note = paymentCompletedView.OrderNote,
+                    OrderGUID = Guid.NewGuid().ToString(),
+                    ReferenceID = "",
+                    ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
+                    Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
+                    OrderDetails = new List<OrderDetails>()
+                };
+                foreach (var item in paymentCompletedView.PaymentCarts)
+                {
+                    var orderDetail = new OrderDetails()
+                    {
+                        CurrencyCode = paymentCompletedView.CurrenyCode,
+                        ExchangeRate = currency.ExchangeRate,
+                        Price = item.Price * currency.ExchangeRate,
+                        ProductID = item.ProductId,
+                        Quantity = item.Quantity,
+                        Total = (item.Quantity * item.Price) * currency.ExchangeRate,
+
+                    };
+                    order.OrderDetails.Add(orderDetail);
+
+
+                }
+
+
+
+                context.orders.Add(order);
+               
+                return Json("SUCCESS");
+            }
+            return Json("DATA_NOT_COMPLETED");
+
         }
 
         

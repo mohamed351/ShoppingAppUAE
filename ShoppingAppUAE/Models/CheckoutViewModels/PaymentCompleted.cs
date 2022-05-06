@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingAppUAE.Models.CheckoutViewModels
 {
-    public class PaymentCompleted
+    public class PaymentCompletedViewModel
     {
 
-        public string userId { get; set; }
 
         public string FirstName { get; set; }
 
@@ -21,6 +20,10 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
         public string OrderNote { get; set; }
 
         public string CurrenyCode { get; set; }
+
+        public int ShipmentID { get; set; }
+
+        public decimal ShipmentFees { get; set; }
 
         public List<PaymentCart> PaymentCarts { get; set; }
     }

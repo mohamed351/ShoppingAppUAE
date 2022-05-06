@@ -8,34 +8,37 @@ namespace ShoppingAppUAE.Data
 {
     public class Order
     {
-
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetails>();
+        }
         public int OrderID { get; set; }
-
+        [ForeignKey(nameof(ApplicationUser))]
         public string UserID { get; set; }
-        [ForeignKey(nameof(Product))]
-        public int ProductID { get; set; }
-
-        public Product Product { get; set; }
+      
+        public ApplicationUser ApplicationUser { get; set; }
+        public string OrderGUID { get; set; }
 
 
         public DateTime DateTimeIssued { get; set; }
 
+        public string FirstName { get; set; }
 
+        public string LastName { get; set; }
+
+        public string Note { get; set; }
+
+        public string Address { get; set; }
+
+        public string City { get; set; }
         public string ReferenceID { get; set; }
 
         public string CurrencyCode { get; set; }
 
         public decimal ExchangeRate { get; set; }
-        public string TaxUUID { get; set; }
 
-        public string TaxSubmissionID { get; set; }
-        public decimal SalesTotal { get; set; }
-        public decimal TotalDiscount { get; set; }
+        public decimal TotalShippingFees { get; set; }
 
-        public decimal TaxTotal { get; set; }
-        public decimal TotalNet { get; set; }
-
-      
 
         public decimal Total { get; set; }
 
@@ -43,6 +46,9 @@ namespace ShoppingAppUAE.Data
         public int ShippingAndDeliveryShippingID { get; set; }
        
         public ShippingAndDelivery ShippingAndDelivery { get; set; }
+
+
+        public ICollection<OrderDetails> OrderDetails { get; set; }
 
     }
 
