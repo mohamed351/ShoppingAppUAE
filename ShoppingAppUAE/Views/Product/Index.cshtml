@@ -1,20 +1,38 @@
 ﻿@inject IViewLocalizer localization
 @model ShoppingAppUAE.Models.ProductViewModel
 
-@section styles{ 
+@section styles{
+    <link href="~/template-user/all/loading.css" rel="stylesheet" />
+    <style>
+        .category-link.active, .brand-link.active {
+            color: var(--danger);
+        }
 
-<style>
-    .category-link.active, .brand-link.active {
-        color: var(--danger);
-    }
-</style>
+        .loading-bar {
+            background: rgba(200, 200, 200, 0.75);
+            color: #fff;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 999999;
+            top: 0%;
+            left: 0%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 }
 
 
 
 <div class="ltn__utilize-overlay"></div>
 
-
+<div class="loading-bar">
+    <div style="display:inline-block" class="loadingio-spinner-spinner-g5gku4jwumr">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
 <div class="ltn__product-area ">
     <div class="container">
         <div class="row">
@@ -25,17 +43,17 @@
 
                         <li>
                             <div class="showing-product-number text-right">
-                                <span>Showing 12 of  <span id="totalProducts"></span> results</span>
+                                <span>@localization["Showing"] 12 -  <span id="totalProducts"></span> @localization["results"]</span>
                             </div>
                         </li>
 
                         <li>
                             <div class="short-by text-center">
                                 <select class="nice-select">
-                                    <option>Default sorting</option>
- 
-                                    <option>Sort by price: low to high</option>
-                                    <option>Sort by price: high to low</option>
+                                    <option>@localization["DefaultSort"]</option>
+
+                                    <option value="0">@localization["SortBy"] @localization["hightolowPirce"] </option>
+                                    <option value="1">@localization["SortBy"] @localization["lowtohighPirce"] </option>
                                 </select>
                             </div>
                             <div class="ltn__grid-list-tab-menu ">
@@ -50,6 +68,7 @@
                 <div class="tab-content">
                     <section class="tab-pane fade active show" id="liton_product_grid">
                         <section class="ltn__product-tab-content-inner ltn__product-grid-view">
+
                             <section class="row" id="product-grid">
                             </section>
                         </section>
@@ -59,8 +78,9 @@
 
                     <div class="tab-pane fade" id="liton_product_list">
                         <div class="ltn__product-tab-content-inner ltn__product-list-view">
+
                             <div class="row" id="product-full-grid-item">
-                              
+
                             </div>
                         </div>
                     </div>
@@ -76,7 +96,7 @@
                     <!-- Search Widget -->
                     <div class="widget ltn__search-widget">
                         <form id="searchForm">
-                            <input type="text" id="txtSearch" name="search" placeholder="Search your keyword...">
+                            <input type="text" id="txtSearch" name="search" placeholder="@localization["SearchKeyWord"]">
                             <button type="submit"><i class="icon-magnifier"></i></button>
                         </form>
                     </div>
@@ -88,24 +108,51 @@
                     </div>
 
                     <nav class="widget ltn__menu-widget">
-                        <h4 class="ltn__widget-title">categories</h4>
+                        <h4 class="ltn__widget-title">@localization["Categories"]</h4>
                         <ul>
                             <li> <a href="#" class="category-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.CategoryViewModels)
                             {
-                                <li> <a href="#" class="category-link" data-id="@item.ID">@item.NameEnglish </a></li>
+                                <li>
+                                    <a href="#" class="category-link" data-id="@item.ID">
+                                        @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                        {
+
+                                            @item.NameArabic
+                                        }
+                                        else
+                                        {
+
+                                            @item.NameEnglish
+                                        }
+
+                                    </a>
+                                </li>
                             }
 
                         </ul>
                     </nav>
 
                     <nav class="widget ltn__menu-widget">
-                        <h4 class="ltn__widget-title">Brands</h4>
+                        <h4 class="ltn__widget-title">@localization["Brands"]</h4>
                         <ul>
                             <li> <a href="#" class="brand-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.BrandViewModel)
                             {
-                                <li> <a href="#" class="brand-link" data-id="@item.ID">@item.EnglishName</a> </li>
+                                <li>
+                                    <a href="#" class="brand-link" data-id="@item.ID">
+
+                                        @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                        {
+                                            @item.ArabicName
+                                        }
+                                        else
+                                        {
+
+                                            @item.EnglishName
+                                        }
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </nav>
@@ -137,6 +184,13 @@
 @section scripts{
     <script src="~/lib/pagination.min.js"></script>
     <script>
+
+        $(document).ajaxStart(function () {
+            $(".loading-bar ").css("display", "flex");
+        });
+        $(document).ajaxStop(function () {
+            $(".loading-bar ").css("display", "none");
+        });
         var searchObject = { brandId: null, categoryId: null, search: "" };
         $(document).ready(function () {
             createPaging();
@@ -166,6 +220,13 @@
                         $("#product-grid").append(BuildCard(item));
                         $("#product-full-grid-item").append(BuildBigCard(item));
                     }
+                },
+                beforeInit: function () {
+                  
+                 
+                },
+                afterRender: function () {
+
                 }
             });
         }
@@ -191,79 +252,79 @@
         });
 
         function BuildCard(currentItem) {
-            
+
             let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
 
             return ` <section class="col-xl-4 col-sm-6 col-12">
-                                        <div class="ltn__product-item text-center">
-                                            <div class="product-img">
-                                                <a href="/Product/CurrentProduct/${currentItem.productID}"><img src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
+                                                <div class="ltn__product-item text-center">
+                                                    <div class="product-img">
+                                                        <a href="/Product/CurrentProduct/${currentItem.productID}"><img src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
 
-                                                <div class="product-hover-action product-hover-action-2">
-                                                    <ul>
+                                                        <div class="product-hover-action product-hover-action-2">
+                                                            <ul>
 
-                                                        <li class="add-to-cart">
-                                                            <a href="#" title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
-                                                                <span class="cart-text d-none d-xl-block "  >Add to Cart</span>
-                                                                <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                            </a>
-                                                        </li>
+                                                                <li class="add-to-cart">
+                                                                    <a href="#" title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
+                                                                        <span class="cart-text d-none d-xl-block "  >Add to Cart</span>
+                                                                        <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                                    </a>
+                                                                </li>
 
-                                                    </ul>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-info">
+                                                        <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
+                                                        <div class="product-price">
+                                                            <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="product-info">
-                                                <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
-                                                <div class="product-price">
-                                                    <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-        `
+                                            </section>
+                `
         }
 
 
         function BuildBigCard(currentItem) {
 
             let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
-           return `
-                         <div class="col-lg-12">
-                                    <div class="ltn__product-item">
-                                        <div class="product-img">
-                                            <a href="/Product/CurrentProduct/${currentItem.productID}"><img src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
-                                            <div class="product-badge">
-                                                <ul>
-                                                    <li class="badge-1">Hot</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
-                                            <div class="product-price">
-                                                <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
-                                            </div>
-                                         
-                                            <div class="product-brief">
-                                                       testing
-                                            </div>
-                                            <div class="product-hover-action product-hover-action-2">
-                                                <ul>
-                                                  
-                                                    <li class="add-to-cart">
-                                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
-                                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                        </a>
-                                                    </li>
-                                                   
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            return `
+                                 <div class="col-lg-12">
+                                            <div class="ltn__product-item">
+                                                <div class="product-img">
+                                                    <a href="/Product/CurrentProduct/${currentItem.productID}"><img src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
+                                                    <div class="product-badge">
+                                                        <ul>
+                                                            <li class="badge-1">Hot</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product-info">
+                                                    <h2 class="product-title"><a href="/Product/CurrentProduct/${currentItem.productID}">${currentItem.productNameEnglish}</a></h2>
+                                                    <div class="product-price">
+                                                        <span>${(currentItem.purchasingPrice * (processExchnageRate))} ${$("#currency-app").val()}</span>
+                                                    </div>
 
-            `
+                                                    <div class="product-brief">
+                                                               testing
+                                                    </div>
+                                                    <div class="product-hover-action product-hover-action-2">
+                                                        <ul>
+
+                                                            <li class="add-to-cart">
+                                                                <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
+                                                                    <span class="cart-text d-none d-xl-block">Add to Cart</span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                    `
         }
     </script>
 

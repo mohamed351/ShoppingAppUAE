@@ -8,6 +8,7 @@
 
     <link href="~/js/jquery-ui/jqueryui/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
+  
     <style>
         .select2-selection__choice {
             color: #333 !important;
@@ -20,12 +21,14 @@
 
 }
 
-<form asp-action="Create" asp-controller="Categories" method="post">
+<form asp-action="Edit" asp-controller="Categories" method="post">
 
+    <input type="hidden" asp-for="CategoryID" />
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-body">
             <div class="d-flex mb-2 justify-content-end">
-                <button type="submit" class="btn btn-success">Add Category</button>
+                <button type="submit" class="btn btn-success">Edit Category</button>
             </div>
 
             <div id="tabs">
@@ -109,8 +112,8 @@
     <script src="~/lib/tinymce/jquery.tinymce.min.js"></script>
     <script src="~/lib/select2/js/select2.full.min.js"></script>
     <script>
-        $(function() {
-            
+        $(function () {
+
 
             $("form").on("submit", function () {
                 $("#SEOArabicKeyWords").val($("#SEOArabicKeyWordsselect").val().join(","));
@@ -122,7 +125,7 @@
                 tags: true,
                 multiple: true,
                 width: 'resolve',
-                 tokenSeparators: [',', ' '],
+                tokenSeparators: [',', ' '],
             });
             $("#SEOArabicKeyWordsselect").select2({
                 tags: true,

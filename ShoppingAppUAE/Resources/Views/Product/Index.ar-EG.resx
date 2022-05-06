@@ -135,8 +135,11 @@
   <data name="lowtohighPirce" xml:space="preserve">
     <value>من السعر الأقل الي الأعلي</value>
   </data>
-  <data name="Price" xml:space="preserve">
+  <data name="Pirce" xml:space="preserve">
     <value>السعر</value>
+  </data>
+  <data name="results" xml:space="preserve">
+    <value>منتج</value>
   </data>
   <data name="SearchKeyWord" xml:space="preserve">
     <value>البحث عن كلمة او حرف</value>
