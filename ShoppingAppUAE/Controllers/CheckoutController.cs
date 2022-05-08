@@ -102,19 +102,43 @@ namespace ShoppingAppUAE.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]PaymentIntentCreateRequest request)
         {
-            
-
+            var currency = context.Currencies.Find(request.CurrencyCode);
+            var userID = User.GetUserId();
+            var currentUser = context.Users.Find(userID);
             var paymentIntentService = new PaymentIntentService();
-           var currency = context.Currencies.Find(request.CurrencyCode);
+            var customerService = new CustomerService();
+
+            Customer  userStripe = CreateUser(currentUser, customerService);
+
+            if (userStripe == null)
+            {
+
+            }
+
+
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
             {
-               
-                Amount = CalculateOrderAmount(request.Items,currency.ExchangeRate,request.ShippingFees),
+
+                Amount = CalculateOrderAmount(request.Items, currency.ExchangeRate, request.ShippingFees),
                 Currency = request.CurrencyCode.ToLower(),
                 //Shipping = new ChargeShippingOptions()
                 //{
                 //    TrackingNumber
                 //},
+                Customer = userStripe.Id,
+                Shipping = new ChargeShippingOptions()
+                {
+                    Name = currentUser.FirstName,
+                    Phone = currentUser.PhoneNumber,
+                    Address = new AddressOptions()
+                    {
+                        City = currentUser.City,
+                        Country = currentUser.CountryCode,
+                        Line1 = currentUser.Address,
+                        State = currentUser.City
+                    },
+
+                },
                 AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
                 {
                     Enabled = true,
@@ -122,8 +146,67 @@ namespace ShoppingAppUAE.Controllers
             });
 
             return Json(new { clientSecret = paymentIntent.ClientSecret });
-        
+
         }
+
+        private static Customer CreateUser(ApplicationUser currentUser, CustomerService customerService)
+        {
+            
+            var userStripe = customerService.Search(new CustomerSearchOptions
+            {
+                Query = "name:'" + currentUser.FirstName + ",+" + currentUser.LastName + "+'",
+            });
+
+            if (userStripe.Count() != 0)
+            {
+                var customer = userStripe.FirstOrDefault(a => a.Email == currentUser.Email);
+
+                if (customer == null)
+                {
+                  return   customerService.Create(new CustomerCreateOptions()
+                    {
+                        Address = new AddressOptions()
+                        {
+                            City = currentUser.City,
+                            Country = currentUser.CountryCode,
+                            Line1 = currentUser.Address,
+                            State = currentUser.City
+                        },
+                        Email = currentUser.Email,
+                        Phone = currentUser.PhonePrefix + " " + currentUser.PhoneNumber,
+                        Name = currentUser.FirstName + "," + currentUser.LastName,
+
+
+                    });
+                }
+                else
+                {
+                    return customer;
+                }
+            }
+            else
+            {
+              return  customerService.Create(new CustomerCreateOptions()
+                {
+                    Address = new AddressOptions()
+                    {
+                        City = currentUser.City,
+                        Country = currentUser.CountryCode,
+                        Line1 = currentUser.Address,
+                        State = currentUser.City
+                    },
+                    Email = currentUser.Email,
+                    Phone = currentUser.PhonePrefix + " " + currentUser.PhoneNumber,
+                    Name = currentUser.FirstName + "," + currentUser.LastName,
+
+
+                });
+
+            }
+
+          
+        }
+
         [HttpGet]
         public IActionResult PaymentCompleted([FromQuery]string payment_intent ,[FromQuery]string payment_intent_client_secret,[FromQuery] string redirect_status, [FromQuery]string type, [FromQuery] string id)
         {
