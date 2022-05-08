@@ -5,25 +5,26 @@
 
 @section styles{
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="~/strip/checkout2.js" defer></script>
 
-<style>
-    .qtybutton{
-        cursor:pointer;
-    }
-    .shipping-cart-item{
-        list-style:none;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        padding-left:0px;
 
-    }
-    .card-shipping{
-        border:1px solid #eee;
-        padding:10px;
-    }
-</style>
+    <style>
+        .qtybutton {
+            cursor: pointer;
+        }
+
+        .shipping-cart-item {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 0px;
+        }
+
+        .card-shipping {
+            border: 1px solid #eee;
+            padding: 10px;
+        }
+    </style>
 
 
 }
@@ -123,36 +124,36 @@
                 </div>
 
 
-              
-                        <div class="col-lg-12">
-                            <h2>Shipping</h2>
-                            @foreach (var item in Model.ShippingDetails)
-                            {
-                                <ul>
-                                    <li class="shipping-cart-item card-shipping">
-                                        <input type="radio" class="shipping-cart-item-radio "
-                                               name="shippingPirce" data-id="@item.ID"
-                                               data-price="@item.ShippingPrice"
-                                               data-weight-limit="@item.FirstWeightLimit"
-                                               data-price-afterExisting="@item.PriceAfterExcedingTheLimit"
-                                               data-weight-afterExisting="@item.AdditionalKgAfterExcedingTheLimit"
-                                               data-isDefault="@item.IsDefault" />  <span>@item.ShippingCompany</span>
-                                        </li>
-                                    </ul>
-                                }
 
-                        </div>
-                 
+                <div class="col-lg-12">
+                    <h2>Shipping</h2>
+                    @foreach (var item in Model.ShippingDetails)
+                    {
+                        <ul>
+                            <li class="shipping-cart-item card-shipping">
+                                <input type="radio" class="shipping-cart-item-radio "
+                                       name="shippingPirce" data-id="@item.ID"
+                                       data-price="@item.ShippingPrice"
+                                       data-weight-limit="@item.FirstWeightLimit"
+                                       data-price-afterExisting="@item.PriceAfterExcedingTheLimit"
+                                       data-weight-afterExisting="@item.AdditionalKgAfterExcedingTheLimit"
+                                       data-isDefault="@item.IsDefault" />  <span>@item.ShippingCompany</span>
+                                </li>
+                            </ul>
+                        }
+
+                </div>
+
                 <div class="col-lg-6">
                     <div class="ltn__checkout-payment-method mt-50">
                         <h4 class="title-2">Payment Method</h4>
                         <div id="checkout_accordion_1">
 
                             <div class="card">
-                                <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
+                                <h5 class="ltn__card-title"  data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
                                     Cash on delivery
                                 </h5>
-                                <div id="faq-item-2-2" class="collapse show" data-parent="#checkout_accordion_1">
+                                <div id="faq-item-2-2" data-id="0" class="collapse show" data-parent="#checkout_accordion_1">
                                     <div class="card-body">
                                         <p>Pay with cash upon delivery.</p>
                                     </div>
@@ -160,10 +161,10 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h5 class="collapsed ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
+                                <h5 class="collapsed ltn__card-title"  data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
                                     Card Debit /Credit
                                 </h5>
-                                <div id="faq-item-2-3" class="collapse" data-parent="#checkout_accordion_1">
+                                <div id="faq-item-2-3" data-id="1" class="collapse" data-parent="#checkout_accordion_1">
                                     <div class="card-body" id="payment-element">
 
                                     </div>
@@ -179,14 +180,14 @@
 
 
 
-              
 
-                            <div class="col-lg-6">
-                                <div class="shoping-cart-total mt-50">
-                                    <h4 class="title-2">Cart Totals</h4>
-                                    <table class="table">
-                                        <tbody id="payment-details">
-                                            @*<tr>
+
+                <div class="col-lg-6">
+                    <div class="shoping-cart-total mt-50">
+                        <h4 class="title-2">Cart Totals</h4>
+                        <table class="table">
+                            <tbody id="payment-details">
+                                @*<tr>
                                         <td>Brake Conversion Kit <strong>× 2</strong></td>
                                         <td>$298.00</td>
                                     </tr>
@@ -211,29 +212,28 @@
                                         <td><strong>$633.00</strong></td>
                                     </tr>*@
 
-                                          
-                                        </tbody>
-                                    </table>
 
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    Shipping
-                                                </td>
-                                                <td id="shippingPirce">
+                            </tbody>
+                        </table>
 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Shipping
+                                    </td>
+                                    <td id="shippingPirce">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            
-           
+            </div>
+        </div>
+    </div>
+
+
 </form>
 
 @*@section styles{
@@ -261,6 +261,8 @@
 </form>
 
 @section scripts{
+
+    
     <script>
 
         function CalculateShipping() {
@@ -275,10 +277,10 @@
             let shippingCost = 0;
             if (totalWeight > firstWeightCost) {
                 const remaingKgs = totalWeight - firstWeightCost;
-             
 
-                shippingCost= (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
-                $("#shippingPirce").text(shippingCost+ $("#currency-app").val());
+
+                shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
+                $("#shippingPirce").text(shippingCost + $("#currency-app").val());
             }
             else {
                 shippingCost = (firstCostLimitInWeight * processExchnageRate);
@@ -314,23 +316,28 @@
         }
 
 
-        
         $(document).ready(function () {
 
-          
-        
-        if (!getShipping()) {
-            $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
-        }
-        else {
 
-            $(".shipping-cart-item-radio[data-id='" + getShipping() + "']").attr("checked", "checked");
-        }
-        CalculateShipping();
-            $("#checkout_accordion_1").on("shown.bs.collapse", function () {
-                initialize();
+
+            if (!getShipping()) {
+                $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
+            }
+            else {
+
+                $(".shipping-cart-item-radio[data-id='" + getShipping() + "']").attr("checked", "checked");
+            }
+            CalculateShipping();
+            
+            $("#checkout_accordion_1").on("shown.bs.collapse", function (e) {
+                alert($("#checkout_accordion_1 .show").attr("data-id"));
+                if ($("#checkout_accordion_1 .show").attr("data-id") == 1) {
+                    initialize();
+                }
             });
         });
     </script>
+
+    <script src="~/strip/checkout2.js" defer></script>
 
 }

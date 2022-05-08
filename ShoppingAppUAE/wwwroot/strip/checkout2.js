@@ -1,9 +1,12 @@
 ﻿const stripe = Stripe("pk_test_51KidVZLdvjUTqFPT98xoNOoadXuLcfN5zm5LXxx0iOr4TKs7ILpObTpAcwGniE5cTCJaCHNaU2fMmGvjhHKN3HoE00by7OVcII");
 // get from localstorage
-
+$("#currency-app").val(getCookie("currency"));
+$("#currency-app").niceSelect("update");
 const currentCart = localStorage.getItem("cart");
 const items = [];
-const currencyCode = $("#currency-app").val().toLowerCase()
+
+
+ currencyCode = $("#currency-app").val().toLowerCase()
 if (currentCart) {
     let cartArray = JSON.parse(currentCart);
     for (let item of cartArray) {
@@ -49,7 +52,7 @@ async function initialize() {
     const response = await fetch("/Checkout/Create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, currencyCode = currencyCode}),
+        body: JSON.stringify({ items, currencyCode:currencyCode}),
     });
     const { clientSecret } = await response.json();
 
@@ -65,37 +68,76 @@ async function initialize() {
 
 async function handleSubmit(e) {
     e.preventDefault();
-    console.log("testing");
+   
     setLoading(true);
-    
-    $.ajax({
-        url: "/Checkout/SubmitCheckout",
-        method: "POST",
-        data: {},
-        success: function (result) {
-
-
-
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    // Make sure to change this to your payment completion page
-                    return_url: "https://localhost:44339/Checkout/PaymentCompleted",
-                },
-            });
-
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Otherwise, your customer will be redirected to
-            // your `return_url`. For some payment methods like iDEAL, your customer will
-            // be redirected to an intermediate site first to authorize the payment, then
-            // redirected to the `return_url`.
-            if (error.type === "card_error" || error.type === "validation_error") {
-                showMessage(error.message);
-            } else {
-                showMessage("An unexpected error occured.");
+    let userData = {
+        firstName: $("#ApplicationUser_FirstName").val(),
+        lastName: $("#ApplicationUser_LastName").val(),
+        address: $("#ApplicationUser_Address").val(),
+        city: $("#ApplicationUser_City").val(),
+        orderNote: $("#Note").val(),
+        currenyCode: currencyCode,
+        shipmentID: +$("[name='shippingPirce']:checked").attr("data-id"),
+        orderType: +$("#checkout_accordion_1 .show").attr("data-id"),
+        paymentCarts: items.map(a => {
+            return {
+                productId: a.id,
+                productName: a.productName,
+                price: a.price,
+                quantity: a.quantity
             }
-        }
-    })
+        })
+
+    };
+    if (userData.orderType == 1) {
+        console.log(elements);
+        alert("testing");
+        $.ajax({
+            url: "/Checkout/SubmitCheckout",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            type: "json",
+            success: function (result) {
+                let paymentData =  stripe.confirmPayment({
+                    elements,
+                    confirmParams: {
+                        // Make sure to change this to your payment completion page
+                        return_url: "https://localhost:44339/Checkout/PaymentCompleted?type=card&id="+result.id,
+                    },
+                }).then(a => {
+
+                    if (a.error.type === "card_error" || a.paymentData.type === "validation_error") {
+                        showMessage(error.message);
+                    } else {
+                        showMessage("An unexpected error occured.");
+                    }
+                })
+
+                console.log(paymentData);
+            }
+        })
+
+      
+    
+
+    }
+    else if (userData.orderType == 0) {
+
+        $.ajax({
+            url: "/Checkout/SubmitCheckout",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            type: "json",
+            success: function (result) {
+                window.location.href = window.location.origin + "/Checkout/PaymentCompleted";
+                console.log(result);
+            }
+        })
+    }
+
+ 
    
 
     setLoading(false);
@@ -158,18 +200,20 @@ function setLoading(isLoading) {
 }
 
 function drawCart(items) {
+    let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+    console.log(processExchnageRate);
     $("#payment-details").html("");
     totalPrice = 0;
     for (let item of items) {
         $("#payment-details").append(`
         <tr>
         <td> ${item.productName} <strong>x ${item.quantity} </strong> </td>
-        <td> ${item.price * item.quantity } </td>
+        <td> ${((item.price * item.quantity) * processExchnageRate)} ${$("#currency-app").val()} </td>
         </tr>
         `)
         totalPrice += item.price * item.quantity
 
     }
-    $("#payment-details").append("<tr> <td><strong>Order Total</strong> </td> <td> " + totalPrice+" </td> </tr>")
+    $("#payment-details").append("<tr> <td><strong>Order Total</strong> </td> <td> " + (totalPrice * processExchnageRate) + " " + $("#currency-app").val()+"  </td> </tr>")
    
 }

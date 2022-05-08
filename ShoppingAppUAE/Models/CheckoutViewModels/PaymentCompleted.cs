@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShoppingAppUAE.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
 
         public decimal ShipmentFees { get; set; }
 
+        public OrderType OrderType { get; set; }
         public List<PaymentCart> PaymentCarts { get; set; }
     }
 

@@ -37,6 +37,7 @@ namespace ShoppingAppUAE.Controllers
         [HttpPost]
         public IActionResult SubmitCheckout([FromBody]PaymentCompletedViewModel paymentCompletedView)
         {
+            string orderGUID = Guid.NewGuid().ToString();
 
            var currency = context.Currencies.Find(paymentCompletedView.CurrenyCode);
             if (ModelState.IsValid)
@@ -55,11 +56,12 @@ namespace ShoppingAppUAE.Controllers
                     LastName = paymentCompletedView.LastName,
                     ExchangeRate = currency.ExchangeRate,
                     Note = paymentCompletedView.OrderNote,
-                    OrderGUID = Guid.NewGuid().ToString(),
+                    OrderGUID = orderGUID,
                     ReferenceID = "",
                     ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
                     Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
-                    OrderDetails = new List<OrderDetails>()
+                    OrderDetails = new List<OrderDetails>(),
+                    OrderType = paymentCompletedView.OrderType
                 };
                 foreach (var item in paymentCompletedView.PaymentCarts)
                 {
@@ -81,11 +83,18 @@ namespace ShoppingAppUAE.Controllers
 
 
                 context.orders.Add(order);
+                context.SaveChanges();
                
-                return Json("SUCCESS");
+                return Json(new { status ="SUCCESS", id=orderGUID });
             }
             return Json("DATA_NOT_COMPLETED");
 
+        }
+        [HttpPost]
+        public IActionResult PaymentCompletedSripe()
+        {
+
+            return View();
         }
 
         
@@ -114,8 +123,17 @@ namespace ShoppingAppUAE.Controllers
         
         }
         [HttpGet]
-        public IActionResult PaymentCompleted()
+        public IActionResult PaymentCompleted([FromQuery]string payment_intent ,[FromQuery]string payment_intent_client_secret,[FromQuery] string redirect_status, [FromQuery]string type, [FromQuery] string id)
         {
+            if(type == "card")
+            {
+                var user = User.GetUserId();
+                var order = context.orders.FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
+                order.ReferenceID = payment_intent;
+                context.SaveChanges();
+                return View();
+
+            }
             return View();
         }
 

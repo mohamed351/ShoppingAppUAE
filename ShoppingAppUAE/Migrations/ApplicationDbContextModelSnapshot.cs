@@ -547,6 +547,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<string>("OrderGUID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("OrderType")
+                        .HasColumnType("int");
+
                     b.Property<string>("ReferenceID")
                         .HasColumnType("nvarchar(max)");
 

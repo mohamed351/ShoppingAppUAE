@@ -50,6 +50,14 @@ namespace ShoppingAppUAE.Data
 
         public ICollection<OrderDetails> OrderDetails { get; set; }
 
+        public OrderType OrderType { get; set; }
+
+    }
+
+    public enum OrderType
+    {
+        OnDelivery =0,
+        Card = 1
     }
 
   
