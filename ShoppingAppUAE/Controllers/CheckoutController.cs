@@ -107,13 +107,10 @@ namespace ShoppingAppUAE.Controllers
             var currentUser = context.Users.Find(userID);
             var paymentIntentService = new PaymentIntentService();
             var customerService = new CustomerService();
+            
 
-            Customer  userStripe = CreateUser(currentUser, customerService);
+              Customer  userStripe = CreateUser(currentUser, customerService);
 
-            if (userStripe == null)
-            {
-
-            }
 
 
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
@@ -135,8 +132,10 @@ namespace ShoppingAppUAE.Controllers
                         City = currentUser.City,
                         Country = currentUser.CountryCode,
                         Line1 = currentUser.Address,
-                        State = currentUser.City
+                        State = currentUser.City,
+                        
                     },
+                   
 
                 },
                 AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
@@ -151,10 +150,11 @@ namespace ShoppingAppUAE.Controllers
 
         private static Customer CreateUser(ApplicationUser currentUser, CustomerService customerService)
         {
+           
             
             var userStripe = customerService.Search(new CustomerSearchOptions
             {
-                Query = "name:'" + currentUser.FirstName + ",+" + currentUser.LastName + "+'",
+                Query = "email:'"+ currentUser.Email+ "'",
             });
 
             if (userStripe.Count() != 0)
