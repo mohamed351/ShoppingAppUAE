@@ -5,7 +5,7 @@
 
 @section styles{
     <script src="https://js.stripe.com/v3/"></script>
-
+    <link href="~/template-user/all/loading.css" rel="stylesheet" />
 
     <style>
         .qtybutton {
@@ -24,10 +24,30 @@
             border: 1px solid #eee;
             padding: 10px;
         }
+
+        .loading-bar {
+            background: rgba(200, 200, 200, 0.75);
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            z-index: 999999;
+            top: 0%;
+            left: 0%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 
 }
+
+<div style="display:none" class="loading-bar">
+    <div  class="loadingio-spinner-spinner-g5gku4jwumr">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
 
 <!-- BREADCRUMB AREA START -->
 <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
@@ -150,7 +170,7 @@
                         <div id="checkout_accordion_1">
 
                             <div class="card">
-                                <h5 class="ltn__card-title"  data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
+                                <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
                                     Cash on delivery
                                 </h5>
                                 <div id="faq-item-2-2" data-id="0" class="collapse show" data-parent="#checkout_accordion_1">
@@ -161,7 +181,7 @@
                             </div>
                             <!-- card -->
                             <div class="card">
-                                <h5 class="collapsed ltn__card-title"  data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
+                                <h5 class="collapsed ltn__card-title" data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
                                     Card Debit /Credit
                                 </h5>
                                 <div id="faq-item-2-3" data-id="1" class="collapse" data-parent="#checkout_accordion_1">
@@ -262,8 +282,10 @@
 
 @section scripts{
 
-    
+
     <script>
+
+       
 
         function CalculateShipping() {
             let $selector = $("input[type='radio']:checked")
@@ -280,11 +302,11 @@
 
 
                 shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
-                $("#shippingPirce").text(shippingCost + $("#currency-app").val());
+                $("#shippingPirce").text(shippingCost.toFixed(2) + $("#currency-app").val());
             }
             else {
                 shippingCost = (firstCostLimitInWeight * processExchnageRate);
-                $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate) + $("#currency-app").val());
+                $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate).toFixed(2) + $("#currency-app").val());
             }
             return shippingCost;
 
@@ -328,9 +350,9 @@
                 $(".shipping-cart-item-radio[data-id='" + getShipping() + "']").attr("checked", "checked");
             }
             CalculateShipping();
-            
+
             $("#checkout_accordion_1").on("shown.bs.collapse", function (e) {
-                alert($("#checkout_accordion_1 .show").attr("data-id"));
+                
                 if ($("#checkout_accordion_1 .show").attr("data-id") == 1) {
                     initialize();
                 }

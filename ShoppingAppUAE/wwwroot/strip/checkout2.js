@@ -52,7 +52,7 @@ async function initialize() {
     const response = await fetch("/Checkout/Create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, currencyCode:currencyCode}),
+        body: JSON.stringify({ items, currencyCode: currencyCode, shippingFees: (+CalculateShipping().toFixed(2))}),
     });
     const { clientSecret } = await response.json();
 
@@ -68,8 +68,10 @@ async function initialize() {
 
 async function handleSubmit(e) {
     e.preventDefault();
-   
+    $(".loading-bar ").css("display", "flex");
     setLoading(true);
+    document.querySelector("#submit").hidden = true;
+
     let userData = {
         firstName: $("#ApplicationUser_FirstName").val(),
         lastName: $("#ApplicationUser_LastName").val(),
@@ -90,8 +92,7 @@ async function handleSubmit(e) {
 
     };
     if (userData.orderType == 1) {
-        console.log(elements);
-        alert("testing");
+        setLoading(true);
         $.ajax({
             url: "/Checkout/SubmitCheckout",
             method: "POST",
@@ -99,6 +100,7 @@ async function handleSubmit(e) {
             data: JSON.stringify(userData),
             type: "json",
             success: function (result) {
+                $(".loading-bar ").css("display", "flex");
                 let paymentData =  stripe.confirmPayment({
                     elements,
                     confirmParams: {
@@ -106,14 +108,16 @@ async function handleSubmit(e) {
                         return_url: "https://localhost:44339/Checkout/PaymentCompleted?type=card&id="+result.id,
                     },
                 }).then(a => {
-
+                    document.querySelector("#submit").hidden = false;
                     if (a.error.type === "card_error" || a.paymentData.type === "validation_error") {
                         showMessage(error.message);
                     } else {
                         showMessage("An unexpected error occured.");
                     }
+                    setLoading(false);
+                    $(".loading-bar ").css("display", "none");
                 })
-
+               
                 console.log(paymentData);
             }
         })
@@ -140,7 +144,7 @@ async function handleSubmit(e) {
  
    
 
-    setLoading(false);
+ 
 }
 
 // Fetches the payment intent status after payment submission
@@ -190,10 +194,13 @@ function setLoading(isLoading) {
     if (isLoading) {
         // Disable the button and show a spinner
         document.querySelector("#submit").disabled = true;
+        $(".loading-bar ").css("display", "flex");
+
         //document.querySelector("#spinner").classList.remove("hidden");
         //document.querySelector("#button-text").classList.add("hidden");
     } else {
         document.querySelector("#submit").disabled = false;
+        $(".loading-bar ").css("display", "none");
         //document.querySelector("#spinner").classList.add("hidden");
         //document.querySelector("#button-text").classList.remove("hidden");
     }

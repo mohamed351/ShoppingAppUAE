@@ -105,10 +105,12 @@ namespace ShoppingAppUAE.Controllers
             
 
             var paymentIntentService = new PaymentIntentService();
+           var currency = context.Currencies.Find(request.CurrencyCode);
             var paymentIntent = paymentIntentService.Create(new PaymentIntentCreateOptions
             {
-                Amount = CalculateOrderAmount(request.Items),
-                Currency = "usd",
+               
+                Amount = CalculateOrderAmount(request.Items,currency.ExchangeRate,request.ShippingFees),
+                Currency = request.CurrencyCode.ToLower(),
                 //Shipping = new ChargeShippingOptions()
                 //{
                 //    TrackingNumber
@@ -137,12 +139,12 @@ namespace ShoppingAppUAE.Controllers
             return View();
         }
 
-        private long CalculateOrderAmount(Item[] items)
+        private long CalculateOrderAmount(Item[] items, decimal exchangeRate,decimal shippingFees)
         {
             decimal totalPrice = 0;
             foreach (var item in items)
             {
-                totalPrice += item.Price * item.Quantity;   
+                totalPrice += (item.Price * item.Quantity)* exchangeRate + shippingFees;   
             }
             return Convert.ToInt64(totalPrice * 100);
         }
