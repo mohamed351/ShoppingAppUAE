@@ -15,6 +15,8 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
 
         IBrandRepository Brands { get; }
 
+        public IOrderRepository Orders { get; }
+
         int Complete();
 
 
