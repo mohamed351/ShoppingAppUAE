@@ -202,8 +202,8 @@
     <script>
         $("#sider-price-range").slider({
             range: true,
-            max: +$("#maxPirce").val(),
-            values: [0, +$("#maxPirce").val()],
+            max: +$("#maxPirce").val().replace("٫","."),
+            values: [0, +$("#maxPirce").val().replace("٫", ".")],
             slide: function (event, ui) {
 
                 $("#pirceRange").html("$" + ui.values[0] + " - $" + ui.values[1]);
