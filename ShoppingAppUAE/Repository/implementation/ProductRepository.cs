@@ -35,6 +35,28 @@ namespace ShoppingAppUAE.Repository.implementation
             };
         }
 
+        public decimal GetMaxPurchasingPrice()
+        {
+            decimal maxPirce  = 0;
+            if (context.Products.Any())
+            {
+                maxPirce = context.Products.Max(a => a.PurchasingPrice);
+            }
+
+            return maxPirce;
+
+        }
+        public decimal GetMinPurchasingPrice()
+        {
+            decimal minPrice = 0;
+            if (context.Products.Any())
+            {
+                minPrice = context.Products.Min(a => a.PurchasingPrice);
+            }
+
+            return minPrice;
+        }
+
         
 
         public DataTableViewModel<Product> SeacrchProductSortPriceHighertoLower(int start, int lenght, Expression<Func<Product, bool>> search)

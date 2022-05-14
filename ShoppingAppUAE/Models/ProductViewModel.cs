@@ -11,6 +11,9 @@ namespace ShoppingAppUAE.Models
         public List<CategoryViewModel> CategoryViewModels { get; set; }
 
         public List<BrandViewModel> BrandViewModel { get; set; }
+        public decimal MaxValue { get; set; }
+
+        public decimal MinValue { get; set; }
     }
     public class CategoryViewModel
     {
@@ -18,6 +21,8 @@ namespace ShoppingAppUAE.Models
 
         public string NameArabic { get; set; }
         public string NameEnglish { get; set; }
+
+        
     }
 
     public class BrandViewModel

@@ -15,6 +15,8 @@ namespace ShoppingAppUAE.Repository.Interfaces
         public DataTableViewModel<Product> SeacrchProductSortPriceHighertoLower(int start, int lenght, Expression<Func<Product, bool>> search);
 
         public DataTableViewModel<Product> SeacrchProductSortPricelowerToHigher(int start, int lenght, Expression<Func<Product, bool>> search);
+        public decimal GetMaxPurchasingPrice();
+        public decimal GetMinPurchasingPrice();
 
     }
 }

@@ -21,6 +21,9 @@
             justify-content: center;
             align-items: center;
         }
+        #sider-price-range .ui-slider-range {
+            background-color: var(--ltn__secondary-color);
+        }
     </style>
 }
 
@@ -96,7 +99,7 @@
                     <!-- Search Widget -->
                     <div class="widget ltn__search-widget">
                         <form id="searchForm">
-                            <input type="text" id="txtSearch" name="search" placeholder="@localization["SearchKeyWord"]">
+                            <input type="text" id="txtSearch-grid" name="search" placeholder="@localization["SearchKeyWord"]">
                             <button type="submit"><i class="icon-magnifier"></i></button>
                         </form>
                     </div>
@@ -104,12 +107,25 @@
 
                     <div class="widget ltn__price-filter-widget">
                         <h4 class="ltn__widget-title">@localization["Pirce"]</h4>
-                        <div></div>
+                        <input type="hidden" id="maxPirce" value="@Model.MaxValue" />
+                        <input type="hidden" id="minPirce" value="@Model.MinValue" />
+                        <input type="hidden" id="selected-maxPrice" value="@Model.MaxValue" />
+                        <input type="hidden" id="selected-minPrice" value="@Model.MinValue" />
+                        <div class="d-flex justify-content-end">
+                            <button id="btn-apply">@localization["Apply"]</button>
+                        </div>
+                       <p id="pirceRange">
+                          @Model.MinValue - @Model.MaxValue
+                       </p>
+                        <div id="sider-price-range">
+
+
+                        </div>
                     </div>
 
                     <nav class="widget ltn__menu-widget">
                         <h4 class="ltn__widget-title">@localization["Categories"]</h4>
-                        <ul>
+                        <ul id="category-list">
                             <li> <a href="#" class="category-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.CategoryViewModels)
                             {
@@ -135,7 +151,7 @@
 
                     <nav class="widget ltn__menu-widget">
                         <h4 class="ltn__widget-title">@localization["Brands"]</h4>
-                        <ul>
+                        <ul id="brand-list">
                             <li> <a href="#" class="brand-link active"> @localization["All"] </a></li>
                             @foreach (var item in Model.BrandViewModel)
                             {
@@ -184,21 +200,49 @@
 @section scripts{
     <script src="~/lib/pagination.min.js"></script>
     <script>
+        $("#sider-price-range").slider({
+            range: true,
+            max: +$("#maxPirce").val(),
+            values: [0, +$("#maxPirce").val()],
+            slide: function (event, ui) {
 
+                $("#pirceRange").html("$" + ui.values[0] + " - $" + ui.values[1]);
+                $("#selected-maxPrice").val(ui.values[1]);
+                $("#selected-minPrice").val(ui.values[0]);
+
+            }
+
+        });
+
+        function setValues() {
+            searchObject.maxValue = $("#selected-maxPrice").val();
+            searchObject.minValue = $("#selected-minPrice").val();
+            searchObject.maxValue = $("#selected-maxPrice").val();
+            searchObject.search = $("#txtSearch-grid").val();
+            searchObject.categoryId = $("#category-list li a.active").attr("data-id");
+            searchObject.brandId = $("#brand-list li a.active").attr("data-id");
+
+        }
+        $("#btn-apply").on("click", function () {
+            $('#pageing').pagination("destroy");
+            setValues();
+            createPaging();
+        });
+       
         $(document).ajaxStart(function () {
             $(".loading-bar ").css("display", "flex");
         });
         $(document).ajaxStop(function () {
             $(".loading-bar ").css("display", "none");
         });
-        var searchObject = { brandId: null, categoryId: null, search: "" };
+        var searchObject = { brandId: null, categoryId: null, search: "", maxValue: $("#selected-maxPrice").val(), minValue: $("#selected-minPrice").val() };
         $(document).ready(function () {
             createPaging();
         });
         $("#searchForm").submit(function (e) {
             e.preventDefault();
             $('#pageing').pagination("destroy");
-            searchObject.search = $("#txtSearch").val();
+            setValues();
             createPaging();
 
         });
@@ -241,12 +285,17 @@
 
         $(".category-link").on("click", function () {
 
-            searchObject.categoryId = $(this).attr("data-id");
+            $("#category-list li a").removeClass("active");
+            $(this).addClass("active");
+            setValues();
             $('#pageing').pagination("destroy");
             createPaging();
         });
         $(".brand-link").on("click", function () {
-            searchObject.brandId = $(this).attr("data-id");
+
+            $("#brand-list li a").removeClass("active");
+            $(this).addClass("active");
+            setValues();
             $('#pageing').pagination("destroy");
             createPaging();
         });

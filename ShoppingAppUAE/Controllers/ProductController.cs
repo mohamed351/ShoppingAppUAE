@@ -25,16 +25,20 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult Index()
         {
 
+
             var ProductViewModel = new ProductViewModel()
             {
+
                 CategoryViewModels = context.Categories.Select(a => new CategoryViewModel()
                 {
                     ID = a.CategoryID,
                     NameArabic = a.CategoryNameArabic,
                     NameEnglish = a.CategoryNameEnglish
                 }).ToList(),
-                BrandViewModel = context.Brands.Select(a => new BrandViewModel() { ID = a.ID, ArabicName = a.BrandNameArabic, EnglishName = a.BrandNameEnglish }).ToList()
+                BrandViewModel = context.Brands.Select(a => new BrandViewModel() { ID = a.ID, ArabicName = a.BrandNameArabic, EnglishName = a.BrandNameEnglish }).ToList(),
 
+                MaxValue = unit.Products.GetMaxPurchasingPrice(),
+                MinValue = unit.Products.GetMinPurchasingPrice()
 
             };
 
@@ -54,7 +58,8 @@ namespace ShoppingAppUAE.Controllers
                 products = products.Where(a => a.BrandID == productViewModel.BrandID);
             if (productViewModel.Search != null)
                 products = products.Where(a => a.ProductNameArabic.Contains(productViewModel.Search) || a.ProductNameEnglish.Contains(productViewModel.Search));
-
+            if (productViewModel.MinValue != null && productViewModel.MaxValue != null)
+                products = products.Where(a => a.PurchasingPrice <= productViewModel.MaxValue && a.PurchasingPrice >= productViewModel.MinValue);
 
 
 
