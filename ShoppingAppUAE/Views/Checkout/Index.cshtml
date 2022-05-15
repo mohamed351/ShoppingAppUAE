@@ -1,4 +1,5 @@
-﻿@model ShoppingAppUAE.Models.CheckoutViewModels.CheckOutViewModel
+﻿@inject IViewLocalizer localization
+@model ShoppingAppUAE.Models.CheckoutViewModels.CheckOutViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -44,7 +45,7 @@
 }
 
 <div style="display:none" class="loading-bar">
-    <div  class="loadingio-spinner-spinner-g5gku4jwumr">
+    <div class="loadingio-spinner-spinner-g5gku4jwumr">
         <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
 </div>
@@ -55,11 +56,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="ltn__breadcrumb-inner text-center">
-                    <h1 class="ltn__page-title">Checkout</h1>
+                    <h1 class="ltn__page-title">@localization["Checkout"]</h1>
                     <div class="ltn__breadcrumb-list">
                         <ul>
-                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                            <li>Checkout</li>
+                            <li><a asp-action="Index" asp-controller="Home">@localization["Home"]</a></li>
+                            <li>@localization["Checkout"]</li>
                         </ul>
                     </div>
                 </div>
@@ -78,29 +79,33 @@
                     <div class="ltn__checkout-inner">
 
                         <div class="ltn__checkout-single-content mt-50">
-                            <h4 class="title-2">Billing Details</h4>
+                            <h4 class="title-2">@localization["Billing Details"]</h4>
                             <div class="ltn__checkout-single-content-info">
 
-                                <h6>Personal Information</h6>
+                                <h6>@localization["Personal Information"]</h6>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
-                                            <input readonly asp-for="ApplicationUser.FirstName" placeholder="First name">
+                                            <input  asp-for="ApplicationUser.FirstName" placeholder="@localization["First Name"]">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
-                                            <input readonly asp-for="ApplicationUser.LastName" placeholder="Last name">
+                                            <input  asp-for="ApplicationUser.LastName" placeholder="@localization["Last Name"]">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-email ltn__custom-icon">
-                                            <input asp-for="ApplicationUser.Email" placeholder="email address">
+                                            <input asp-for="ApplicationUser.Email" placeholder="@localization["Email address"]">
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-6">
-                                        <div class="input-item input-item-phone ltn__custom-icon">
-                                            <input type="text" readonly asp-for="ApplicationUser.PhoneNumber" value="@Model.ApplicationUser.PhonePrefix @Model.ApplicationUser.PhoneNumber " placeholder="phone number">
+                                   
+                                        <div class="input-item input-item-phone ltn__custom-icon d-flex">
+
+                                            <input type="text"  asp-for="ApplicationUser.PhoneNumber" value=" @Model.ApplicationUser.PhoneNumber " placeholder="@localization["Phone Number"]">
+                                            <input type="text" asp-for="ApplicationUser.PhonePrefix" readonly style="width:200px" />
                                         </div>
                                     </div>
 
@@ -109,29 +114,29 @@
                                 <div class="row">
 
                                     <div class="col-lg-12 col-md-12">
-                                        <h6>Address</h6>
+                                        <h6>@localization["Address"]</h6>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="input-item">
-                                                    <input type="text" asp-for="ApplicationUser.Address">
+                                                    <input type="text" placeholder="@localization["Address"]" asp-for="ApplicationUser.Address">
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
-                                        <h6>Town / City</h6>
+                                        <h6>@localization["Town / City"]</h6>
                                         <div class="input-item">
-                                            <input type="text" placeholder="City" asp-for="ApplicationUser.City">
+                                            <input type="text" placeholder="@localization["City"]" asp-for="ApplicationUser.City">
                                         </div>
                                     </div>
 
 
                                 </div>
 
-                                <h6>Order Notes (optional)</h6>
+                                <h6>@localization["Order Notes (optional)"]</h6>
                                 <div class="input-item input-item-textarea ltn__custom-icon">
-                                    <textarea asp-for="Note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    <textarea asp-for="Note" placeholder="@localization["Notes about your order, e.g. special notes for delivery."]"></textarea>
                                 </div>
 
 
@@ -146,7 +151,7 @@
 
 
                 <div class="col-lg-12">
-                    <h2>Shipping</h2>
+                    <h2>@localization["Order Notes (optional)"]</h2>
                     @foreach (var item in Model.ShippingDetails)
                     {
                         <ul>
@@ -166,23 +171,23 @@
 
                 <div class="col-lg-6">
                     <div class="ltn__checkout-payment-method mt-50">
-                        <h4 class="title-2">Payment Method</h4>
+                        <h4 class="title-2">@localization["Payment Method"]</h4>
                         <div id="checkout_accordion_1">
 
                             <div class="card">
                                 <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
-                                    Cash on delivery
+                                    @localization["Cash on delivery"]
                                 </h5>
                                 <div id="faq-item-2-2" data-id="0" class="collapse show" data-parent="#checkout_accordion_1">
                                     <div class="card-body">
-                                        <p>Pay with cash upon delivery.</p>
+                                        <p>@localization["Pay with cash upon delivery."].</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- card -->
                             <div class="card">
                                 <h5 class="collapsed ltn__card-title" data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
-                                    Card Debit /Credit
+                                    @localization["Card Debit /Credit"]
                                 </h5>
                                 <div id="faq-item-2-3" data-id="1" class="collapse" data-parent="#checkout_accordion_1">
                                     <div class="card-body" id="payment-element">
@@ -192,9 +197,9 @@
                             </div>
                         </div>
                         <div class="ltn__payment-note mt-30 mb-30">
-                            <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
+                            <p>@localization["Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy."]</p>
                         </div>
-                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" id="submit" type="submit">Place order</button>
+                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" id="submit" type="submit">@localization["Place order"]</button>
                     </div>
                 </div>
 
@@ -204,33 +209,10 @@
 
                 <div class="col-lg-6">
                     <div class="shoping-cart-total mt-50">
-                        <h4 class="title-2">Cart Totals</h4>
+                        <h4 class="title-2">@localization["Cart Total"]</h4>
                         <table class="table">
                             <tbody id="payment-details">
-                                @*<tr>
-                                        <td>Brake Conversion Kit <strong>× 2</strong></td>
-                                        <td>$298.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>OE Replica Wheels <strong>× 2</strong></td>
-                                        <td>$170.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wheel Bearing Retainer <strong>× 2</strong></td>
-                                        <td>$150.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping and Handing</td>
-                                        <td>$15.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vat</td>
-                                        <td>$00.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Order Total</strong></td>
-                                        <td><strong>$633.00</strong></td>
-                                    </tr>*@
+                             
 
 
                             </tbody>
@@ -240,7 +222,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        Shipping
+                                        @localization["Shipping"]
                                     </td>
                                     <td id="shippingPirce">
                                     </td>
@@ -256,25 +238,6 @@
 
 </form>
 
-@*@section styles{
-        <script src="https://js.stripe.com/v3/"></script>
-        <link href="~/strip/checkout.css" rel="stylesheet" />
-
-        <script src="~/strip/checkout.js" defer></script>
-    }
-    <h1>Index</h1>
-
-    <input type="hidden"  />
-    <form id="payment-form">
-        <div id="payment-element">
-
-        </div>
-        <button id="submit">
-            <div class="spinner hidden" id="spinner"></div>
-            <span id="button-text">Pay now</span>
-        </button>
-        <div id="payment-message" class="hidden"></div>
-    </form>*@
 
 
 <form>
@@ -285,7 +248,7 @@
 
     <script>
 
-       
+
 
         function CalculateShipping() {
             let $selector = $("input[type='radio']:checked")
@@ -352,7 +315,7 @@
             CalculateShipping();
 
             $("#checkout_accordion_1").on("shown.bs.collapse", function (e) {
-                
+
                 if ($("#checkout_accordion_1 .show").attr("data-id") == 1) {
                     initialize();
                 }
