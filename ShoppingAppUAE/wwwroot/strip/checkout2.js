@@ -81,6 +81,10 @@ async function handleSubmit(e) {
         currenyCode: currencyCode,
         shipmentID: +$("[name='shippingPirce']:checked").attr("data-id"),
         orderType: +$("#checkout_accordion_1 .show").attr("data-id"),
+        PhonePrefix: $("#ApplicationUser.PhonePrefix").val(),
+        email: $("#ApplicationUser_Email").val(),
+        phoneNumber: $("#ApplicationUser_PhoneNumber").val(),
+        shipmentFees: CalculateShipping(),
         paymentCarts: items.map(a => {
             return {
                 productId: a.id,

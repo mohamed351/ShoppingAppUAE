@@ -38,7 +38,8 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult SubmitCheckout([FromBody]PaymentCompletedViewModel paymentCompletedView)
         {
             string orderGUID = Guid.NewGuid().ToString();
-
+            var userId = User.GetUserId();
+            var user = context.Users.Find(userId);
            var currency = context.Currencies.Find(paymentCompletedView.CurrenyCode);
             if (ModelState.IsValid)
             {
@@ -48,7 +49,7 @@ namespace ShoppingAppUAE.Controllers
                 {
                     TotalShippingFees = paymentCompletedView.ShipmentFees,
                     Address = paymentCompletedView.Address,
-                    UserID = User.GetUserId(),
+                    UserID = userId,
                     City = paymentCompletedView.City,
                     CurrencyCode = paymentCompletedView.CurrenyCode,
                     DateTimeIssued = DateTime.Now,
@@ -58,6 +59,12 @@ namespace ShoppingAppUAE.Controllers
                     Note = paymentCompletedView.OrderNote,
                     OrderGUID = orderGUID,
                     ReferenceID = "",
+                    OrderAddress = paymentCompletedView.Address,
+                    OrderEmail = paymentCompletedView.Email,
+                    OrderPhone = paymentCompletedView.PhonePrefix + paymentCompletedView.PhoneNumber,
+                    OriginalEmail = user.Email,
+                    OriginalPhone = user.PhonePrefix +  "" +user.PhoneNumber,
+                  
                     ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
                     Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
                     OrderDetails = new List<OrderDetails>(),

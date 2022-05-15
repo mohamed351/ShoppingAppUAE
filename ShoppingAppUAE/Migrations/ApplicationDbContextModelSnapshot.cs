@@ -544,11 +544,26 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OrderAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderEmail")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("OrderGUID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderPhone")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderType")
                         .HasColumnType("int");
+
+                    b.Property<string>("OriginalEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginalPhone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReferenceID")
                         .HasColumnType("nvarchar(max)");

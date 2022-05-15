@@ -86,17 +86,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
-                                            <input  asp-for="ApplicationUser.FirstName" placeholder="@localization["First Name"]">
+                                            <input required  asp-for="ApplicationUser.FirstName" placeholder="@localization["First Name"]">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-name ltn__custom-icon">
-                                            <input  asp-for="ApplicationUser.LastName" placeholder="@localization["Last Name"]">
+                                            <input  required asp-for="ApplicationUser.LastName" placeholder="@localization["Last Name"]">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="input-item input-item-email ltn__custom-icon">
-                                            <input asp-for="ApplicationUser.Email" placeholder="@localization["Email address"]">
+                                            <input required asp-for="ApplicationUser.Email" placeholder="@localization["Email address"]">
                                         </div>
                                     </div>
                                     
@@ -104,8 +104,8 @@
                                    
                                         <div class="input-item input-item-phone ltn__custom-icon d-flex">
 
-                                            <input type="text"  asp-for="ApplicationUser.PhoneNumber" value=" @Model.ApplicationUser.PhoneNumber " placeholder="@localization["Phone Number"]">
-                                            <input type="text" asp-for="ApplicationUser.PhonePrefix" readonly style="width:200px" />
+                                            <input type="text" required  asp-for="ApplicationUser.PhoneNumber" value=" @Model.ApplicationUser.PhoneNumber " placeholder="@localization["Phone Number"]">
+                                            <input type="text" required asp-for="ApplicationUser.PhonePrefix" readonly style="width:200px" />
                                         </div>
                                     </div>
 
@@ -118,7 +118,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="input-item">
-                                                    <input type="text" placeholder="@localization["Address"]" asp-for="ApplicationUser.Address">
+                                                    <input type="text" required placeholder="@localization["Address"]" asp-for="ApplicationUser.Address">
                                                 </div>
                                             </div>
 
@@ -127,7 +127,7 @@
                                     <div class="col-lg-4 col-md-6">
                                         <h6>@localization["Town / City"]</h6>
                                         <div class="input-item">
-                                            <input type="text" placeholder="@localization["City"]" asp-for="ApplicationUser.City">
+                                            <input type="text" required placeholder="@localization["City"]" asp-for="ApplicationUser.City">
                                         </div>
                                     </div>
 

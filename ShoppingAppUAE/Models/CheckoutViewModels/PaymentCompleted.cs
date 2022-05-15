@@ -26,6 +26,17 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
 
         public decimal ShipmentFees { get; set; }
 
+
+        public string PhoneNumber { get; set; }
+
+
+
+        public string Email { get; set; }
+
+        public string PhonePrefix { get; set; }
+
+      
+
         public OrderType OrderType { get; set; }
         public List<PaymentCart> PaymentCarts { get; set; }
     }

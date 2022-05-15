@@ -39,6 +39,24 @@ namespace ShoppingAppUAE.Data
 
         public decimal TotalShippingFees { get; set; }
 
+        public string OriginalPhone { get; set; }
+      
+
+
+        public string OrderPhone { get; set; }
+
+        public string OriginalEmail { get; set; }
+
+        public string OrderEmail { get; set; }
+
+
+        public string OrderAddress { get; set; }
+
+      
+
+
+
+
 
         public decimal Total { get; set; }
 
