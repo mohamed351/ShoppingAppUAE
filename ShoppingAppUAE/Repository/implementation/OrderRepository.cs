@@ -1,8 +1,10 @@
-﻿using ShoppingAppUAE.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ShoppingAppUAE.Repository.implementation
@@ -17,6 +19,22 @@ namespace ShoppingAppUAE.Repository.implementation
             this.context = context;
         }
 
+        public DataTableViewModel<Order> GetDataTableOrders(int start, int lenght, Expression<Func<Order, bool>> search, Expression<Func<Order, DateTime>> OrderBy)
+        {
+            var query = context.orders.Include(a => a.ApplicationUser)
+                 .ThenInclude(a => a.Counties)
+                 .Where(search)
+                 .Skip(start)
+                 .Take(lenght)
+                 .OrderBy(OrderBy).ToList();
+            return new DataTableViewModel<Order>()
+            {
+                data = query,
+                recordsFiltered = context.orders.Where(search).Count(),
+                recordsTotal  = context.orders.Count()
+            };
 
+
+        }
     }
 }

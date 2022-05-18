@@ -3,18 +3,62 @@
     ViewData["Title"] = "Index";
 }
 
+@section styles{
+
+
+    <link href="~/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
 <div class="card">
 
     <div class="card-body">
 
         <div class="d-flex justify-content-between">
-              
+
         </div>
 
-        <table>
+        <table id="orderTable" class="table" width="100%">
+
+            <thead>
+                <tr>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        User Country
+                    </th>
+                    <th>
+                        City
+                    </th>
+
+                 
+
+                </tr>
+            </thead>
 
         </table>
-        
+
     </div>
 </div>
+</div>
+@section scripts{
+
+    <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+
+    <script src="~/js/alphaDataTable.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            tablePlugin("#orderTable", "/Admin/Orders/GetOrders", [
+                { data: "user" },
+                { data: "countryCode" },
+                { data: "city" }
+               
+
+            ])
+
+        });
+    </script>
+}
 
