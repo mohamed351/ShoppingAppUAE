@@ -1,4 +1,4 @@
-﻿const stripe = Stripe("pk_test_51KidVZLdvjUTqFPT98xoNOoadXuLcfN5zm5LXxx0iOr4TKs7ILpObTpAcwGniE5cTCJaCHNaU2fMmGvjhHKN3HoE00by7OVcII");
+﻿const stripe = Stripe($("#publicKeyPayment").val());
 // get from localstorage
 $("#currency-app").val(getCookie("currency"));
 $("#currency-app").niceSelect("update");

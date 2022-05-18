@@ -1,4 +1,5 @@
 ﻿@inject IViewLocalizer localization
+@inject IConfiguration configuration
 @model ShoppingAppUAE.Models.CheckoutViewModels.CheckOutViewModel
 @{
     ViewData["Title"] = "Index";
@@ -72,6 +73,7 @@
 
 <!-- WISHLIST AREA START -->
 <form id="payment-form" asp-controller="Checkout" asp-action="SubmitCheckout" method="post">
+    <input type="hidden" id="publicKeyPayment" value="@configuration["Stripe:PublishableKey"]" />
     <div class="ltn__checkout-area mb-100">
         <div class="container">
             <div class="row">
