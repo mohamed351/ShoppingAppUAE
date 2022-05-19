@@ -27,6 +27,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using ShoppingAppUAE.Services.ExchangeRate;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Localization.Routing;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 
 namespace ShoppingAppUAE
 {
@@ -61,7 +63,7 @@ namespace ShoppingAppUAE
             }).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+       
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 List<CultureInfo> supportedCultures = new List<CultureInfo>

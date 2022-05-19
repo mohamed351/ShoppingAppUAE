@@ -23,6 +23,7 @@ namespace ShoppingAppUAE.Repository.implementation
         {
             var query = context.orders.Include(a => a.ApplicationUser)
                  .ThenInclude(a => a.Counties)
+                 .Include(a=> a.ShippingAndDelivery)
                  .Where(search)
                  .Skip(start)
                  .Take(lenght)

@@ -25,6 +25,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
+    <PackageReference Include="Stimulsoft.Reports.Engine.NetCore" Version="2020.2.1" />
+    <PackageReference Include="Stimulsoft.Reports.Web.NetCore" Version="2020.2.1" />
     <PackageReference Include="Stripe.net" Version="39.103.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 	  <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
@@ -91,5 +93,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /d  &quot;$(ProjectDir)Packages\*.*&quot; &quot;$(ProjectDir)$(OutDir)&quot;" />
+  </Target>
 
 </Project>

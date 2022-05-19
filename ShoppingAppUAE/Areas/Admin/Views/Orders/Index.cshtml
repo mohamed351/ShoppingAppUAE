@@ -29,6 +29,39 @@
                     <th>
                         City
                     </th>
+                    <th>
+                       Original Phone
+                    </th>
+                    <th>
+                        Order Phone
+                    </th>
+                    <th>
+                        Order Type
+                    </th>
+                    <th>
+                        DateTimeIssued
+                    </th>
+                    <th>
+                        Exchange Rate
+                    </th>
+
+                    <th>
+                       Currency Code
+                    </th>
+                    <th>
+                        Shipping Provider
+                    </th>
+
+                    <th>
+                        Shipping Fess
+                    </th>
+                  <th>
+                      Total
+                  </th>
+
+                    <th>
+
+                    </th>
 
                  
 
@@ -39,7 +72,7 @@
 
     </div>
 </div>
-</div>
+
 @section scripts{
 
     <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
@@ -53,7 +86,23 @@
             tablePlugin("#orderTable", "/Admin/Orders/GetOrders", [
                 { data: "user" },
                 { data: "countryCode" },
-                { data: "city" }
+                { data: "city" },
+                { data: "userPhone" },
+                { data: "orderPhone" },
+                { data: "orderType" },
+                { data: "dateTimeIssued" },
+                { data: "exchangeRate" },
+                { data: "currencyCode" },
+                { data: "shippingProvider" },
+                { data: "shippingFees" },
+                { data: "total" },
+                {
+                    data: "orderID", render: function (result) {
+                        return result;
+                    }
+                }
+
+             
                
 
             ])

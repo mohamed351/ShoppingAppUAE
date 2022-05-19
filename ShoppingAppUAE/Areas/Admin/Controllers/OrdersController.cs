@@ -44,8 +44,12 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     a.Total,
                     a.OrderType,
                     a.OrderPhone,
-                    a.ApplicationUser.PhoneNumber,
-                    a.ExchangeRate
+                    UserPhone = a.ApplicationUser.PhoneNumber,
+                    a.ExchangeRate,
+                    shippingProvider = a.ShippingAndDelivery.ShippingCompany,
+                    shippingFees = a.TotalShippingFees,
+                    a.OrderID
+
                 }),
                 query.recordsFiltered,
                 query.recordsTotal
