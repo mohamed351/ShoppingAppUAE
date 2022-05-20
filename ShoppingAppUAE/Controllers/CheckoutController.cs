@@ -266,6 +266,26 @@ namespace ShoppingAppUAE.Controllers
             return StiNetCoreViewer.GetReportResult(this, report);
         }
 
+        public IActionResult InvoicePDF(int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest("ID of Invoice is not specifed");
+            }
+
+           var order = context.orders.FirstOrDefault(a => a.OrderID == ID);
+          if(order.UserID != User.GetUserId())
+            {
+                return NotFound("the Invoice doesn't exist please contact company");
+            }
+             
+            StiReport report = new StiReport();
+            report.Load("Reports/OrderInvoice.mrt");
+            report["@OrderID"] = ID;
+            report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
+            return StiNetCoreReportResponse.PrintAsPdf(report);
+        }
+
         private long CalculateOrderAmount(Item[] items, decimal exchangeRate,decimal shippingFees)
         {
             decimal totalPrice = 0;

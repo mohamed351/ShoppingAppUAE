@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Index";
 }
+@section styles{
 
+    <link href="~/lib/animate.css/animate.min.css" rel="stylesheet" />
+
+}
 <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
     <div class="container">
         <div class="row">
@@ -21,7 +25,7 @@
     </div>
 </div>
 
-<div class="ltn__feature-area">
+<div class="ltn__feature-area wow bounceInUp">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -69,7 +73,7 @@
 </div>
 
 
-<div class="ltn__about-us-area pt-90 pb-70">
+<div class="ltn__about-us-area pt-90 pb-70 wow slideInLeft">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 align-self-center">
@@ -84,7 +88,7 @@
 </div>
 
 
-<div class="ltn__video-area">
+<div class="ltn__video-area wow slideInRight">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -103,7 +107,7 @@
 </div>
 
 
-<div class="testimonial-area pt-95 pb-80">
+<div class="testimonial-area pt-95 pb-80 wow slideInLeft">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -162,7 +166,7 @@
 </div>
 
 
-<div class="ltn__banner-area ">
+<div class="ltn__banner-area wow slideInRight">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -176,3 +180,19 @@
     </div>
 </div>
 
+@section scripts{
+
+    <script src="~/lib/wow/wow.js"></script>
+    <script>
+        wow = new WOW(
+            {
+                boxClass: 'wow',      // default
+                animateClass: 'animated', // default
+                offset: 0,          // default
+                mobile: true,       // default
+                live: true        // default
+            }
+        )
+        wow.init();
+    </script>
+}

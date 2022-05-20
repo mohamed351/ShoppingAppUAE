@@ -870,7 +870,7 @@ namespace ShoppingAppUAE.Migrations
                         .IsRequired();
 
                     b.HasOne("ShoppingAppUAE.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserID");
 
                     b.Navigation("ApplicationUser");
@@ -923,6 +923,11 @@ namespace ShoppingAppUAE.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Blog", b =>

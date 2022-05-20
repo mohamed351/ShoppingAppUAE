@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +8,10 @@ namespace ShoppingAppUAE.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            this.Orders = new HashSet<Order>();
+        }
         [ForeignKey(nameof(Counties))]
         public string CountryCode { get; set; }
 
@@ -22,6 +28,8 @@ namespace ShoppingAppUAE.Data
 
         [Required]
         public string PhonePrefix { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
 
 
 
