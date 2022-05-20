@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\ainmate\**" />
+    <Content Remove="wwwroot\lib\ainmate\**" />
+    <EmbeddedResource Remove="wwwroot\lib\ainmate\**" />
+    <None Remove="wwwroot\lib\ainmate\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bundleconfig.json" />
   </ItemGroup>
 

@@ -139,7 +139,8 @@ async function handleSubmit(e) {
             data: JSON.stringify(userData),
             type: "json",
             success: function (result) {
-                window.location.href = window.location.origin + "/Checkout/PaymentCompleted";
+                
+                window.location.href = window.location.origin + "/Checkout/PaymentCompleted?ID="+result.id;
                 console.log(result);
             }
         })

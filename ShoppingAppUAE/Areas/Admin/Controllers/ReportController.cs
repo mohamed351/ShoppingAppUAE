@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Dictionary;
 using Stimulsoft.Report.Mvc;
+using Stimulsoft.Report.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,34 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             this.configuration = configuration;
             this.webHostEnvironment = webHostEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Invoice([FromQuery]int ID)
         {
+            ViewBag.InvoiceId = ID;
             return View();
         }
 
-        public IActionResult GetReport(string id)
+        public IActionResult GetInvoice([FromQuery]int ID)
         {
-            // Create the report object
+
+        
             StiReport report = new StiReport();
-
-            // Load report
-            report.Load("Reports/Report2.mrt");
-            report["@OrderID"] = 27;
+            report.Load("Reports/OrderInvoice.mrt");
+            report["@OrderID"] = ID;
             report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
+           
             report.Render();
-
+           
             return StiNetCoreViewer.GetReportResult(this, report);
         }
 
+        public IActionResult InvoicePDF([FromQuery] int OrderID)
+        {
+            StiReport report = new StiReport();
+            report.Load("Reports/OrderInvoice.mrt");
+            report["@OrderID"] = OrderID;
+            report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
+            return  StiNetCoreReportResponse.PrintAsPdf(report);
+        }
         public IActionResult ViewerEvent()
         {
             return StiNetCoreViewer.ViewerEventResult(this);

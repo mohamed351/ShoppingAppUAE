@@ -1,9 +1,20 @@
-﻿
+﻿@using Stimulsoft.Report.Mvc;
 @{
     ViewData["Title"] = "PaymentCompleted";
 }
 
-<h1 class="text-center">PaymentCompleted</h1>
+<div style="height:250vh">
+    <h1 class="text-center">PaymentCompleted</h1>
 
-<p> Payment Completed</p>
+    <p class="text-center"> Invoice Completed</p>
 
+    @Html.StiNetCoreViewer(new StiNetCoreViewerOptions()
+    {
+        Actions ={
+    GetReport = "GetInvoice" ,
+    ViewerEvent = "ViewerEvent",
+
+    }
+    })
+
+</div>

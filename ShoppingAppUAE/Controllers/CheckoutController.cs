@@ -9,6 +9,11 @@ using Stripe;
 using ShoppingAppUAE.Data;
 using Stripe.Checkout;
 using ShoppingAppUAE.Models.CheckoutViewModels;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Web;
+using Stimulsoft.Report.Dictionary;
+using Microsoft.Extensions.Configuration;
+using Stimulsoft.Report.Mvc;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -16,10 +21,13 @@ namespace ShoppingAppUAE.Controllers
     public class CheckoutController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly IConfiguration configuration;
 
-        public CheckoutController(ApplicationDbContext context )
+        public CheckoutController(ApplicationDbContext context, IConfiguration configuration)
         {
+            Stimulsoft.Base.StiLicense.LoadFromFile("license.key");
             this.context = context;
+            this.configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -103,6 +111,8 @@ namespace ShoppingAppUAE.Controllers
 
             return View();
         }
+
+      
 
         
      
@@ -217,16 +227,43 @@ namespace ShoppingAppUAE.Controllers
         [HttpGet]
         public IActionResult PaymentCompleted([FromQuery]string payment_intent ,[FromQuery]string payment_intent_client_secret,[FromQuery] string redirect_status, [FromQuery]string type, [FromQuery] string id)
         {
-            if(type == "card")
+            var user = User.GetUserId();
+            var order = context.orders.FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
+            if (type == "card")
             {
-                var user = User.GetUserId();
-                var order = context.orders.FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
+               
+               
                 order.ReferenceID = payment_intent;
                 context.SaveChanges();
                 return View();
 
             }
+            
+        
             return View();
+        }
+        public IActionResult ViewerEvent()
+        {
+            return StiNetCoreViewer.ViewerEventResult(this);
+        }
+
+        public IActionResult GetInvoice([FromQuery] string ID)
+        {
+            var user = User.GetUserId();
+
+            var order = context.orders.FirstOrDefault(a => a.UserID == user && a.OrderGUID == ID);
+            if(order == null)
+            {
+                return NotFound();
+            }
+            StiReport report = new StiReport();
+            report.Load("Reports/OrderInvoice.mrt");
+            report["@OrderID"] = order.OrderID;
+            report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
+
+            report.Render();
+
+            return StiNetCoreViewer.GetReportResult(this, report);
         }
 
         private long CalculateOrderAmount(Item[] items, decimal exchangeRate,decimal shippingFees)
