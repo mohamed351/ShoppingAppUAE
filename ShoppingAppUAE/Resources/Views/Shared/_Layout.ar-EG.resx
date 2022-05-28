@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>عن</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>التصنيفات</value>
+  </data>
   <data name="Checkout" xml:space="preserve">
     <value>الدفع</value>
   </data>
