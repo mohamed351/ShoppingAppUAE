@@ -132,7 +132,7 @@ namespace ShoppingAppUAE
         
 
             app.UseDeveloperExceptionPage();
-            Seeder.Seeder.PrePopulation(app).Wait();
+            //Seeder.Seeder.PrePopulation(app).Wait();
             app.UseForwardedHeaders(new ForwardedHeadersOptions() { ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.All });
 
 

@@ -4,11 +4,11 @@
 }
 
 @section styles{
-
+    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
     <link href="~/lib/image-cropper/css/jquery.Jcrop.css" rel="stylesheet" />
     <link href="~/lib/image-cropper/css/style.css" rel="stylesheet" />
     <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
+
 }
 <form asp-action="Create" method="post">
     <section class="card">
@@ -110,9 +110,9 @@
 
 
                 <div class="col-md-6">
-                    <div class="panel panel-body" style="display: flex; justify-content: center;">
+                    <div style="width:400px; height:400px;" style="display: flex; justify-content: center;">
                         <input type="hidden" asp-for="ImageURL" />
-                        <div class="span4 cropme" style="width: 400px; height: 400px;"></div>
+                        <div class="span4 cropme" style="width:400px; height:400px;"></div>
                     </div>
                 </div>
 

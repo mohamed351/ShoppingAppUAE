@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,13 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IWebHostEnvironment environment;
 
-        public CategoriesController(IUnitOfWork unitOfWork)
+        public CategoriesController(IUnitOfWork unitOfWork, IWebHostEnvironment environment)
         {
          
             this.unitOfWork = unitOfWork;
+            this.environment = environment;
         }
 
        
@@ -66,6 +69,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                category.ImageURL = Helpers.ImageHelpers.ConvertMainImage(category.ImageURL, this.environment);
                 unitOfWork.Categories.Add(category);
                  unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
@@ -103,6 +107,14 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 try
                 {
+                    if(category.ImageURL == null)
+                    {
+                        category.ImageURL = unitOfWork.Categories.GetByIDAsNotTracking(a => a.CategoryID == category.CategoryID).ImageURL;
+                    }
+                    else
+                    {
+                        category.ImageURL = Helpers.ImageHelpers.ConvertMainImage(category.ImageURL, this.environment);
+                    }
                     unitOfWork.Categories.Edit(category);
                     unitOfWork.Complete();
                 }

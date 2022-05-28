@@ -62,8 +62,6 @@ namespace ShoppingAppUAE.Controllers
                 products = products.Where(a => a.PurchasingPrice <= productViewModel.MaxValue && a.PurchasingPrice >= productViewModel.MinValue);
 
 
-
-
             totalProduct = products.Count();
 
 
@@ -106,6 +104,8 @@ namespace ShoppingAppUAE.Controllers
                 ViewBag.Currency = (Currency)context.Currencies.FirstOrDefault(a => a.IsDefault);
             else
                 ViewBag.Currency = (Currency)context.Currencies.Find(selectedCurrency);
+
+           
             switch (sort)
             {
                 case ProductSort.ProductID:
@@ -128,6 +128,44 @@ namespace ShoppingAppUAE.Controllers
                     return View(unit.Products.SeacrchProduct(currentPage, 12, a => a.ProductNameEnglish.Contains(search) ||
                        a.ProductNameArabic.Contains(search) ||
                        a.Brand.BrandNameArabic.Contains(search) || a.Brand.BrandNameEnglish.Contains(search) || a.Category.CategoryNameArabic.Contains(search) || a.Category.CategoryNameEnglish.Contains(search), a => a.ProductID));
+
+            }
+
+
+        }
+
+
+        [HttpGet]
+        public IActionResult SearchbyCategory([FromQuery] int? search, [FromQuery] int page = 1, ProductSort sort = 0)
+        {
+            int currentPage = (page - 1) * 12;
+            ViewBag.search = search;
+            ViewBag.PageNumber = page;
+            ViewBag.sort = (int)sort;
+           var category = context.Categories.Find(search);
+            ViewBag.categoryArabic = category.CategoryNameArabic;
+            ViewBag.categoryEnglish = category.CategoryNameEnglish;
+            var selectedCurrency = HttpContext.Request.GetCookieValue("currency");
+            if (selectedCurrency == null)
+                ViewBag.Currency = (Currency)context.Currencies.FirstOrDefault(a => a.IsDefault);
+            else
+                ViewBag.Currency = (Currency)context.Currencies.Find(selectedCurrency);
+
+
+            switch (sort)
+            {
+                case ProductSort.ProductID:
+                    return View(unit.Products.SeacrchProduct(currentPage, 12, a => a.CategoryID == search, a => a.ProductID));
+
+                case ProductSort.HigherPrice:
+                    return View(unit.Products.SeacrchProductSortPriceHighertoLower(currentPage, 12, a => a.CategoryID == search));
+
+
+                case ProductSort.LowPrice:
+                    return View(unit.Products.SeacrchProductSortPriceHighertoLower(currentPage, 12, a=> a.CategoryID == search));
+
+                default:
+                    return View(unit.Products.SeacrchProduct(currentPage, 12, a=>a.CategoryID == search, a => a.ProductID));
 
             }
 
