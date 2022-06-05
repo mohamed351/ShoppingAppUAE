@@ -75,6 +75,10 @@ namespace ShoppingAppUAE.Data
         public int? BrandID { get; set; }
 
 
+        public bool IsNewArrivals { get; set; }
+
+        public bool IsTop10 { get; set; }
+
         public Brand Brand { get; set; }
 
 

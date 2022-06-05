@@ -46,6 +46,8 @@ namespace ShoppingAppUAE.Data
 
         public string ImageAlternativeText { get; set; }
 
+        public bool IsShownInHome { get; set; }
+
 
         public ICollection<Product>  Products { get; set; }
 

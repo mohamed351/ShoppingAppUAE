@@ -383,6 +383,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsShownInHome")
+                        .HasColumnType("bit");
+
                     b.Property<string>("SEOArabicKeyWords")
                         .HasColumnType("nvarchar(max)");
 
@@ -662,6 +665,12 @@ namespace ShoppingAppUAE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNewArrivals")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTop10")
                         .HasColumnType("bit");
 
                     b.Property<string>("ProductNameArabic")
