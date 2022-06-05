@@ -56,5 +56,8 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
 
         public int? BrandID { get; set; }
 
+        public bool IsArravel { get; set; }
+
+        public bool IsTop10 { get; set; }
     }
 }

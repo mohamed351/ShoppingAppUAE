@@ -67,7 +67,9 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     SEOEnglishTitle = productCreateViewModel.SEOEnglishTitle,
                     ImageAlternativeText ="",
                     BrandID = productCreateViewModel.BrandID,
-                    Weight = productCreateViewModel.Weight
+                    Weight = productCreateViewModel.Weight,
+                    IsNewArrivals = productCreateViewModel.IsArravel,
+                    IsTop10 = productCreateViewModel.IsTop10
 
                 };
                 unitOfWork.Products.Add(product);
@@ -113,7 +115,9 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 SEOEnglishKeyWords = product.SEOEnglishKeyWords,
                 SEOEnglishTitle = product.SEOEnglishTitle,
                 BrandID = product.BrandID,
-                Weight = product.Weight
+                Weight = product.Weight,
+                IsArravel = product.IsNewArrivals,
+                IsTop10 =product.IsTop10
                
                 
 
@@ -151,7 +155,9 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     SEOEnglishKeyWords = productEditViewModel.SEOEnglishKeyWords,
                     SEOEnglishTitle = productEditViewModel.SEOEnglishTitle,
                     BrandID = productEditViewModel.BrandID,
-                    Weight = productEditViewModel.Weight
+                    Weight = productEditViewModel.Weight,
+                    IsTop10 = productEditViewModel.IsTop10,
+                    IsNewArrivals= productEditViewModel.IsArravel
                 };
                 unitOfWork.Products.Edit(editedProduct);
                 unitOfWork.Complete();

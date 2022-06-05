@@ -47,6 +47,10 @@
                     </div>
 
                     <div>
+                        <label asp-for="IsShownInHome"> IsShownInHome </label>
+                        <input type="checkbox" asp-for="IsShownInHome" />
+                    </div>
+                    <div>
                         <label>Photo</label>
                         <br />
                         <input type="file" id="file" />
@@ -174,10 +178,10 @@
             $("form").on("submit", function () {
 
                 $("#ImageURL").val($("#image-src").attr("src"));
-                if ($("#ImageURL").val() === null || $("#ImageURL").val() === undefined || $("#ImageURL").val().trim() === "") {
-                    swal("Please Add Photo", "", "error");
-                    return false;
-                }
+                //if ($("#ImageURL").val() === null || $("#ImageURL").val() === undefined || $("#ImageURL").val().trim() === "") {
+                //    swal("Please Add Photo", "", "error");
+                //    return false;
+                //}
                 $("#SEOArabicKeyWords").val($("#SEOArabicKeyWordsselect").val().join(","));
                 $("#SEOEnglishKeyWords").val($("#SEOEnglishKeyWordsselect").val().join(","));
 
