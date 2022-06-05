@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ShoppingAppUAE.Helpers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -42,16 +43,19 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult Index()
         {
 
-       
+
 
             HomePageViewModel viewModel = new HomePageViewModel()
             {
                 Banner = context.Banners.Select(a => new BannerViewModel { ID = a.ID,
                     ImageURL = a.ImageURL,
                     Paragraph = a.Pragraph,
-                    Title = a.Title ,
+                    Title = a.Title,
                     ArabicParagrap =
-                    a.ParagrapArabic, ArabicTitle = a.TitleArabic }).ToList()
+                    a.ParagrapArabic, ArabicTitle = a.TitleArabic }).ToList(),
+
+                Categories = context.Categories.Include(a => a.Products).Where(a => a.IsShownInHome == true).ToList(),
+                Products = context.Products.Where(a => a.IsNewArrivals == true).ToList()
             };
           ViewBag.SEO =actionContext.ActionContext.GetURLData(context, configuration);
             return View(viewModel);

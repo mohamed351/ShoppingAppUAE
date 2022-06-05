@@ -254,26 +254,29 @@
 
         function CalculateShipping() {
             let $selector = $("input[type='radio']:checked")
-            console.log($selector);
-            let totalWeight = calculateTotalWeight();
-            const firstCostLimitInWeight = +$selector.attr("data-price").replace("٫", ".");
-            const firstWeightCost = +$selector.attr("data-weight-limit").replace("٫", ".");
-            const eachKg = +$selector.attr("data-weight-afterExisting").replace("٫", ".");
-            const eachPrice = +$selector.attr("data-price-afterExisting").replace("٫", ".");
-            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
-            let shippingCost = 0;
-            if (totalWeight > firstWeightCost) {
-                const remaingKgs = totalWeight - firstWeightCost;
+            if ($selector.length !=0) {
+                console.log($selector);
+                let totalWeight = calculateTotalWeight();
+                const firstCostLimitInWeight = +$selector.attr("data-price").replace("٫", ".");
+                const firstWeightCost = +$selector.attr("data-weight-limit").replace("٫", ".");
+                const eachKg = +$selector.attr("data-weight-afterExisting").replace("٫", ".");
+                const eachPrice = +$selector.attr("data-price-afterExisting").replace("٫", ".");
+                let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+                let shippingCost = 0;
+                if (totalWeight > firstWeightCost) {
+                    const remaingKgs = totalWeight - firstWeightCost;
 
 
-                shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
-                $("#shippingPirce").text(shippingCost.toFixed(2) + $("#currency-app").val());
+                    shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
+                    $("#shippingPirce").text(shippingCost.toFixed(2) + $("#currency-app").val());
+                }
+                else {
+                    shippingCost = (firstCostLimitInWeight * processExchnageRate);
+                    $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate).toFixed(2) + $("#currency-app").val());
+                }
+                return shippingCost;
             }
-            else {
-                shippingCost = (firstCostLimitInWeight * processExchnageRate);
-                $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate).toFixed(2) + $("#currency-app").val());
-            }
-            return shippingCost;
+            return 0;
 
         }
 
@@ -312,7 +315,13 @@
             }
             else {
 
-                $(".shipping-cart-item-radio[data-id='" + getShipping() + "']").attr("checked", "checked");
+                if ($(".shipping-cart-item-radio[data-id='" + (+getShipping()) + "']").length == 0) {
+                    $(".shipping-cart-item-radio[data-isdefault='True']").attr("checked", "checked");
+                }
+                else {
+                    $(".shipping-cart-item-radio[data-id='" + (+getShipping()) + "']").attr("checked", "checked");
+                }
+              
             }
             CalculateShipping();
 
@@ -321,6 +330,10 @@
                 if ($("#checkout_accordion_1 .show").attr("data-id") == 1) {
                     initialize();
                 }
+            });
+            $(".shipping-cart-item-radio").on("change", function () {
+
+                CalculateShipping();
             });
         });
     </script>

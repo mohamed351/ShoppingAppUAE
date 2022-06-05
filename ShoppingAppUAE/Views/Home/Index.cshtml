@@ -12,8 +12,8 @@
 
 @section metaTags{
     <meta name="title" content="@seoData.Title">
-    <meta name="description" content="@seoData.Description">    
-   @*@Html.Raw(seoData.Tags)*@
+    <meta name="description" content="@seoData.Description">
+    @*@Html.Raw(seoData.Tags)*@
 
 }
 
@@ -73,3 +73,126 @@
 
     </section>
 </section>
+
+
+<div class="ltn__product-area ltn__product-gutter  pt-65 pb-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title-area text-center">
+                    <h1 class="section-title section-title-border">new arrival items</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @foreach (var item in Model.Products)
+            {
+                <!-- ltn__product-item -->
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    <div class="ltn__product-item text-center">
+                        <div class="product-img">
+                            <a asp-action="CurrentProduct" asp-route-id="@item.ProductID" asp-controller="Product"><img src="~/images/@item.ImageURL" alt="@item.ImageAlternativeText"></a>
+                            <div class="product-badge">
+                                <ul>
+                                    <li class="badge-2">@item.Discount %</li>
+                                </ul>
+                            </div>
+                            <div class="product-hover-action product-hover-action-2">
+                                <ul>
+
+                                    <li class="add-to-cart">
+                                        <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
+                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
+                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h2 class="product-title"><a href="product-details.html">@item.ProductNameEnglish</a></h2>
+                            <div class="product-price">
+                                <span>@item.PurchasingPrice</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+@foreach (var item in Model.Categories)
+{
+    <div class="ltn__product-slider-area ltn__product-gutter  pt-60 pb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-area text-center">
+                        <h1 class="section-title section-title-border">@item.CategoryNameEnglish </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row ltn__product-slider-item-four-active slick-arrow-1">
+                <!-- ltn__product-item -->
+
+                @foreach (var product in item.Products.Where(a => a.IsTop10))
+                {
+                    <div class="col-12">
+                        <div class="ltn__product-item text-center">
+                            <div class="product-img">
+                                <a  asp-action="CurrentProduct" asp-route-id="@product.ProductID" asp-controller="Product"><img src="~/images/@product.ImageURL" alt="@product.ImageAlternativeText"></a>
+                                <div class="product-badge">
+                                    <ul>
+                                        <li class="badge-2">@product.Discount %</li>
+                                    </ul>
+                                </div>
+                                <div class="product-hover-action product-hover-action-2">
+                                    <ul>
+                                        @*<li>
+                                            <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
+                                                <i class="icon-magnifier"></i>
+                                            </a>
+                                        </li>*@
+                                        <li class="add-to-cart">
+                                            <a href="#" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
+                                                <span class="cart-text d-none d-xl-block">Add to Cart</span>
+                                                <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                            </a>
+                                        </li>
+                                        @*<li>
+                                            <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
+                                                <i class="icon-shuffle"></i>
+                                            </a>
+                                        </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h2 class="product-title"><a href="product-details.html">@product.ProductNameEnglish</a></h2>
+                                <div class="product-price">
+                                    <span>@product.PurchasingPrice</span>
+                                   <del>$21.00</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+            </div>
+
+        </div>
+
+   }
+
+
+              
+            

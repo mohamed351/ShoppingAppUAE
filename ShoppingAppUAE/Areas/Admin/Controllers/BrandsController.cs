@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     public class BrandsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public BrandsController(ApplicationDbContext context)
+        public BrandsController(ApplicationDbContext context ,IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Brands
@@ -58,6 +61,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                brand.ImageURL = Helpers.ImageHelpers.ConvertMainImage( brand.ImageURL,webHostEnvironment);
                 _context.Add(brand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -72,7 +76,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+         
             var brand = await _context.Brands.FindAsync(id);
             if (brand == null)
             {
@@ -97,6 +101,15 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 try
                 {
+
+                    if (brand.ImageURL == null)
+                    {
+                        brand.ImageURL = this._context.Brands.AsNoTracking().FirstOrDefault(a => a.ID == brand.ID).ImageURL;
+                    }
+                    else
+                    {
+                        brand.ImageURL = Helpers.ImageHelpers.ConvertMainImage(brand.ImageURL, this.webHostEnvironment);
+                    }
                     _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
