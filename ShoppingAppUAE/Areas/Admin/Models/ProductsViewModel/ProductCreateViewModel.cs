@@ -8,6 +8,10 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
 {
     public class ProductCreateViewModel
     {
+        public ProductCreateViewModel()
+        {
+           
+        }
 
 
         [Required]
@@ -59,5 +63,19 @@ namespace ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel
         public bool IsArravel { get; set; }
 
         public bool IsTop10 { get; set; }
+
+
+        public string BreifDescriptionArabic { get; set; }
+
+        public string BreifDescriptionEnglish { get; set; }
+
+        public string VideoIFrameURL { get; set; }
+
+
+      
+
+       
     }
+
+   
 }
