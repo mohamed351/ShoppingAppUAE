@@ -3,7 +3,6 @@
     ViewData["Title"] = "EditPhoto";
 }
 
-<h1>EditPhoto</h1>
 
 @section styles{
     <link href="~/js/custome-cropper/cropper.min.css" rel="stylesheet" />
@@ -11,7 +10,8 @@
 
 <div class="card">
     <div class="">
-
+        <input type="file" id="file" />
+        <img id="image-src" />
     </div>
     <div class="card-body">
         <table class="table">
@@ -37,6 +37,36 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-default-title">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="img-container">
+                            <img src="" class="img-fluid" id="image-modal-cropper">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
 @section scripts{
     <script src="~/lib/select2/js/select2.full.min.js"></script>
     <script src="~/js/custome-cropper/cropper.min.js"></script>
@@ -45,6 +75,27 @@
     <script src="~/lib/sweetalert/sweetalert.min.js"></script>
     <script>
 
+
+        $(document).ready(function () {
+
+            customimageCropper({
+                fileSelector: "#file",
+                modelImageSelector: "#image-modal-cropper",
+                sourceImageSelector: "#image-src",
+                submitSelector: "#crop",
+                aspectRatio: 1 / 1,
+                minContainerWidth: 400,
+                minContainerHeight: 400,
+                maxCropBoxWidth: 400,
+                maxCropBoxHeight: 400
+            });
+          
+        });
+
+        $('#image-src').on('load', function () {
+            console.log($(this).attr("src"))
+         
+        });
     </script>
 
 }
