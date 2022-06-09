@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace ShoppingAppUAE.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class BannerController : Controller
     {
         private readonly ApplicationDbContext context;

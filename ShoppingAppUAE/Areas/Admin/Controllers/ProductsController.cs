@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Areas.Admin.Models.ProductsViewModel;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Helpers;
@@ -17,11 +18,13 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly ApplicationDbContext context;
 
-        public ProductsController(IUnitOfWork unitOfWork , IWebHostEnvironment webHostEnvironment)
+        public ProductsController(IUnitOfWork unitOfWork , IWebHostEnvironment webHostEnvironment, ApplicationDbContext context)
         {
             this.unitOfWork = unitOfWork;
             this.webHostEnvironment = webHostEnvironment;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -41,6 +44,14 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             string search = HttpContext.Request.Query["search[value]"];
             return Json(this.unitOfWork.Products.GetDataTable(start, length, a => a.ProductNameEnglish.Contains(search) || a.ProductNameArabic.Contains(search), a => a.ProductID));
         }
+
+        public IActionResult EditPhoto(int ID)
+        {
+         var product =   context.Products.Include(a => a.ProductImages).FirstOrDefault(a => a.ProductID == ID);
+            return View(product);
+        }
+
+
         [HttpPost()]
         public IActionResult Create(ProductCreateViewModel productCreateViewModel)
         {
@@ -69,7 +80,11 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     BrandID = productCreateViewModel.BrandID,
                     Weight = productCreateViewModel.Weight,
                     IsNewArrivals = productCreateViewModel.IsArravel,
-                    IsTop10 = productCreateViewModel.IsTop10
+                    IsTop10 = productCreateViewModel.IsTop10,
+                    BreifDescriptionArabic = productCreateViewModel.BreifDescriptionArabic,
+                    BreifDescriptionEnglish = productCreateViewModel.BreifDescriptionEnglish,
+                    VideoUrl = productCreateViewModel.VideoIFrameURL
+                   
 
                 };
                 unitOfWork.Products.Add(product);
@@ -117,7 +132,12 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 BrandID = product.BrandID,
                 Weight = product.Weight,
                 IsArravel = product.IsNewArrivals,
-                IsTop10 =product.IsTop10
+                IsTop10 =product.IsTop10,
+                BreifDescriptionArabic = product.BreifDescriptionArabic,
+                BreifDescriptionEnglish = product.BreifDescriptionEnglish,
+                ImageAlternativeText = product.ImageAlternativeText,
+                VideoIFrameURL = product.VideoUrl
+               
                
                 
 
@@ -157,7 +177,10 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     BrandID = productEditViewModel.BrandID,
                     Weight = productEditViewModel.Weight,
                     IsTop10 = productEditViewModel.IsTop10,
-                    IsNewArrivals= productEditViewModel.IsArravel
+                    IsNewArrivals= productEditViewModel.IsArravel,
+                    VideoUrl = productEditViewModel.VideoIFrameURL,
+                    BreifDescriptionArabic = productEditViewModel.BreifDescriptionArabic,
+                    BreifDescriptionEnglish = productEditViewModel.BreifDescriptionEnglish
                 };
                 unitOfWork.Products.Edit(editedProduct);
                 unitOfWork.Complete();

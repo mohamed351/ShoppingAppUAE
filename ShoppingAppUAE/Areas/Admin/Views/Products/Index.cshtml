@@ -52,6 +52,7 @@
                 {
                     data: "productID", render: function (data) {
                         return `<a class="btn btn-primary" href="/Admin/Products/Edit/${data}"> Edit </a> |
+                                <a class="btn btn-primary" href="/Admin/Products/EditPhoto/${data}"> Photo List </a>
                             <a class="btn btn-warning" href="/Admin/Products/Details/${data}"> Details </a> |
                            <a class="btn btn-danger" href="/Admin/Products/Delete/${data}"> Delete </a>`
                     }

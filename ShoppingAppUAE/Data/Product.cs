@@ -79,6 +79,8 @@ namespace ShoppingAppUAE.Data
 
         public bool IsTop10 { get; set; }
 
+        public string VideoUrl { get; set; }
+
         public Brand Brand { get; set; }
 
 

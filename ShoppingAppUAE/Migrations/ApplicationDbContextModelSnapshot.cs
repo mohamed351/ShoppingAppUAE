@@ -702,6 +702,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<decimal>("SellingPrice")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,2)");
 
