@@ -52,6 +52,22 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult EditPhoto([FromBody]ProductEditPhotoViewModel viewModel)
+        {
+          var imageName =  Helpers.ImageHelpers.ConvertMainImage(viewModel.Base64, webHostEnvironment);
+            context.ProductImages.Add(new ProductImage()
+            {
+                ImagesURL = imageName,
+                ProductID = viewModel.ProductId
+            });
+
+            context.SaveChanges();
+
+            return Json(viewModel);
+        }
+       
+
         [HttpPost()]
         public IActionResult Create(ProductCreateViewModel productCreateViewModel)
         {

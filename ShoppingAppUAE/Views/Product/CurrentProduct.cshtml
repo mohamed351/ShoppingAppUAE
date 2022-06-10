@@ -115,6 +115,13 @@
                                     <div class="single-small-img">
                                         <img src="/images/@Model.ImageURL" alt="@Model.ProductNameEnglish">
                                     </div>
+                                    @foreach (var item in Model.ProductImages)
+                                    {
+                                        <div class="single-small-img">
+                                            <img src="/images/@item.ImagesURL " alt="@Model.ProductNameEnglish">
+                                        </div>
+
+                                    }
 
                                 </section>
                                 <section class="ltn__shop-details-large-img">
@@ -123,7 +130,20 @@
                                             <img src="/images/@Model.ImageURL" alt="@Model.ProductNameEnglish">
 
                                         </a>
+
                                     </section>
+
+                                    @foreach (var item in Model.ProductImages)
+                                    {
+                                        <section class="single-large-img">
+                                            <a href="/images/@item.ImagesURL" data-rel="lightcase:myCollection">
+                                                <img src="/images/@item.ImagesURL" alt="@Model.ProductNameEnglish">
+
+                                            </a>
+
+                                        </section>
+
+                                    }
 
                                 </section>
                             </section>
@@ -239,134 +259,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2">
-                            <div class="ltn__shop-details-tab-content-inner">
-                                <div class="customer-reviews-head text-center">
-                                    <h4 class="title-2">Customer Reviews</h4>
-                                    <div class="product-ratting">
-                                        <ul>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                            <li><a href="#"><i class="far fa-star"></i></a></li>
-                                            <li class="review-total"> <a href="#"> ( 95 Reviews )</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-7">
-                                        <!-- comment-area -->
-                                        <div class="ltn__comment-area mb-30">
-                                            <div class="ltn__comment-inner">
-                                                <ul>
-                                                    <li>
-                                                        <div class="ltn__comment-item clearfix">
-                                                            <div class="ltn__commenter-img">
-                                                                <img src="img/testimonial/1.jpg" alt="Image">
-                                                            </div>
-                                                            <div class="ltn__commenter-comment">
-                                                                <h6><a href="#">Adam Smit</a></h6>
-                                                                <div class="product-ratting">
-                                                                    <ul>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                                <span class="ltn__comment-reply-btn">September 3, 2020</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ltn__comment-item clearfix">
-                                                            <div class="ltn__commenter-img">
-                                                                <img src="img/testimonial/3.jpg" alt="Image">
-                                                            </div>
-                                                            <div class="ltn__commenter-comment">
-                                                                <h6><a href="#">Adam Smit</a></h6>
-                                                                <div class="product-ratting">
-                                                                    <ul>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                                <span class="ltn__comment-reply-btn">September 2, 2020</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ltn__comment-item clearfix">
-                                                            <div class="ltn__commenter-img">
-                                                                <img src="img/testimonial/2.jpg" alt="Image">
-                                                            </div>
-                                                            <div class="ltn__commenter-comment">
-                                                                <h6><a href="#">Adam Smit</a></h6>
-                                                                <div class="product-ratting">
-                                                                    <ul>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                        <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                                        <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                                <span class="ltn__comment-reply-btn">September 2, 2020</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <!-- comment-reply -->
-                                        <div class="ltn__comment-reply-area ltn__form-box mb-60">
-                                            <form action="#">
-                                                <h4 class="title-2">Add a Review</h4>
-                                                <div class="mb-30">
-                                                    <div class="add-a-review">
-                                                        <h6>Your Ratings:</h6>
-                                                        <div class="product-ratting">
-                                                            <ul>
-                                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                                                <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                                                <li><a href="#"><i class="far fa-star"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="input-item input-item-textarea ltn__custom-icon">
-                                                    <textarea placeholder="Type your comments...."></textarea>
-                                                </div>
-                                                <div class="input-item input-item-name ltn__custom-icon">
-                                                    <input type="text" placeholder="Type your name....">
-                                                </div>
-                                                <div class="input-item input-item-email ltn__custom-icon">
-                                                    <input type="email" placeholder="Type your email....">
-                                                </div>
-                                                <div class="input-item input-item-website ltn__custom-icon">
-                                                    <input type="text" name="website" placeholder="Type your website....">
-                                                </div>
-                                                <label class="mb-0"><input type="checkbox" name="agree"> Save my name, email, and website in this browser for the next time I comment.</label>
-                                                <div class="btn-wrapper">
-                                                    <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           @Html.Raw(Model.VideoUrl)
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_3">
                             <div class="ltn__shop-details-tab-content-inner">

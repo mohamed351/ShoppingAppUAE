@@ -516,6 +516,26 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("Currencies");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.IntegrationSystem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClientSecret")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Systems");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.Order", b =>
                 {
                     b.Property<int>("OrderID")

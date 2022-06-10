@@ -196,7 +196,7 @@ namespace ShoppingAppUAE.Controllers
             {
                 return BadRequest("The ID is not specifed");
             }
-            var product = context.Products.Include(a => a.Category).FirstOrDefault(a => a.ProductID == ID);
+            var product = context.Products.Include(a => a.Category).Include(a=> a.ProductImages).FirstOrDefault(a => a.ProductID == ID);
             if(product == null)
             {
                 return NotFound("The Product is not found");
