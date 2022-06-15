@@ -179,7 +179,15 @@
                                     </ul>
                                 </section>
                                 <section class="modal-product-brief">
-                                    @Html.Raw(Model.DescriptionEnglish)
+                                    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                    {
+                                        @Model.BreifDescriptionArabic
+                                    }
+                                    else
+                                    {
+                                        @Model.BreifDescriptionEnglish
+                                    }
+
                                 </section>
 
                                 <section class="ltn__product-details-menu-2 product-cart-wishlist-btn mb-30">
@@ -248,14 +256,22 @@
                             <a class="active show" data-toggle="tab" href="#liton_tab_details_1_1">Description</a>
                             <a data-toggle="tab" href="#liton_tab_details_1_2" class="">Video</a>
                             <!-- <a data-toggle="tab" href="#liton_tab_details_1_3" class="">Comments</a> -->
-                            <a data-toggle="tab" href="#liton_tab_details_1_4" class="">Reviews</a>
+                          
                             <!-- <a data-toggle="tab" href="#liton_tab_details_1_5" class="">Size Chart</a> -->
                         </div>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="liton_tab_details_1_1">
                             <div class="ltn__shop-details-tab-content-inner text-center">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nost exercit ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepte sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit volu accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explica Nemllo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,</p>
+                                @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                {
+                                    @Html.Raw(Model.DescriptionArabic)
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.DescriptionEnglish)
+                                }
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="liton_tab_details_1_2">
@@ -362,21 +378,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="liton_tab_details_1_4">
-                            <div class="ltn__shop-details-tab-content-inner">
-                                <h4 class="title-2">Shipping policy for our store</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam voluptates rerum neque ea libero numquam officiis ipsum, consectetur ducimus dicta in earum repellat sunt ab odit laboriosam cupiditate ipsam, doloremque.</p>
-                                <ul>
-                                    <li>1-2 business days (Typically by end of day)</li>
-                                    <li><a href="#">30 days money back guaranty</a></li>
-                                    <li>24/7 live support</li>
-                                    <li>odio dignissim qui blandit praesent</li>
-                                    <li>luptatum zzril delenit augue duis dolore</li>
-                                    <li>te feugait nulla facilisi.</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, quia vel eligendi ipsam. Ea, quasi quam ducimus recusandae unde ipsa nam rem a minus tenetur quae sint voluptatem voluptate inventore.</p>
-                            </div>
-                        </div>
+                   
                         <div class="tab-pane fade" id="liton_tab_details_1_5">
                             <div class="ltn__shop-details-tab-content-inner">
 

@@ -69,15 +69,15 @@ function getPrices() {
             data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
             success: function (result) {
                 let myCart = JSON.parse(localStorage.getItem("cart"));
-
+                let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
                 for (let item of result) {
-                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice);
+                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice * processExchnageRate);
                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
                     myCart.find(a => a.productId == item.productID).weight = item.weight;
 
                 }
                 localStorage.setItem("cart", JSON.stringify(myCart));
-                $("#totalCartSum").text(buildTotal() + $("#GlobalCurrencyCode").val());
+                $("#totalCartSum").text(buildTotal() + $("#currency-app").val());
             }
         });
     }

@@ -16,6 +16,7 @@
                                 <img src="/images/@Model.ImageURL" alt="@Model.ProductNameEnglish">
                             </div>
                             <div class="modal-product-info">
+                               
                                 <h5><a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@Model.ProductID">@Model.ProductNameEnglish </a></h5>
                                 <h6>
                                     @Model.PurchasingPrice @configurations["CompanyInfo:DefaultCurrency"]
@@ -28,7 +29,15 @@
                             </div>
                         </div>
                         <div class="additional-info d-none--">
-                             @Html.Raw(Model.DescriptionEnglish)
+                            
+                            @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                              {
+                                @Model.BreifDescriptionArabic
+                             }
+                            else
+                            {
+                                @Model.BreifDescriptionEnglish
+                            }
                         </div>
                           
                         </div>
