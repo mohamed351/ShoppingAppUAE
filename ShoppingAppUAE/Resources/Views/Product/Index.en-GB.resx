@@ -138,6 +138,9 @@
   <data name="Price" xml:space="preserve">
     <value>Prices</value>
   </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
   <data name="SearchKeyWord" xml:space="preserve">
     <value>Search key Word</value>
   </data>

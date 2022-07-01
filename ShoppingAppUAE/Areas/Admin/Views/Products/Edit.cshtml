@@ -10,6 +10,12 @@
     <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
     <link href="~/js/custome-cropper/cropper.min.css" rel="stylesheet" />
+<style>
+    .select2-selection__choice {
+        background-color: #2255a4 !important;
+        border-color: #2255a4 !important;
+    }
+</style>
 }
 <form asp-action="Edit" method="post">
     <div class="card">
@@ -232,6 +238,24 @@
     <script>
         $(document).ready(function () {
 
+
+           
+
+            for (var i of $("#SEOEnglishKeyWords").val().split(",")) {
+                /*console.log(i);*/
+                /*$("#SEOEnglishKeyWordsselect").val(i);*/
+                document.getElementById("SEOEnglishKeyWordsselect").options.add(new Option(i,i,true,true));
+            }
+
+
+            for (var i of $("#SEOArabicKeyWords").val().split(",")) {
+                /*console.log(i);*/
+                /*$("#SEOEnglishKeyWordsselect").val(i);*/
+                document.getElementById("SEOArabicKeyWordsselect").options.add(new Option(i, i, true, true));
+            }
+            
+           
+
             customimageCropper({
                 fileSelector: "#file",
                 modelImageSelector: "#image-modal-cropper",
@@ -262,7 +286,7 @@
             plugins: 'table',
             menubar: 'table'
         });
-
+        
 
         $("#SEOArabicKeyWordsselect").select2({
             tags: true,

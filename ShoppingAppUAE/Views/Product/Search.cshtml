@@ -88,7 +88,7 @@
                                                         <ul>
                                                             
                                                             <li class="add-to-cart">
-                                                                <a href="#" title="Add to Cart" class="product-cart-item" data-id="1">
+                                                                <a href="#" title="Add to Cart" class="product-cart-item" data-id="@item.ProductID">
                                                                     <span class="cart-text d-none d-xl-block ">Add to Cart</span>
                                                                     <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                                                 </a>
@@ -133,17 +133,17 @@
                                                 </div>
 
                                                 <div class="product-brief">
-                                                    @Html.Raw(item.DescriptionEnglish)
+                                                   @item.BreifDescriptionEnglish
                                                 </div>
                                                 <div class="product-hover-action product-hover-action-2">
                                                     <ul>
                                                         <li>
-                                                            <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
+                                                            <a  href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
                                                                 <i class="icon-magnifier"></i>
                                                             </a>
                                                         </li>
                                                         <li class="add-to-cart">
-                                                            <a href="#" title="Add to Cart" class="product-cart-item"   data-id="@item.ProductID">
+                                                            <a href=""  title="Add to Cart" class="product-cart-item"   data-id="@item.ProductID">
                                                                 <span class="cart-text d-none d-xl-block">Add to Cart</span>
                                                                 <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                                             </a>

@@ -141,7 +141,7 @@
                                                 </div>
 
                                                 <div class="product-brief">
-                                                    @Html.Raw(item.DescriptionEnglish)
+                                                    @item.BreifDescriptionEnglish
                                                 </div>
                                                 <div class="product-hover-action product-hover-action-2">
                                                     <ul>
@@ -206,7 +206,7 @@
         callback: function (data, pagination) {
             let currentUrl = new URL(window.location.href);
             $("#txtSearchPhone").val(currentUrl.searchParams.get("search"));
-            $("#txtSearch").val(currentUrl.searchParams.get("search"));
+           
             $("#sortData").val($("#sort").val());
             $("#sortData").niceSelect('update');
         },
