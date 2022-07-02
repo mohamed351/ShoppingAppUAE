@@ -78,7 +78,7 @@
 
         <form asp-action="Cookie" asp-area="" asp-controller="Home" method="post" class="d-flex align-items-center">
 
-            <i class="fa fa-globe icon-size" ></i>
+            <i class="fa fa-globe icon-size"></i>
             <input type="hidden" id="language-app-hidden" value="@CultureInfo.CurrentCulture.Name" />
             <select name="culture" id="language-app">
 
@@ -403,8 +403,8 @@
                                     <div class="footer-menu">
                                         <ul>
                                             @*<li><a href="locations.html">Store Location</a></li>*@
-                                          
-                                          
+
+
                                             <li><a href="faq.html">@locaization["FAQs"]</a></li>
                                         </ul>
                                     </div>
@@ -415,9 +415,9 @@
                                     <h4 class="footer-title">@locaization["Information"]</h4>
                                     <div class="footer-menu">
                                         <ul>
-                                           
+
                                             <li><a href="about.html">About us</a></li>
-                                           
+
                                         </ul>
                                     </div>
                                 </div>
@@ -525,7 +525,7 @@
 
             <!--End Cart-->
 
-   
+
             @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
             {
                 <script src="~/template-user/rtl/js/plugins.min.js"></script>
@@ -543,24 +543,38 @@
 
             @RenderSection("scripts", required: false)
 
-         <script>
+            <script>
 
-             function setCookie(name, value, days) {
-                 var expires = "";
-                 if (days) {
-                     var date = new Date();
-                     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                     expires = "; expires=" + date.toUTCString();
-                 }
-                 document.cookie = name + "=" + (value || "") + expires + "; path=/";
-             }
-             if (!getCookie("currency")) {
+                function setCookie(name, value, days) {
+                    var expires = "";
+                    if (days) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                        expires = "; expires=" + date.toUTCString();
+                    }
+                    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+                }
+                if (!getCookie("currency")) {
 
-                 setCookie("currency", "AED",300);
-             }
+                    setCookie("currency", "AED", 300);
+                }
 
 
-             </script>
+            </script>
+
+            <!--Start of Tawk.to Script-->
+            <script type="text/javascript">
+                var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+                (function () {
+                    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                    s1.async = true;
+                    s1.src = 'https://embed.tawk.to/62c0324fb0d10b6f3e7a7379/1g6vc9237';
+                    s1.charset = 'UTF-8';
+                    s1.setAttribute('crossorigin', '*');
+                    s0.parentNode.insertBefore(s1, s0);
+                })();
+            </script>
+            <!--End of Tawk.to Script-->
         </body>
 
     </html>

@@ -192,16 +192,36 @@ namespace ShoppingAppUAE.Controllers
         [HttpGet]
         public IActionResult CurrentProduct(int? ID)
         {
-            if(ID == null)
+            if (ID == null)
             {
                 return BadRequest("The ID is not specifed");
             }
-            var product = context.Products.Include(a => a.Category).Include(a=> a.ProductImages).FirstOrDefault(a => a.ProductID == ID);
-            if(product == null)
+            var product = context.Products.Include(a => a.Category).Include(a => a.ProductImages).FirstOrDefault(a => a.ProductID == ID);
+            if (product == null)
             {
                 return NotFound("The Product is not found");
             }
+            //get currency from Cookies
+            SetCurrencyCookie();
+
             return View(product);
+        }
+
+        private void SetCurrencyCookie()
+        {
+            var currency = CookiesHelper.GetCookieValue(this.HttpContext.Request, "currency");
+            if (string.IsNullOrEmpty(currency))
+            {
+                var defaultCurrency = context.Currencies.FirstOrDefault(a => a.IsDefault);
+                ViewBag.Currency = defaultCurrency.CurrencyCode;
+                ViewBag.ExchangeRate = defaultCurrency.ExchangeRate;
+            }
+            else
+            {
+                var currentCurreny = context.Currencies.FirstOrDefault(a => a.CurrencyCode == currency);
+                ViewBag.Currency = currentCurreny.CurrencyCode;
+                ViewBag.ExchangeRate = currentCurreny.ExchangeRate;
+            }
         }
 
         public IActionResult AddToCardModel(int? ID)

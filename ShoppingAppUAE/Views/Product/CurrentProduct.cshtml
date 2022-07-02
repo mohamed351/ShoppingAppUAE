@@ -171,7 +171,7 @@
                                     <ul>
                                         <li>
                                             <div class="product-price">
-                                                <span>@Model.PurchasingPrice @configuration["CompanyInfo:DefaultCurrency"] </span>
+                                                <span> @( Convert.ToDecimal( Model.PurchasingPrice * ViewBag.ExchangeRate,).ToString("F2"))  @ViewBag.Currency </span>
 
                                             </div>
                                         </li>
@@ -455,6 +455,7 @@
 @section scripts{
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-624606018f86ebfc"></script>
+  
 
 
 }
