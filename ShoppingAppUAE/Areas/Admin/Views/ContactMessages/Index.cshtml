@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section styles{
+    @*<link href="~/template/assets/libs/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+
+    <link href="~/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+           <h3>Contact Messages</h3>
+        </div>
+
+        <table id="contactMessages" class="table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+
+    <script src="~/js/alphaDataTable.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            tablePlugin("#contactMessages", "/Admin/ContactMessages/GetContacts", [
+                { data: "name" },
+                { data: "phoneNumber" },
+                {data:"email"},
+                {
+                    data: "id", render: function (data) {
+                        return `
+                            <a class="btn btn-warning" href="/Admin/ContactMessages/Details/${data}"> Details </a> 
+                           `
+                    }
+                }
+
+            ])
+
+        });
+    </script>
+}

@@ -17,6 +17,8 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
 
         public IOrderRepository Orders { get; }
 
+         IContactMessageRepository ContactMessages { get; }
+
         int Complete();
 
 
