@@ -13,5 +13,7 @@ namespace PointOfSalesAPI.Models
 
         public string BarCode { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 }

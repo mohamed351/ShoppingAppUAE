@@ -16,5 +16,7 @@ namespace PointOfSalesAPI.Models
 
         public ICollection<SupportItemBarCode> SupportItemBarCodes { get; set; }
 
+        public bool IsDeleted { get; set; }
+
     }
 }

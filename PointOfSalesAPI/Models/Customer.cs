@@ -17,6 +17,8 @@ namespace PointOfSalesAPI.Models
 
         public string Email { get; set; }
 
+        public bool IsDeleted { get; set; }
+
 
     }
 }
