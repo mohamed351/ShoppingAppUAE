@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesAPI.Models;
+using PointOfSalesAPI.UnitOfWork;
 
 namespace PointOfSalesAPI.Controllers
 {
@@ -14,17 +15,19 @@ namespace PointOfSalesAPI.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly ApplicationPosDbContext _context;
+        private readonly IUnitOfWork unit;
 
-        public CustomersController(ApplicationPosDbContext context)
+        public CustomersController(ApplicationPosDbContext context ,IUnitOfWork unit)
         {
             _context = context;
+            this.unit = unit;
         }
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public  IActionResult GetCustomers(int start=0, int length=10, string search="")
         {
-            return await _context.Customers.ToListAsync();
+            return Ok(this.unit.Customers.GetDataTable(start, length, a => a.IsDeleted == false && a.Name.Contains(search) ,a=> a.ID));
         }
 
         // GET: api/Customers/5
@@ -93,7 +96,8 @@ namespace PointOfSalesAPI.Controllers
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            customer.IsDeleted = true;
+
             await _context.SaveChangesAsync();
 
             return NoContent();

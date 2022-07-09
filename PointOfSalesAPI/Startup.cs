@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PointOfSalesAPI.Models;
-
+using PointOfSalesAPI.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +41,9 @@ namespace PointOfSalesAPI
             {
                 a.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +61,8 @@ namespace PointOfSalesAPI
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(a => a.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
