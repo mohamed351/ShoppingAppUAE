@@ -5,11 +5,16 @@ $("#currency-app").niceSelect("update");
 const currentCart = localStorage.getItem("cart");
 const items = [];
 
+if (checkOutOfStock()) {
+    $("#quantity-validation").html("<div style='height:20vh'><h2 class='text-danger mt-2 text-center'> Please Check your cart some items is out of stock </h2></div>")
+}
+
 
  currencyCode = $("#currency-app").val().toLowerCase()
 if (currentCart) {
     let cartArray = JSON.parse(currentCart);
     for (let item of cartArray) {
+
         items.push({ id: +item.productId, quantity: item.Quantity, price: item.price, productName:item.productName})
     }
 

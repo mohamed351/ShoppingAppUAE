@@ -70,176 +70,173 @@
     </div>
 </div>
 
+<div id="quantity-validation">
+    <!-- WISHLIST AREA START -->
+    <form id="payment-form" asp-controller="Checkout" asp-action="SubmitCheckout" method="post">
+        <input type="hidden" id="publicKeyPayment" value="@configuration["Stripe:PublishableKey"]" />
+        <div class="ltn__checkout-area mb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ltn__checkout-inner">
 
-<!-- WISHLIST AREA START -->
-<form id="payment-form" asp-controller="Checkout" asp-action="SubmitCheckout" method="post">
-    <input type="hidden" id="publicKeyPayment" value="@configuration["Stripe:PublishableKey"]" />
-    <div class="ltn__checkout-area mb-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ltn__checkout-inner">
+                            <div class="ltn__checkout-single-content mt-50">
+                                <h4 class="title-2">@localization["Billing Details"]</h4>
+                                <div class="ltn__checkout-single-content-info">
 
-                        <div class="ltn__checkout-single-content mt-50">
-                            <h4 class="title-2">@localization["Billing Details"]</h4>
-                            <div class="ltn__checkout-single-content-info">
-
-                                <h6>@localization["Personal Information"]</h6>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="input-item input-item-name ltn__custom-icon">
-                                            <input required  asp-for="ApplicationUser.FirstName" placeholder="@localization["First Name"]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-item input-item-name ltn__custom-icon">
-                                            <input  required asp-for="ApplicationUser.LastName" placeholder="@localization["Last Name"]">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="input-item input-item-email ltn__custom-icon">
-                                            <input required asp-for="ApplicationUser.Email" placeholder="@localization["Email address"]">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                   
-                                        <div class="input-item input-item-phone ltn__custom-icon d-flex">
-
-                                            <input type="text" required  asp-for="ApplicationUser.PhoneNumber" value=" @Model.ApplicationUser.PhoneNumber " placeholder="@localization["Phone Number"]">
-                                            <input type="text" required asp-for="ApplicationUser.PhonePrefix" readonly style="width:200px" />
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-lg-12 col-md-12">
-                                        <h6>@localization["Address"]</h6>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="input-item">
-                                                    <input type="text" required placeholder="@localization["Address"]" asp-for="ApplicationUser.Address">
-                                                </div>
+                                    <h6>@localization["Personal Information"]</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="input-item input-item-name ltn__custom-icon">
+                                                <input required asp-for="ApplicationUser.FirstName" placeholder="@localization["First Name"]">
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-item input-item-name ltn__custom-icon">
+                                                <input required asp-for="ApplicationUser.LastName" placeholder="@localization["Last Name"]">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-item input-item-email ltn__custom-icon">
+                                                <input required asp-for="ApplicationUser.Email" placeholder="@localization["Email address"]">
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-6">
+
+                                            <div class="input-item input-item-phone ltn__custom-icon d-flex">
+
+                                                <input type="text" required asp-for="ApplicationUser.PhoneNumber" value=" @Model.ApplicationUser.PhoneNumber " placeholder="@localization["Phone Number"]">
+                                                <input type="text" required asp-for="ApplicationUser.PhonePrefix" readonly style="width:200px" />
+                                            </div>
                                         </div>
+
+
                                     </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <h6>@localization["Town / City"]</h6>
-                                        <div class="input-item">
-                                            <input type="text" required placeholder="@localization["City"]" asp-for="ApplicationUser.City">
+                                    <div class="row">
+
+                                        <div class="col-lg-12 col-md-12">
+                                            <h6>@localization["Address"]</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="input-item">
+                                                        <input type="text" required placeholder="@localization["Address"]" asp-for="ApplicationUser.Address">
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <h6>@localization["Town / City"]</h6>
+                                            <div class="input-item">
+                                                <input type="text" required placeholder="@localization["City"]" asp-for="ApplicationUser.City">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <h6>@localization["Order Notes (optional)"]</h6>
+                                    <div class="input-item input-item-textarea ltn__custom-icon">
+                                        <textarea asp-for="Note" placeholder="@localization["Notes about your order, e.g. special notes for delivery."]"></textarea>
                                     </div>
 
 
                                 </div>
-
-                                <h6>@localization["Order Notes (optional)"]</h6>
-                                <div class="input-item input-item-textarea ltn__custom-icon">
-                                    <textarea asp-for="Note" placeholder="@localization["Notes about your order, e.g. special notes for delivery."]"></textarea>
-                                </div>
-
-
                             </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <div class="col-lg-12">
+                        <h2>@localization["Order Notes (optional)"]</h2>
+                        @foreach (var item in Model.ShippingDetails)
+                        {
+                            <ul>
+                                <li class="shipping-cart-item card-shipping">
+                                    <input type="radio" class="shipping-cart-item-radio"
+                                           name="shippingPirce" data-id="@item.ID"
+                                           data-price="@item.ShippingPrice"
+                                           data-weight-limit="@item.FirstWeightLimit"
+                                           data-price-afterExisting="@item.PriceAfterExcedingTheLimit"
+                                           data-weight-afterExisting="@item.AdditionalKgAfterExcedingTheLimit"
+                                           data-isDefault="@item.IsDefault" />  <span>@item.ShippingCompany</span>
+                                    </li>
+                                </ul>
+                            }
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="ltn__checkout-payment-method mt-50">
+                            <h4 class="title-2">@localization["Payment Method"]</h4>
+                            <div id="checkout_accordion_1">
+
+                                <div class="card">
+                                    <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
+                                        @localization["Cash on delivery"]
+                                    </h5>
+                                    <div id="faq-item-2-2" data-id="0" class="collapse show" data-parent="#checkout_accordion_1">
+                                        <div class="card-body">
+                                            <p>@localization["Pay with cash upon delivery."].</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- card -->
+                                <div class="card">
+                                    <h5 class="collapsed ltn__card-title" data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
+                                        @localization["Card Debit /Credit"]
+                                    </h5>
+                                    <div id="faq-item-2-3" data-id="1" class="collapse" data-parent="#checkout_accordion_1">
+                                        <div class="card-body" id="payment-element">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ltn__payment-note mt-30 mb-30">
+                                <p>@localization["Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy."]</p>
+                            </div>
+                            <button class="btn theme-btn-1 btn-effect-1 text-uppercase" id="submit" type="submit">@localization["Place order"]</button>
                         </div>
                     </div>
 
 
 
-                </div>
 
 
+                    <div class="col-lg-6">
+                        <div class="shoping-cart-total mt-50">
+                            <h4 class="title-2">@localization["Cart Total"]</h4>
+                            <table class="table">
+                                <tbody id="payment-details">
+                                </tbody>
+                            </table>
 
-                <div class="col-lg-12">
-                    <h2>@localization["Order Notes (optional)"]</h2>
-                    @foreach (var item in Model.ShippingDetails)
-                    {
-                        <ul>
-                            <li class="shipping-cart-item card-shipping">
-                                <input type="radio" class="shipping-cart-item-radio"
-                                       name="shippingPirce" data-id="@item.ID"
-                                       data-price="@item.ShippingPrice"
-                                       data-weight-limit="@item.FirstWeightLimit"
-                                       data-price-afterExisting="@item.PriceAfterExcedingTheLimit"
-                                       data-weight-afterExisting="@item.AdditionalKgAfterExcedingTheLimit"
-                                       data-isDefault="@item.IsDefault" />  <span>@item.ShippingCompany</span>
-                                </li>
-                            </ul>
-                        }
-
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="ltn__checkout-payment-method mt-50">
-                        <h4 class="title-2">@localization["Payment Method"]</h4>
-                        <div id="checkout_accordion_1">
-
-                            <div class="card">
-                                <h5 class="ltn__card-title" data-toggle="collapse" data-target="#faq-item-2-2" aria-expanded="true">
-                                    @localization["Cash on delivery"]
-                                </h5>
-                                <div id="faq-item-2-2" data-id="0" class="collapse show" data-parent="#checkout_accordion_1">
-                                    <div class="card-body">
-                                        <p>@localization["Pay with cash upon delivery."].</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- card -->
-                            <div class="card">
-                                <h5 class="collapsed ltn__card-title" data-id="1" data-toggle="collapse" data-target="#faq-item-2-3" aria-expanded="false">
-                                    @localization["Card Debit /Credit"]
-                                </h5>
-                                <div id="faq-item-2-3" data-id="1" class="collapse" data-parent="#checkout_accordion_1">
-                                    <div class="card-body" id="payment-element">
-
-                                    </div>
-                                </div>
-                            </div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @localization["Shipping"]
+                                        </td>
+                                        <td id="shippingPirce">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="ltn__payment-note mt-30 mb-30">
-                            <p>@localization["Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy."]</p>
-                        </div>
-                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" id="submit" type="submit">@localization["Place order"]</button>
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="col-lg-6">
-                    <div class="shoping-cart-total mt-50">
-                        <h4 class="title-2">@localization["Cart Total"]</h4>
-                        <table class="table">
-                            <tbody id="payment-details">
-                             
-
-
-                            </tbody>
-                        </table>
-
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @localization["Shipping"]
-                                    </td>
-                                    <td id="shippingPirce">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-</form>
-
+    </form>
+</div>
 
 
 <form>
