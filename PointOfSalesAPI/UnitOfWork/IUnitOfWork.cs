@@ -11,6 +11,8 @@ namespace PointOfSalesAPI.UnitOfWork
 
         public ICustomerRepository Customers { get;  }
 
+        public ISupplierRepository Suppliers{ get; }
+
         int Complete();
     }
 }

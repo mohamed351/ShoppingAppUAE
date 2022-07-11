@@ -15,9 +15,11 @@ namespace PointOfSalesAPI.UnitOfWork
         public UnitOfWork(ApplicationPosDbContext context)
         {
             this.Customers = new CustomerRepository(context);
+            this.Suppliers = new SupplierRepository(context);
             this.context = context;
         }
         public ICustomerRepository Customers { get; }
+        public ISupplierRepository Suppliers { get; }
 
         public int Complete()
         {

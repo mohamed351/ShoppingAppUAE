@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ShoppingAppUAE.Data.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section styles{
+
+
+    <link href="~/template/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+<div class="card">
+
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5>Store Quantity</h5>
+            <button class="btn btn-success" id="btnUpdate">Save</button>
+
+        </div>
+
+        <table id="productStore" class="mt-5 table">
+            <thead>
+                <tr>
+                    <th>Product Name Arabic</th>
+                    <th>Product Name English</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="product-data">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductNameArabic</td>
+                        <td>@item.ProductNameEnglish</td>
+                        <td>
+                            <input type="number" class="form-control product-qtu" data-id="@item.ProductID" value="@item.Quantity" />
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script>
+        $("#productStore").dataTable();
+        $("#btnUpdate").on("click", function () {
+            array_of_products= [
+
+            ]
+
+            $("#product-data tr").each(function () {
+                array_of_products.push({
+                    id: $(this).find(".product-qtu").attr("data-id"),
+                    quantity: $(this).find(".product-qtu").val(),
+                   
+                });
+            });
+            $.ajax({
+                url: "/Admin/InitalStore/Update",
+                method: "POST",
+                contentType: "application/json",
+                type: "json",
+                data: JSON.stringify(array_of_products),
+                success: function (result) {
+                    swal("successfully updated", "", "success");
+
+                }
+            });
+        });
+    </script>
+}

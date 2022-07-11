@@ -6,14 +6,16 @@ function buildCart(currentCart) {
     $(".totalCount")
     console.log(currentCart);
     let cartItemsHtml = cartItems.map(function (data) {
+      
         return `<div class="mini-cart-item clearfix">
                                <div class="mini-cart-img">
                                    <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
                                                 <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
                                                            </div>
                                                                <div class="mini-cart-info">
-                                                                        <h6><a href="#">${data.productName}</a></h6>
-                                                                         <span class="mini-cart-quantity"> <span class='product-qtu-data'> ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                        <h6><a href="#">${data.productName}</a>   <span class='text-danger'> ${data.currentQuantity == 0 ? "Out Of Stock" : ""} </span></h6>
+                                                                          
+                                                                         <span class="mini-cart-quantity"> <span class='product-qtu-data'>  ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
                                                                 </div>
                                                           </div>`;
     });
@@ -45,6 +47,10 @@ $(document).on("click", ".mini-cart-item-delete", function () {
         buildCart(localStorage.getItem("cart"));
         $("#totalCartSum").text(buildTotal());
         getPrices();
+
+        if (!checkOutOfStock()) {
+            $("#checkout-button-validation").attr("href", "checkout");
+        }
     }
 });
 
@@ -68,13 +74,20 @@ function getPrices() {
             type: "json",
             data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
             success: function (result) {
+                 
                 let myCart = JSON.parse(localStorage.getItem("cart"));
                 let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
                 for (let item of result) {
+                    console.log(item);
+                    if (item.quantity == 0) {
+                       
+                        $("#checkout-button-validation").removeAttr("href");
+                    }
                     $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice * processExchnageRate);
                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
                     myCart.find(a => a.productId == item.productID).weight = item.weight;
-
+                    myCart.find(a => a.productId == item.productID).currentQuantity = item.quantity;
+                    myCart.find(a => a.productId == item.productID).imageURL = item.imageURL;
                 }
                 localStorage.setItem("cart", JSON.stringify(myCart));
                 $("#totalCartSum").text(buildTotal() + $("#currency-app").val());
@@ -144,4 +157,11 @@ function getCookie(name) {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+}
+function checkOutOfStock() {
+    let currentProducts = localStorage.getItem("cart");
+    currentProducts = JSON.parse(currentProducts);
+    return currentProducts.find(a => a.currentQuantity === 0);
+
+
 }

@@ -194,9 +194,19 @@
                                     <ul>
 
                                         <li>
-                                            <button class="theme-btn-1 btn btn-effect-1 d-add-to-cart add-cart-local" data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" title="Add to Cart">
-                                                <span>@locaization["AddToCart"]</span>
-                                            </button>
+                                            @if (Model.Quantity == 0)
+                                            {
+                                                <button class="btn btn-block" disabled="disabled"  title="out of stock">
+                                                    <span class="text-dange"> out of stock</span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="theme-btn-1 btn btn-effect-1 d-add-to-cart add-cart-local" data-id="@Model.ProductID" data-name="@Model.ProductNameEnglish" data-image="@Model.ImageURL" title="Add to Cart">
+                                                    <span>@locaization["AddToCart"]</span>
+                                                </button>
+                                            }
+
                                         </li>
                                         <li>
                                             <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="@locaization["AddToCart"]">
