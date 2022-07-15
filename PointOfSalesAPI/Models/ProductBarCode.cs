@@ -13,10 +13,21 @@ namespace PointOfSalesAPI.Models
         public string MainBarCode { get; set; }
 
         public int ProductID { get; set; }
+        public SerialStatus SerialStatus { get; set; }
 
         public ICollection<SupportItemBarCode> SupportItemBarCodes { get; set; }
 
         public bool IsDeleted { get; set; }
 
+    }
+
+
+    public enum SerialStatus
+    {
+        New = 0,
+        Buy = 1,
+        Purchased = 2,
+        PurchaseReund = 3,
+        BackToSupplier = 4
     }
 }

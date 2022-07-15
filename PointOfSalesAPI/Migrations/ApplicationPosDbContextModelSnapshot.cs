@@ -58,6 +58,9 @@ namespace PointOfSalesAPI.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
+                    b.Property<int>("SerialStatus")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.ToTable("ProductBarCodes");

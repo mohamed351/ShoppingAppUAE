@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointOfSalesAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,10 @@ namespace PointOfSalesAPI.DTO
         public int ProductId { get; set; }
         public string Serial { get; set; }
 
+        public SerialStatus SerialStatus { get; set; }
+
+
+
         public List<SubSerial> subSerial { get; set; }
     }
 
@@ -24,4 +29,6 @@ namespace PointOfSalesAPI.DTO
 
         public string Serial { get; set; }
     }
+
+  
 }

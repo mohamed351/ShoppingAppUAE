@@ -28,6 +28,7 @@ namespace PointOfSalesAPI.Controllers
           var productSerials =  this.posDbContext.ProductBarCodes.Include(a => a.SupportItemBarCodes)
                 .Where(a => a.ProductID == id).Select(a=> new ProductSerialDTO() { ProductId = a.ProductID ,
                     Serial =a.MainBarCode, 
+                    SerialStatus = a.SerialStatus,
                     subSerial =
                     a.SupportItemBarCodes.ToList().Select(a=> new SubSerial() {  MainSerial =a.SupportItem.MainBarCode , Serial = a.BarCode}).ToList()}).ToList();
 
@@ -43,6 +44,7 @@ namespace PointOfSalesAPI.Controllers
                     IsDeleted = false,
                     MainBarCode = item.Serial,
                     ProductID = item.ProductId,
+                    SerialStatus = SerialStatus.New
 
                 };
                 code.SupportItemBarCodes = new List<SupportItemBarCode>();
