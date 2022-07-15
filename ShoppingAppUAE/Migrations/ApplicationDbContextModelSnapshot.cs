@@ -383,6 +383,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsShownInHome")
                         .HasColumnType("bit");
 
@@ -685,6 +688,9 @@ namespace ShoppingAppUAE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsNewArrivals")

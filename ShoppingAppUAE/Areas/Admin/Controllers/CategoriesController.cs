@@ -35,7 +35,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
            
             string search = HttpContext.Request.Query["search[value]"];
-            return Json(unitOfWork.Categories.GetDataTable(start, length, a => a.CategoryNameEnglish.Contains(search) || a.CategoryNameArabic.Contains(search),a=> a.CategoryID));
+            return Json(unitOfWork.Categories.GetDataTable(start, length, a => a.IsDeleted == false && (a.CategoryNameEnglish.Contains(search) || a.CategoryNameArabic.Contains(search)),a=> a.CategoryID));
         }
 
   
@@ -134,7 +134,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return View(category);
         }
 
-       
+       [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,8 +156,11 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
+
             var category = await unitOfWork.Categories.GetByIDAsync(id);
-            unitOfWork.Categories.Delete(category);
+           
+            category.IsDeleted = true;
             unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }

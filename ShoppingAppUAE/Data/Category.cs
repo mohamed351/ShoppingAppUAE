@@ -48,6 +48,8 @@ namespace ShoppingAppUAE.Data
 
         public bool IsShownInHome { get; set; }
 
+        public bool IsDeleted { get; set; }
+
 
         public ICollection<Product>  Products { get; set; }
 

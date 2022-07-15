@@ -83,8 +83,8 @@ namespace ShoppingAppUAE.Data
 
         public Brand Brand { get; set; }
 
+        public bool IsDeleted { get; set; }
 
-       
 
 
         public Category Category { get; set; }

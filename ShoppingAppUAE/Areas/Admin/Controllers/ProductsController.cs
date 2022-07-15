@@ -42,7 +42,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         public IActionResult GetProducts(int start = 0, int length = 10)
         {
             string search = HttpContext.Request.Query["search[value]"];
-            return Json(this.unitOfWork.Products.GetDataTable(start, length, a => a.ProductNameEnglish.Contains(search) || a.ProductNameArabic.Contains(search), a => a.ProductID));
+            return Json(this.unitOfWork.Products.GetDataTable(start, length,  a =>  (a.ProductNameEnglish.Contains(search) || a.ProductNameArabic.Contains(search)) &&  a.IsDeleted == false, a => a.ProductID) );
         }
 
         public IActionResult EditPhoto(int ID)
@@ -208,25 +208,57 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return View(productEditViewModel);
         }
 
-        [HttpPost]
-        public IActionResult Delete([FromBody]int? ID)
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
         {
-            if(ID == null)
+            if (id == null)
             {
-                return BadRequest("The ID is not Specified");
-            }
-            var product = unitOfWork.Products.GetByID(ID.Value);
-
-            if(product == null)
-            {
-                return NotFound("The Product is not found");
-
+                return NotFound();
             }
 
-            unitOfWork.Products.Delete(product);
-            unitOfWork.Complete();
-            return NoContent();
+            var category = await unitOfWork.Products
+                .GetByIDAsync(id.Value);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
         }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+
+
+            var product = await unitOfWork.Products.GetByIDAsync(id);
+
+            product.IsDeleted = true;
+            unitOfWork.Complete();
+            return RedirectToAction(nameof(Index));
+        }
+
+        //[HttpPost]
+        //public IActionResult Delete([FromBody]int? ID)
+        //{
+        //    if(ID == null)
+        //    {
+        //        return BadRequest("The ID is not Specified");
+        //    }
+        //    var product = unitOfWork.Products.GetByID(ID.Value);
+
+        //    if(product == null)
+        //    {
+        //        return NotFound("The Product is not found");
+
+        //    }
+
+        //    product.IsDeleted = true;
+        //    unitOfWork.Complete();
+        //    return NoContent();
+        //}
 
 
 
