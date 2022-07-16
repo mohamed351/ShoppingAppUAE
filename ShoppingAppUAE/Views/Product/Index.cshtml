@@ -13,7 +13,7 @@
             color: #fff;
             height: 100%;
             width: 100%;
-            position: absolute;
+            position: fixed;
             z-index: 999999;
             top: 0%;
             left: 0%;
@@ -336,8 +336,14 @@
                                                             <ul>
 
                                                                 <li class="add-to-cart">
-                                                                    <a href="#" title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
-                                                                        <span class="cart-text d-none d-xl-block "  >Add to Cart</span>
+                                                                    <a  title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
+                                                                        <span class="cart-text d-none d-xl-block "  >     <i class="icon-handbag white-color"></i> </span>
+                                                                        <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                                    </a>
+                                                                </li>
+                                                                     <li class="add-wish-list">
+                                                                    <a  title="Add to Wish" class="product-wish-item"   data-id="${currentItem.productID}">
+                                                                        <span class="cart-text d-none d-xl-block "  >  <i class="icon-heart white-color "></i> </span>
                                                                         <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                                                     </a>
                                                                 </li>
@@ -384,11 +390,20 @@
                                                         <ul>
 
                                                             <li class="add-to-cart">
-                                                                <a href="#" title="Add to Cart" class='product-cart-item' data-id=${currentItem.productID}>
-                                                                    <span class="cart-text d-none d-xl-block">Add to Cart</span>
+                                                                <a title="Add to Cart" class='product-cart-item' data-id=${currentItem.productID}>
+                                                                    <span class="cart-text d-none d-xl-block"><i class="icon-handbag white-color"></i> </span>
                                                                     <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                                                 </a>
                                                             </li>
+
+                                                              <li class="add-to-wish">
+                                                                <a  title="Add to Cart" class='product-wish-item' data-id=${currentItem.productID}>
+                                                                    <span class="cart-text d-none d-xl-block"><i class="icon-heart white-color "></i></span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                                </a>
+                                                            </li>
+            
+                                        
 
                                                         </ul>
                                                     </div>

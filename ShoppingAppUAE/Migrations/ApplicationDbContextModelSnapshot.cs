@@ -826,6 +826,21 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("shippingAndDeliveries");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.WishList", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProductID", "UserID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("WishLists");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -959,6 +974,25 @@ namespace ShoppingAppUAE.Migrations
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ShoppingAppUAE.Data.WishList", b =>
+                {
+                    b.HasOne("ShoppingAppUAE.Data.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShoppingAppUAE.Data.ApplicationUser", "MyProperty")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MyProperty");
 
                     b.Navigation("Product");
                 });

@@ -48,8 +48,13 @@ namespace ShoppingAppUAE.Data
 
 
         public DbSet<IntegrationSystem> Systems { get; set; }
+
+
+        public DbSet<WishList> WishLists { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<WishList>()
+                 .HasKey(c => new { c.ProductID, c.UserID });
             builder.Entity<SEOData>().HasKey(a => new { a.ActionName, a.ControllerName });
             base.OnModelCreating(builder);  
         }
