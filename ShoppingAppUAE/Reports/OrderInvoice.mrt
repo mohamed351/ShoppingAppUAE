@@ -228,7 +228,6 @@
               <VertAlignment>Center</VertAlignment>
             </Text27>
             <Text28 Ref="18" type="Text" isKey="true">
-              <Border>None;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.1,3.2,1.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -273,7 +272,6 @@
               <VertAlignment>Center</VertAlignment>
             </Text30>
             <Text31 Ref="21" type="Text" isKey="true">
-              <Border>None;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.7,0.3,2.4,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -304,7 +302,6 @@
               <VertAlignment>Center</VertAlignment>
             </Text32>
             <Text33 Ref="23" type="Text" isKey="true">
-              <Border>None;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>1,3.6,2.9,0.3</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -430,29 +427,11 @@ United Arab Emirates</Text>
         <HeaderBand1 Ref="32" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,5.4,8.1,0.6</ClientRectangle>
-          <Components isList="true" count="6">
-            <Text9 Ref="33" type="Text" isKey="true">
+          <Components isList="true" count="5">
+            <Text10 Ref="33" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0.1,1.5,0.5</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Font>Yu Gothic UI,10,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <Margins>0,0,0,0</Margins>
-              <Name>Text9</Name>
-              <Page isRef="4" />
-              <Parent isRef="32" />
-              <Text>الرقم
-Proudct No.
-</Text>
-              <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Text9>
-            <Text10 Ref="34" type="Text" isKey="true">
-              <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>Transparent</Brush>
-              <ClientRectangle>1.5,0.1,1.5,0.5</ClientRectangle>
+              <ClientRectangle>0,0.1,3.4,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Yu Gothic UI,10,Bold</Font>
               <HorAlignment>Center</HorAlignment>
@@ -467,10 +446,10 @@ Product Name
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text10>
-            <Text11 Ref="35" type="Text" isKey="true">
+            <Text11 Ref="34" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3,0.1,1.5,0.5</ClientRectangle>
+              <ClientRectangle>3.4,0.1,1.1,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Yu Gothic UI,10,Bold</Font>
               <HorAlignment>Center</HorAlignment>
@@ -485,7 +464,7 @@ Quantity
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text11>
-            <Text12 Ref="36" type="Text" isKey="true">
+            <Text12 Ref="35" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>4.5,0.1,1.5,0.5</ClientRectangle>
@@ -503,7 +482,7 @@ Price
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text12>
-            <Text13 Ref="37" type="Text" isKey="true">
+            <Text13 Ref="36" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6,0.1,2.1,0.5</ClientRectangle>
@@ -521,17 +500,17 @@ Total Price
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text13>
-            <HorizontalLinePrimitive1 Ref="38" type="HorizontalLinePrimitive" isKey="true">
+            <HorizontalLinePrimitive1 Ref="37" type="HorizontalLinePrimitive" isKey="true">
               <ClientRectangle>0,0,8.1,0.01</ClientRectangle>
               <Color>Black</Color>
               <Conditions isList="true" count="0" />
-              <EndCap Ref="39" type="Cap" isKey="true">
+              <EndCap Ref="38" type="Cap" isKey="true">
                 <Color>Black</Color>
               </EndCap>
               <Name>HorizontalLinePrimitive1</Name>
               <Page isRef="4" />
               <Parent isRef="32" />
-              <StartCap Ref="40" type="Cap" isKey="true">
+              <StartCap Ref="39" type="Cap" isKey="true">
                 <Color>Black</Color>
               </StartCap>
             </HorizontalLinePrimitive1>
@@ -541,62 +520,46 @@ Total Price
           <Page isRef="4" />
           <Parent isRef="4" />
         </HeaderBand1>
-        <DataBand1 Ref="41" type="DataBand" isKey="true">
+        <DataBand1 Ref="40" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,6.4,8.1,0.5</ClientRectangle>
-          <Components isList="true" count="5">
-            <Text14 Ref="42" type="Text" isKey="true">
+          <Components isList="true" count="4">
+            <Text15 Ref="41" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>0,0,1.5,0.5</ClientRectangle>
-              <Conditions isList="true" count="0" />
-              <Font>Yu Gothic UI,10,Bold</Font>
-              <HorAlignment>Center</HorAlignment>
-              <Margins>0,0,0,0</Margins>
-              <Name>Text14</Name>
-              <Page isRef="4" />
-              <Parent isRef="41" />
-              <Text>-
-</Text>
-              <TextBrush>Black</TextBrush>
-              <Type>Expression</Type>
-              <VertAlignment>Center</VertAlignment>
-            </Text14>
-            <Text15 Ref="43" type="Text" isKey="true">
-              <Border>All;Black;1;Solid;False;4;Black</Border>
-              <Brush>Transparent</Brush>
-              <ClientRectangle>1.5,0,1.5,0.5</ClientRectangle>
+              <ClientRectangle>0,0,3.4,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Yu Gothic UI,10,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text15</Name>
               <Page isRef="4" />
-              <Parent isRef="41" />
+              <Parent isRef="40" />
               <Text>{sp_Invoice.ProductNameEnglish}
-{sp_Invoice.ProductNameArabic}</Text>
+</Text>
               <TextBrush>Black</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text15>
-            <Text16 Ref="44" type="Text" isKey="true">
+            <Text16 Ref="42" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
-              <ClientRectangle>3,0,1.5,0.5</ClientRectangle>
+              <ClientRectangle>3.4,0,1.1,0.5</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Font>Yu Gothic UI,10,Bold</Font>
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text16</Name>
               <Page isRef="4" />
-              <Parent isRef="41" />
+              <Parent isRef="40" />
               <Text>{sp_Invoice.Quantity}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text16>
-            <Text17 Ref="45" type="Text" isKey="true">
+            <Text17 Ref="43" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>4.5,0,1.5,0.5</ClientRectangle>
@@ -606,13 +569,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text17</Name>
               <Page isRef="4" />
-              <Parent isRef="41" />
+              <Parent isRef="40" />
               <Text>{sp_Invoice.Price} {sp_Invoice.CurrencyCode}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text17>
-            <Text18 Ref="46" type="Text" isKey="true">
+            <Text18 Ref="44" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6,0,2.1,0.5</ClientRectangle>
@@ -622,7 +585,7 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text18</Name>
               <Page isRef="4" />
-              <Parent isRef="41" />
+              <Parent isRef="40" />
               <Text>{sp_Invoice.totalLine} {sp_Invoice.CurrencyCode}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -638,11 +601,11 @@ Total Price
           <Parent isRef="4" />
           <Sort isList="true" count="0" />
         </DataBand1>
-        <FooterBand1 Ref="47" type="FooterBand" isKey="true">
+        <FooterBand1 Ref="45" type="FooterBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,7.3,8.1,0.8</ClientRectangle>
           <Components isList="true" count="6">
-            <Text19 Ref="48" type="Text" isKey="true">
+            <Text19 Ref="46" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.3,0.1,2.4,0.2</ClientRectangle>
@@ -652,13 +615,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text19</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>Total Order</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text19>
-            <Text20 Ref="49" type="Text" isKey="true">
+            <Text20 Ref="47" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.3,0.3,2.4,0.2</ClientRectangle>
@@ -668,13 +631,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text20</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>Total Shipping</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text20>
-            <Text21 Ref="50" type="Text" isKey="true">
+            <Text21 Ref="48" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.7,0.3,2.4,0.2</ClientRectangle>
@@ -684,13 +647,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text21</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>{sp_Invoice.TotalShippingFees} {sp_Invoice.CurrencyCode}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text21>
-            <Text22 Ref="51" type="Text" isKey="true">
+            <Text22 Ref="49" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.7,0.1,2.4,0.2</ClientRectangle>
@@ -700,13 +663,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text22</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>{Sum(sp_Invoice.totalLine)} {sp_Invoice.CurrencyCode}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text22>
-            <Text23 Ref="52" type="Text" isKey="true">
+            <Text23 Ref="50" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>3.3,0.5,2.4,0.2</ClientRectangle>
@@ -716,13 +679,13 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text23</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>Total</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text23>
-            <Text24 Ref="53" type="Text" isKey="true">
+            <Text24 Ref="51" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>5.7,0.5,2.4,0.2</ClientRectangle>
@@ -732,7 +695,7 @@ Total Price
               <Margins>0,0,0,0</Margins>
               <Name>Text24</Name>
               <Page isRef="4" />
-              <Parent isRef="47" />
+              <Parent isRef="45" />
               <Text>{sp_Invoice.Total} {sp_Invoice.CurrencyCode}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -766,10 +729,10 @@ Total Price
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/19/2022 10:46:19 PM</ReportChanged>
+  <ReportChanged>7/16/2022 7:42:15 PM</ReportChanged>
   <ReportCreated>5/19/2022 9:14:07 PM</ReportCreated>
-  <ReportFile>C:\Users\moham\source\repos\ShoppingAppUAE\ShoppingAppUAE\Reports\Report2.mrt</ReportFile>
-  <ReportGuid>4353d63e2aa7450b86a0faa7e1266cac</ReportGuid>
+  <ReportFile>C:\Users\moham\source\repos\ShoppingAppUAE\ShoppingAppUAE\Reports\OrderInvoice.mrt</ReportFile>
+  <ReportGuid>287c2cbe26ef4f27a363a06e7f90541f</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2020.2.1.0</ReportVersion>

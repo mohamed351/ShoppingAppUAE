@@ -5,9 +5,15 @@ $("#currency-app").niceSelect("update");
 const currentCart = localStorage.getItem("cart");
 const items = [];
 
-if (checkOutOfStock()) {
-    $("#quantity-validation").html("<div style='height:20vh'><h2 class='text-danger mt-2 text-center'> Please Check your cart some items is out of stock </h2></div>")
-}
+//if (checkOutOfStock()) {
+   
+//}
+
+getPricesCart((data) => {
+    if (!data) {
+        $("#quantity-validation").html("<div style='height:20vh'><h2 class='text-danger mt-2 text-center'> Please Check your cart some items is out of stock </h2></div>")
+    }
+})
 
 
  currencyCode = $("#currency-app").val().toLowerCase()

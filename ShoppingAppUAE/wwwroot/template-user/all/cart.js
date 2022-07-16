@@ -1,4 +1,5 @@
 ﻿
+
 function buildCart(currentCart) {
     let cartItems = JSON.parse(currentCart);
     $("#totalCount").text(cartItems.length);
@@ -13,7 +14,7 @@ function buildCart(currentCart) {
                                                 <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
                                                            </div>
                                                                <div class="mini-cart-info">
-                                                                        <h6><a href="#">${data.productName}</a>   <span class='text-danger'> ${data.currentQuantity == 0 ? "Out Of Stock" : ""} </span></h6>
+                                                                        <h6><a href="#">${data.productName}</a>   <span class='text-danger'> ${data.currentQuantity < 0 ? "Out Of Stock" : (data.currentQuantity < data.Quantity ? "Quantity is not Enougth" :"" ) } </span></h6>
                                                                           
                                                                          <span class="mini-cart-quantity"> <span class='product-qtu-data'>  ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
                                                                 </div>
@@ -48,9 +49,7 @@ $(document).on("click", ".mini-cart-item-delete", function () {
         $("#totalCartSum").text(buildTotal());
         getPrices();
 
-        if (!checkOutOfStock()) {
-            $("#checkout-button-validation").attr("href", "checkout");
-        }
+      
     }
 });
 
@@ -76,21 +75,33 @@ function getPrices() {
             success: function (result) {
                  
                 let myCart = JSON.parse(localStorage.getItem("cart"));
+             
                 let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
                 for (let item of result) {
-                    console.log(item);
-                    if (item.quantity == 0) {
-                       
-                        $("#checkout-button-validation").removeAttr("href");
-                    }
-                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice * processExchnageRate);
+                    
+                  
+                 
                     myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
                     myCart.find(a => a.productId == item.productID).weight = item.weight;
                     myCart.find(a => a.productId == item.productID).currentQuantity = item.quantity;
                     myCart.find(a => a.productId == item.productID).imageURL = item.imageURL;
                 }
                 localStorage.setItem("cart", JSON.stringify(myCart));
+            
+                buildCart(localStorage.getItem("cart"));
+              
+                if (!checkOutOfStock()) {
+                    $("#checkout-button-validation").attr("href", "checkout");
+                    $("#checkout-button-validation").removeAttr("href");
+                }
+
+                for (let item of result) {
+                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice * processExchnageRate);
+                }
                 $("#totalCartSum").text(buildTotal() + $("#currency-app").val());
+              
+               
+
             }
         });
     }
@@ -159,9 +170,66 @@ function getCookie(name) {
     return null;
 }
 function checkOutOfStock() {
+    currentValue = true;
     let currentProducts = localStorage.getItem("cart");
     currentProducts = JSON.parse(currentProducts);
-    return currentProducts.find(a => a.currentQuantity === 0);
+    //return currentProducts.find(a => a.currentQuantity === 0);
+    for (var item of currentProducts) {
+        console.log(item);
+        if (item.Quantity > item.currentQuantity) {
+            return false;
+        }
+    }
+    return currentValue;
+   
 
+}
+
+
+function getPricesCart(callBackFunction) {
+    let currentCart = localStorage.getItem("cart");
+    if (currentCart) {
+        let cartItems = buildCart(currentCart);
+
+        $.ajax({
+            url: "/Product/GetProductPrices",
+            method: "POST",
+            contentType: "application/json",
+            type: "json",
+            data: JSON.stringify({ producIds: cartItems.map(a => a.productId) }),
+            success: function (result) {
+
+                let myCart = JSON.parse(localStorage.getItem("cart"));
+
+                let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+                for (let item of result) {
+
+
+
+                    myCart.find(a => a.productId == item.productID).price = item.purchasingPrice;
+                    myCart.find(a => a.productId == item.productID).weight = item.weight;
+                    myCart.find(a => a.productId == item.productID).currentQuantity = item.quantity;
+                    myCart.find(a => a.productId == item.productID).imageURL = item.imageURL;
+                }
+                localStorage.setItem("cart", JSON.stringify(myCart));
+
+                buildCart(localStorage.getItem("cart"));
+
+                if (!checkOutOfStock()) {
+                    $("#checkout-button-validation").attr("href", "checkout");
+                    $("#checkout-button-validation").removeAttr("href");
+                }
+
+                for (let item of result) {
+                    $(`#cartInfo .product-price-data[data-id='${item.productID}']`).text(item.purchasingPrice * processExchnageRate);
+                }
+                $("#totalCartSum").text(buildTotal() + $("#currency-app").val());
+                callBackFunction(checkOutOfStock());
+
+
+
+            }
+        });
+    }
 
 }

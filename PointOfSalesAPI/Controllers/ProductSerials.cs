@@ -52,7 +52,7 @@ namespace PointOfSalesAPI.Controllers
                 {
                     code.SupportItemBarCodes.Add(new SupportItemBarCode()
                     {
-                        BarCode = item.Serial,
+                        BarCode = item2.Serial,
                         IsDeleted = false,
 
 
