@@ -14,6 +14,7 @@ using Stimulsoft.Report.Web;
 using Stimulsoft.Report.Dictionary;
 using Microsoft.Extensions.Configuration;
 using Stimulsoft.Report.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -45,66 +46,103 @@ namespace ShoppingAppUAE.Controllers
         [HttpPost]
         public IActionResult SubmitCheckout([FromBody]PaymentCompletedViewModel paymentCompletedView)
         {
-            string orderGUID = Guid.NewGuid().ToString();
-            var userId = User.GetUserId();
-            var user = context.Users.Find(userId);
-           var currency = context.Currencies.Find(paymentCompletedView.CurrenyCode);
-            if (ModelState.IsValid)
+            using (var transaction = context.Database.BeginTransaction())
             {
-
-
-                var order = new Data.Order()
+                try
                 {
-                    TotalShippingFees = paymentCompletedView.ShipmentFees,
-                    Address = paymentCompletedView.Address,
-                    UserID = userId,
-                    City = paymentCompletedView.City,
-                    CurrencyCode = paymentCompletedView.CurrenyCode,
-                    DateTimeIssued = DateTime.Now,
-                    FirstName = paymentCompletedView.FirstName,
-                    LastName = paymentCompletedView.LastName,
-                    ExchangeRate = currency.ExchangeRate,
-                    Note = paymentCompletedView.OrderNote,
-                    OrderGUID = orderGUID,
-                    ReferenceID = "",
-                    OrderAddress = paymentCompletedView.Address,
-                    OrderEmail = paymentCompletedView.Email,
-                    OrderPhone = paymentCompletedView.PhonePrefix + paymentCompletedView.PhoneNumber,
-                    OriginalEmail = user.Email,
-                    OriginalPhone = user.PhonePrefix +  "" +user.PhoneNumber,
-                  
-                    ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
-                    Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
-                    OrderDetails = new List<OrderDetails>(),
-                    OrderType = paymentCompletedView.OrderType
-                };
-                foreach (var item in paymentCompletedView.PaymentCarts)
-                {
-                    var orderDetail = new OrderDetails()
+                    string orderGUID = Guid.NewGuid().ToString();
+                    var userId = User.GetUserId();
+                    var user = context.Users.Find(userId);
+                    var currency = context.Currencies.Find(paymentCompletedView.CurrenyCode);
+
+                    if (ModelState.IsValid)
                     {
-                        CurrencyCode = paymentCompletedView.CurrenyCode,
-                        ExchangeRate = currency.ExchangeRate,
-                        Price = item.Price * currency.ExchangeRate,
-                        ProductID = item.ProductId,
-                        Quantity = item.Quantity,
-                        Total = (item.Quantity * item.Price) * currency.ExchangeRate,
 
-                    };
-                    order.OrderDetails.Add(orderDetail);
 
+                     
+                        var order = new Data.Order()
+                        {
+                            TotalShippingFees = paymentCompletedView.ShipmentFees,
+                            Address = paymentCompletedView.Address,
+                            UserID = userId,
+                            City = paymentCompletedView.City,
+                            CurrencyCode = paymentCompletedView.CurrenyCode,
+                            DateTimeIssued = DateTime.Now,
+                            FirstName = paymentCompletedView.FirstName,
+                            LastName = paymentCompletedView.LastName,
+                            ExchangeRate = currency.ExchangeRate,
+                            Note = paymentCompletedView.OrderNote,
+                            OrderGUID = orderGUID,
+                            ReferenceID = "",
+                            OrderAddress = paymentCompletedView.Address,
+                            OrderEmail = paymentCompletedView.Email,
+                            OrderPhone = paymentCompletedView.PhonePrefix + paymentCompletedView.PhoneNumber,
+                            OriginalEmail = user.Email,
+                            OriginalPhone = user.PhonePrefix + "" + user.PhoneNumber,
+
+                            ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
+                            Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
+                            OrderDetails = new List<OrderDetails>(),
+                            OrderType = paymentCompletedView.OrderType
+                        };
+                        foreach (var item in paymentCompletedView.PaymentCarts)
+                        {
+                            var orderDetail = new OrderDetails()
+                            {
+                                CurrencyCode = paymentCompletedView.CurrenyCode,
+                                ExchangeRate = currency.ExchangeRate,
+                                Price = item.Price * currency.ExchangeRate,
+                                ProductID = item.ProductId,
+                                Quantity = item.Quantity,
+                                Total = (item.Quantity * item.Price) * currency.ExchangeRate,
+
+                            };
+                            order.OrderDetails.Add(orderDetail);
+
+
+                        }
+
+
+
+                        context.orders.Add(order);
+                        context.SaveChanges();
+                        transaction.Commit();
+
+                        return Json(new { status = "SUCCESS", id = orderGUID });
+                    }
+                    return Json("DATA_NOT_COMPLETED");
 
                 }
-
-
-
-                context.orders.Add(order);
-                context.SaveChanges();
-               
-                return Json(new { status ="SUCCESS", id=orderGUID });
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.Message);
+                }
             }
-            return Json("DATA_NOT_COMPLETED");
 
         }
+
+       
+
+        public void DecreseQuantity(List<OrderDetails> orderDetails)
+        {
+            foreach (var item in orderDetails)
+            {
+             
+                var product =  this.context.Products.FirstOrDefault(a => a.ProductID == item.ProductID);
+                product.Quantity =  product.Quantity - Convert.ToInt32(item.Quantity);
+                if(product.Quantity < 0)
+                {
+                    throw new Exception("Sorry the Quantity is not enough");
+                }
+            }
+
+         
+
+        }
+
+
+
         [HttpPost]
         public IActionResult PaymentCompletedSripe()
         {
@@ -228,7 +266,11 @@ namespace ShoppingAppUAE.Controllers
         public IActionResult PaymentCompleted([FromQuery]string payment_intent ,[FromQuery]string payment_intent_client_secret,[FromQuery] string redirect_status, [FromQuery]string type, [FromQuery] string id)
         {
             var user = User.GetUserId();
-            var order = context.orders.FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
+
+        
+            var order = context.orders.Include(a=>a.OrderDetails).FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
+            DecreseQuantity(order.OrderDetails.ToList());
+            context.SaveChanges();
             if (type == "card")
             {
                
