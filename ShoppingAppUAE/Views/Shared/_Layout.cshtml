@@ -599,6 +599,8 @@
             <!--End of Tawk.to Script-->
                 @if (User.Identity.IsAuthenticated)
                 {
+
+                <script src="~/template-user/all/wishList.js"> </script>
                 <script>
                     $(document).on("click",".product-wish-item", function() {
                         let currentProductId = $(this).attr("data-id");

@@ -122,6 +122,16 @@ namespace ShoppingAppUAE.Controllers
 
             
         }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetWishList()
+        {
+            var userId = User.GetUserId();
+            var data = context.WishLists.Where(a => a.UserID == userId).Select(a=> a.ProductID);
+
+            return Json(data);
+
+        }
 
      
 

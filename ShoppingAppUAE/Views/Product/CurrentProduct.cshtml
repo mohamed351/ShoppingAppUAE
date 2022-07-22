@@ -209,7 +209,7 @@
 
                                         </li>
                                         <li>
-                                            <a href="#" class="btn btn-effect-1 d-add-to-wishlist" title="@locaization["AddToCart"]">
+                                            <a  class="btn btn-effect-1 d-add-to-wishlist product-wish-item" data-id="@Model.ProductID" title="Add to wish list">
                                                 <i class="icon-heart"></i>
                                             </a>
                                         </li>
@@ -297,7 +297,7 @@
                                             <li>
                                                 <div class="ltn__comment-item clearfix">
                                                     <div class="ltn__commenter-img">
-                                                        <img src="img/testimonial/1.jpg" alt="Image">
+                                                      
                                                     </div>
                                                     <div class="ltn__commenter-comment">
                                                         <h6><a href="#">Adam Smit</a></h6>
@@ -392,66 +392,7 @@
                         <div class="tab-pane fade" id="liton_tab_details_1_5">
                             <div class="ltn__shop-details-tab-content-inner">
 
-                                <div class="table-1 mb-20">
-                                    <table class="">
-                                        <tbody>
-                                            <tr>
-                                                <th>SIZE</th>
-                                                <th>XS</th>
-                                                <th>S</th>
-                                                <th>S/M</th>
-                                                <th>M</th>
-                                                <th>M/L</th>
-                                                <th>L</th>
-                                                <th>XL</th>
-                                            </tr>
-                                            <tr data-region="uk">
-                                                <th>UK</th>
-                                                <td>4</td>
-                                                <td>6 - 8</td>
-                                                <td>6 - 10</td>
-                                                <td>10 - 12</td>
-                                                <td>12 - 16</td>
-                                                <td>14 - 16</td>
-                                                <td>18</td>
-                                            </tr>
-                                            <tr data-region="eur">
-                                                <th>
-                                                    <span class="mobile-show">EUR</span><span class="mobile-none">EUROPE</span>
-                                                </th>
-                                                <td>32</td>
-                                                <td>34 - 36</td>
-                                                <td>34 - 38</td>
-                                                <td>38 - 40</td>
-                                                <td>40 - 44</td>
-                                                <td>42 - 44</td>
-                                                <td>46</td>
-                                            </tr>
-                                            <tr data-region="usa">
-                                                <th>
-                                                    <span>USA/</span><span class="mobile-none">CANADA</span><span class="mobile-show"> CA</span>
-                                                </th>
-                                                <td>0</td>
-                                                <td>2 - 4</td>
-                                                <td>2 - 6</td>
-                                                <td>6 - 8</td>
-                                                <td>8 - 12</td>
-                                                <td>10 - 12</td>
-                                                <td>14</td>
-                                            </tr>
-                                            <tr data-region="aus">
-                                                <th>AUS / NZ</th>
-                                                <td>4</td>
-                                                <td>6 - 8</td>
-                                                <td>6 - 10</td>
-                                                <td>10 - 12</td>
-                                                <td>12 - 16</td>
-                                                <td>14 - 16</td>
-                                                <td>18</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        
 
                             </div>
                         </div>
@@ -465,6 +406,16 @@
 @section scripts{
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-624606018f86ebfc"></script>
+
+   <script>
+    $(document).ready(function() {
+      let currentButton =  IsProductIn(+$(".product-wish-item").attr("data-id"));
+        if (currentButton) {
+            $(".product-wish-item").addClass("active-color");
+        }
+
+    });
+   </script>
   
 
 

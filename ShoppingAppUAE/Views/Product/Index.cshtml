@@ -33,6 +33,9 @@
                 width:50% !important;
                 min-height: auto !important;
             }
+            .product-img{
+                  min-height: auto !important;
+            }
         }
     </style>
 }
@@ -341,13 +344,13 @@
                                                         <div class="product-hover-action product-hover-action-2">
                                                             <ul>
                                                               <li class="add-wish-list">
-                                                                    <a  title="Add to Wish" class="product-wish-item"   data-id="${currentItem.productID}">
+                                                                    <a  title="Add to Wish" class="product-wish-item ${IsProductIn(currentItem.productID) ? 'active-color':'' }"   data-id="${currentItem.productID}">
                                                                         <span class="cart-text d-none d-xl-block "  >  <i class="icon-heart white-color "></i> </span>
                                                                         <span class="d-block d-xl-none"> <i class="icon-heart white-color "></i></span>
                                                                     </a>
                                                                 </li>
                                                                 <li class="add-to-cart">
-                                                                    <a  title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
+                                                                    <a  title="Add to Cart" class="product-cart-item "    data-id="${currentItem.productID}">
                                                                         <span class="cart-text d-none d-xl-block "  >     <i class="icon-handbag white-color"></i> </span>
                                                                         <span class="d-block d-xl-none"> <i class="icon-handbag white-color"></i> </span>
                                                                     </a>
@@ -403,7 +406,7 @@
                                                             </li>
 
                                                               <li class="add-to-wish">
-                                                                <a  title="Add to Cart" class='product-wish-item' data-id=${currentItem.productID}>
+                                                                <a  title="Add to Cart"  class='product-wish-item ${IsProductIn(currentItem.productID) ? 'active-color':'' }' data-id=${currentItem.productID}>
                                                                     <span class="cart-text d-none d-xl-block"><i class="icon-heart white-color "></i></span>
                                                                     <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                                                 </a>
