@@ -68,6 +68,25 @@
         .modal {
             z-index:999999999;
         }
+        .active-color{
+            background-color:var(--ltn__secondary-color) !important;
+            color:#fff !important;
+        }
+        :root{
+            --ltn__primary-color: #565656;
+            --ltn__secondary-color: #d21717;
+            --ltn__heading-color: #010101;
+            --ltn__paragraph-color: #000;
+            --ltn__body-color: #666;
+            --ltn__primary-color-2: #041113;
+            --ltn__primary-color-3: #133236;
+            --ltn__secondary-color-2: #d21717;
+            --ltn__secondary-color-3: #d21717;
+        }
+        .ltn__utilize-overlay{
+            z-index:99998;
+        }
+
 
     </style>
 </head>
@@ -541,6 +560,8 @@
 
             <script src="~/template-user/all/cart.js"></script>
 
+            <script src="~/lib/sweetalert/sweetalert.min.js"> </script>
+
             @RenderSection("scripts", required: false)
 
             <script>
@@ -579,9 +600,40 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                 <script>
-                              
-                </script>
-                }
-        </body>
+                    $(document).on("click",".product-wish-item", function() {
+                        let currentProductId = $(this).attr("data-id");
+                        let $selector = $(this);
+                        console.log($selector);
+                        $.ajax({
+                            url:"/Home/AddWishList",
+                            method:"POST",
+                            data:JSON.stringify(currentProductId),
+                            contentType:"application/json",
+                            accepts:"application/json",
+                            success: function(result) {
+                                if (result == "ADDED") {
+                                    swal("Added in Wish List", "", "success");
+                                  $selector.addClass("active-color");
+                                }
+                                else if (result == "DELETED") {
+                                     swal("Deleted item from Wish list", "", "success");
+                                      $selector.removeClass("active-color");
+                                }
+                            }
+                        })
+                    });     
+        </script>
+    }
+    else
+    {
+        <script>
+            $(document).on("click",".product-wish-item", function() {
 
-    </html>
+                window.location.href = window.location.origin + "/Identity/Account/Login";
+                    });
+            
+        </script>
+    }
+</body>
+
+ </html>

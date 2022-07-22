@@ -190,7 +190,7 @@ font-family: 'Poppins', sans-serif;
 ---------------------------------------------------- */
 :root {
   --ltn__primary-color: #565656;
-  --ltn__secondary-color: #E55472;
+  --ltn__secondary-color: #D21717;
   --ltn__heading-color: #010101;
   --ltn__paragraph-color: #000000;
   --ltn__body-color: #666666;
@@ -198,9 +198,9 @@ font-family: 'Poppins', sans-serif;
   /* Darken */
   --ltn__primary-color-3: #133236;
   /* Lighten */
-  --ltn__secondary-color-2: #E55472;
+  --ltn__secondary-color-2: #F24B4B;
   /* Darken */
-  --ltn__secondary-color-3: #E55472;
+  --ltn__secondary-color-3: #F24B4B;
   /* Lighten */
   /* Google Fonts */
   --ltn__heading-font: 'Montserrat', sans-serif;
@@ -213,7 +213,7 @@ font-family: 'Poppins', sans-serif;
   --ltn__color-3: #A3BCC0;
   --ltn__color-4: #84A2A6;
   /* Gradient Colors */
-  --gradient-color-1: linear-gradient(90deg, rgba(242,139,194,1) 0%, rgba(216,177,242,1) 50%);
+  --gradient-color-1: linear-gradient(90deg, rgb(190, 38, 55) 0%, rgba(216,177,242,1) 50%);
   --gradient-color-2: linear-gradient(to top, rgba(7,28,31,0) 0%, rgba(7,28,31,1) 90%);
   --gradient-color-3: linear-gradient(to bottom, rgba(7,28,31,0) 0%, rgba(7,28,31,1) 90%);
   --gradient-color-4: linear-gradient(to top, rgba(242,246,247,0) 0%, rgba(242,246,247,1) 90%);

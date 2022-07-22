@@ -28,6 +28,12 @@
             max-height:350px;
             min-height:350px;
         }
+      @@media only screen and (max-width: 60rem){
+            .col-sm-6{
+                width:50% !important;
+                min-height: auto !important;
+            }
+        }
     </style>
 }
 
@@ -327,26 +333,26 @@
 
             let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
 
-            return ` <section class="col-xl-4 col-sm-6 col-12">
+            return ` <section class="col-xl-4 col-sm-6 ">
                                                 <div class="ltn__product-item text-center">
                                                     <div class="product-img">
                                                         <a href="/Product/CurrentProduct/${currentItem.productID}"><img loading="lazy" src="/images/${currentItem.imageURL}" alt="${currentItem.productNameEnglish}"></a>
 
                                                         <div class="product-hover-action product-hover-action-2">
                                                             <ul>
-
+                                                              <li class="add-wish-list">
+                                                                    <a  title="Add to Wish" class="product-wish-item"   data-id="${currentItem.productID}">
+                                                                        <span class="cart-text d-none d-xl-block "  >  <i class="icon-heart white-color "></i> </span>
+                                                                        <span class="d-block d-xl-none"> <i class="icon-heart white-color "></i></span>
+                                                                    </a>
+                                                                </li>
                                                                 <li class="add-to-cart">
                                                                     <a  title="Add to Cart" class="product-cart-item"   data-id="${currentItem.productID}">
                                                                         <span class="cart-text d-none d-xl-block "  >     <i class="icon-handbag white-color"></i> </span>
-                                                                        <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                                        <span class="d-block d-xl-none"> <i class="icon-handbag white-color"></i> </span>
                                                                     </a>
                                                                 </li>
-                                                                     <li class="add-wish-list">
-                                                                    <a  title="Add to Wish" class="product-wish-item"   data-id="${currentItem.productID}">
-                                                                        <span class="cart-text d-none d-xl-block "  >  <i class="icon-heart white-color "></i> </span>
-                                                                        <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                                                    </a>
-                                                                </li>
+                                                                   
 
                                                             </ul>
                                                         </div>

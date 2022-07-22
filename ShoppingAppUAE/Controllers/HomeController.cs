@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using ShoppingAppUAE.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using ShoppingAppUAE.Extension;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -87,6 +89,38 @@ namespace ShoppingAppUAE.Controllers
           );
 
             return RedirectToAction("Index");
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public async  Task<IActionResult> AddWishList([FromBody]int ID)
+        {
+            try
+            {
+                var userId = User.GetUserId();
+
+                var data = context.WishLists.FirstOrDefault(a => a.ProductID == ID && a.UserID == userId);
+                if (data == null)
+                {
+                    context.WishLists.Add(new WishList() { ProductID = ID, UserID = userId });
+                    await context.SaveChangesAsync();
+                    return Json("ADDED");
+                }
+                else
+                {
+                    context.WishLists.Remove(data);
+                    await context.SaveChangesAsync();
+                    return Json("DELETED");
+                }
+            }
+            catch
+            {
+                return Json("FALID");
+            }
+
+
+            
         }
 
      
