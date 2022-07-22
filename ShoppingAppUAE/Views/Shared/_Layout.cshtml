@@ -616,10 +616,12 @@
                                 if (result == "ADDED") {
                                     swal("Added in Wish List", "", "success");
                                   $selector.addClass("active-color");
+                                    AddToList(currentProductId);
                                 }
                                 else if (result == "DELETED") {
                                      swal("Deleted item from Wish list", "", "success");
                                       $selector.removeClass("active-color");
+                                    DeleteToList(currentProductId);
                                 }
                             }
                         })

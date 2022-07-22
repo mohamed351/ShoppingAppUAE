@@ -50,3 +50,19 @@ function IsProductIn(productId) {
     }
 
 }
+
+function DeleteToList(productId) {
+    let list = JSON.parse(localStorage.getItem("wishList"));
+    list = list.filter(a => a !== (+productId));
+    localStorage.setItem("wishList", JSON.stringify(list));
+   
+}
+
+function AddToList(productId) {
+    let list = JSON.parse(localStorage.getItem("wishList"));
+    list.push(+productId);
+
+
+    localStorage.setItem("wishList", JSON.stringify(list));
+}
+

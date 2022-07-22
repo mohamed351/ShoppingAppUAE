@@ -409,10 +409,17 @@
 
    <script>
     $(document).ready(function() {
-      let currentButton =  IsProductIn(+$(".product-wish-item").attr("data-id"));
+        setTimeout(() => {
+               let currentButton =  IsProductIn(+$(".product-wish-item").attr("data-id"));
         if (currentButton) {
             $(".product-wish-item").addClass("active-color");
         }
+        },1000)
+         
+        //getWishListServer(() => {
+         
+        //})
+     
 
     });
    </script>
