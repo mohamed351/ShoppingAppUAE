@@ -24,7 +24,7 @@ namespace ShoppingAppUAE.Seeder
                 var dbContext = serviceScoped.ServiceProvider.GetService<ApplicationDbContext>();
                await BuildRoles(roleManager);
                 await BuildCurrnies(dbContext);
-                //await BuildCountries(dbContext);
+                await BuildCountries(dbContext);
 
             }
         }
@@ -46,37 +46,37 @@ namespace ShoppingAppUAE.Seeder
         }
 
 
-        //private static async Task BuildCountries(ApplicationDbContext context)
-        //{
-        //    try
-        //    {
-        //        if (!context.Counties.Any())
-        //        {
-        //            string jsonCountires = File.ReadAllText("Seeder/countyCodes.json");
-        //            var list = JsonConvert.DeserializeObject<List<ContryCodesDTOS>>(jsonCountires);
-        //            List<Counties> counties = new List<Counties>();
-        //            foreach (var item in list)
-        //            {
-        //                counties.Add(new Counties()
-        //                {
-        //                    Code = item.CountryCode,
-        //                    ArabicName = item.Name,
-        //                    EnglishName = item.Name,
-        //                    Prefix = item.Iso
-        //                });
-        //            }
-        //            context.Counties.AddRange(counties);
-        //            await context.SaveChangesAsync();
+        private static async Task BuildCountries(ApplicationDbContext context)
+        {
+            try
+            {
+                if (!context.Counties.Any())
+                {
+                    string jsonCountires = File.ReadAllText("Seeder/countyCodes.json");
+                    var list = JsonConvert.DeserializeObject<List<ContryCodesDTOS>>(jsonCountires);
+                    List<Counties> counties = new List<Counties>();
+                    foreach (var item in list)
+                    {
+                        counties.Add(new Counties()
+                        {
+                            Code = item.CountryCode,
+                            ArabicName = item.Name,
+                            EnglishName = item.Name,
+                            Prefix = item.Iso
+                        });
+                    }
+                    context.Counties.AddRange(counties);
+                    await context.SaveChangesAsync();
 
-        //        }
-        //    }
-        //    catch
-        //    {
+                }
+            }
+            catch
+            {
 
-        //    }
+            }
 
-           
-        //}
+
+        }
 
 
         private static async Task BuildCurrnies(ApplicationDbContext context)
