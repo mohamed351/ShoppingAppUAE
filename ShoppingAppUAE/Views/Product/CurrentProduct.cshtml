@@ -179,7 +179,10 @@
 
 
                                 </h3>
+                                  <div style="display:flex;justifiy-content:space-between">
                                   <div id="currentRate"></div>  
+                                    <div class="ml-3 mr-3"> (@reviews averge points reviews) </div>
+                                  </div>
                                 <section class="product-price-ratting mb-20">
                                     <ul>
                                         <li>
@@ -278,6 +281,7 @@
                         <div class="nav">
                             <a class="active show" data-toggle="tab" href="#liton_tab_details_1_1">Description</a>
                             <a data-toggle="tab" href="#liton_tab_details_1_2" class="">Video</a>
+                               <a data-toggle="tab" href="#liton_tab_details_1_3" class="">Reviews</a>
                             <!-- <a data-toggle="tab" href="#liton_tab_details_1_3" class="">Comments</a> -->
                           
                             <!-- <a data-toggle="tab" href="#liton_tab_details_1_5" class="">Size Chart</a> -->
@@ -304,101 +308,31 @@
                             <div class="ltn__shop-details-tab-content-inner">
                                 <!-- comment-area -->
                                 <div class="ltn__comment-area mb-30">
-                                    <h4 class="title-2">Comments (5)</h4>
+                                    <h4 class="title-2"> Reviews @Model.Reviews.Count</h4>
                                     <div class="ltn__comment-inner">
                                         <ul>
+                                            @foreach(var item in Model.Reviews){
                                             <li>
                                                 <div class="ltn__comment-item clearfix">
                                                     <div class="ltn__commenter-img">
                                                       
                                                     </div>
                                                     <div class="ltn__commenter-comment">
-                                                        <h6><a href="#">Adam Smit</a></h6>
-                                                        <span class="comment-date">20th May 2020</span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                        <a href="#" class="ltn__comment-reply-btn"><i class="fas fa-reply"></i>Reply</a>
+                                                        <h6><a href="#">@item.ApplicationUser.FirstName  @item.ApplicationUser.LastName   </a>   </h6>    <div class="person-review" data-review="@item.FeedBackNumber"></div>
+
+                                                     
+                                                        <p> @item.Comment </p>
+                                                      
                                                     </div>
+                                                 
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="ltn__comment-item clearfix">
-                                                    <div class="ltn__commenter-img">
-                                                        <img src="img/testimonial/3.jpg" alt="Image">
-                                                    </div>
-                                                    <div class="ltn__commenter-comment">
-                                                        <h6><a href="#">Adam Smit</a></h6>
-                                                        <span class="comment-date">20th May 2020</span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                        <a href="#" class="ltn__comment-reply-btn"><i class="fas fa-reply"></i>Reply</a>
-                                                    </div>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <div class="ltn__comment-item clearfix">
-                                                            <div class="ltn__commenter-img">
-                                                                <img src="img/testimonial/4.jpg" alt="Image">
-                                                            </div>
-                                                            <div class="ltn__commenter-comment">
-                                                                <h6><a href="#">Adam Smit</a></h6>
-                                                                <span class="comment-date">20th May 2020</span>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                                <a href="#" class="ltn__comment-reply-btn"><i class="fas fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ltn__comment-item clearfix">
-                                                            <div class="ltn__commenter-img">
-                                                                <img src="img/testimonial/1.jpg" alt="Image">
-                                                            </div>
-                                                            <div class="ltn__commenter-comment">
-                                                                <h6><a href="#">Adam Smit</a></h6>
-                                                                <span class="comment-date">20th May 2020</span>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                                <a href="#" class="ltn__comment-reply-btn"><i class="fas fa-reply"></i>Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <div class="ltn__comment-item clearfix">
-                                                    <div class="ltn__commenter-img">
-                                                        <img src="img/testimonial/2.jpg" alt="Image">
-                                                    </div>
-                                                    <div class="ltn__commenter-comment">
-                                                        <h6><a href="#">Adam Smit</a></h6>
-                                                        <span class="comment-date">20th May 2020</span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, omnis fugit corporis iste magnam ratione.</p>
-                                                        <a href="#" class="ltn__comment-reply-btn"><i class="fas fa-reply"></i>Reply</a>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            }
+                                           
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- comment-reply -->
-                                <div class="ltn__comment-reply-area ltn__form-box mb-60">
-                                    <form action="#">
-                                        <h4 class="title-2">Leave a Reply</h4>
-                                        <div class="input-item input-item-textarea ltn__custom-icon">
-                                            <textarea placeholder="Type your comments...."></textarea>
-                                        </div>
-                                        <div class="input-item input-item-name ltn__custom-icon">
-                                            <input type="text" placeholder="Type your name....">
-                                        </div>
-                                        <div class="input-item input-item-email ltn__custom-icon">
-                                            <input type="email" placeholder="Type your email....">
-                                        </div>
-                                        <div class="input-item input-item-website ltn__custom-icon">
-                                            <input type="text" name="website" placeholder="Type your website....">
-                                        </div>
-                                        <label class="mb-0"><input type="checkbox" name="agree"> Save my name, email, and website in this browser for the next time I comment.</label>
-                                        <div class="btn-wrapper">
-                                            <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit"><i class="far fa-comments"></i> Post Comment</button>
-                                        </div>
-                                    </form>
-                                </div>
+                              
                             </div>
                         </div>
                    
@@ -416,8 +350,9 @@
     </div>
 </div>
 
-
-   <div  class="ltn__modal-area ltn__add-to-cart-modal-area">
+@if (User.Identity.IsAuthenticated)
+{
+    <div  class="ltn__modal-area ltn__add-to-cart-modal-area">
         <div class="modal fade" id="testingModal" tabindex="-1">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
@@ -453,6 +388,7 @@
             </div>
         </div>
     </div>
+    }
            
 
 @section scripts{
@@ -471,7 +407,13 @@
         //getWishListServer(() => {
          
         //})
-            
+        $(".person-review").each(function(result) {
+            $(this).rate({
+                 initial_value:+$(this).attr("data-review"),
+                 readonly: true
+                
+            });
+        });
 
             
             let currentRating =   $("#currentRate").rate({
