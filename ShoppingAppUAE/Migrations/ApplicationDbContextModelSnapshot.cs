@@ -763,6 +763,27 @@ namespace ShoppingAppUAE.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Review", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FeedBackNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID", "UserID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.SEOData", b =>
                 {
                     b.Property<string>("ActionName")
@@ -978,6 +999,25 @@ namespace ShoppingAppUAE.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ShoppingAppUAE.Data.Review", b =>
+                {
+                    b.HasOne("ShoppingAppUAE.Data.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShoppingAppUAE.Data.ApplicationUser", "ApplicationUser")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShoppingAppUAE.Data.WishList", b =>
                 {
                     b.HasOne("ShoppingAppUAE.Data.Product", "Product")
@@ -1000,6 +1040,8 @@ namespace ShoppingAppUAE.Migrations
             modelBuilder.Entity("ShoppingAppUAE.Data.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("ShoppingAppUAE.Data.Blog", b =>
@@ -1025,6 +1067,8 @@ namespace ShoppingAppUAE.Migrations
             modelBuilder.Entity("ShoppingAppUAE.Data.Product", b =>
                 {
                     b.Navigation("ProductImages");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

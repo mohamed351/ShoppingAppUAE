@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About us</value>
   </data>
+  <data name="cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
   </data>

@@ -86,7 +86,7 @@
         .ltn__utilize-overlay{
             z-index:99998;
         }
-
+      
 
     </style>
 </head>
@@ -299,7 +299,7 @@
                 <section id="ltn__utilize-cart-menu" class="ltn__utilize ltn__utilize-cart-menu">
                     <section class="ltn__utilize-menu-inner ltn__scrollbar">
                         <section class="ltn__utilize-menu-head">
-                            <span class="ltn__utilize-menu-title">Cart</span>
+                            <span class="ltn__utilize-menu-title">@locaization["cart"]</span>
                             <button class="ltn__utilize-close">×</button>
                         </section>
                         <section class="mini-cart-product-area ltn__scrollbar" id="cartInfo">
@@ -447,8 +447,8 @@
                                     <div class="footer-menu">
                                         <ul>
                                             <li><a href="product-details.html">Shipping Policy</a></li>
-                                            <li><a href="contact.html">Help & Contact Us</a></li>
-                                            <li><a href="account.html">Returns & Refunds</a></li>
+                                            <li><a asp-action="Index" asp-controller="Contact" >Help & Contact Us</a></li>
+                                            <li><a asp-action="Index" asp-controller="Contact">Returns & Refunds</a></li>
                                             <li><a href="shop.html">Online Stores</a></li>
                                             <li><a href="contact.html">Terms and Conditions</a></li>
                                         </ul>

@@ -9,6 +9,9 @@ namespace ShoppingAppUAE.Data
         public Product()
         {
             this.ProductImages = new HashSet<ProductImage>();
+            this.Reviews = new HashSet<Review>();
+
+           
         }
 
         public int ProductID { get; set; }
@@ -88,6 +91,8 @@ namespace ShoppingAppUAE.Data
 
 
         public Category Category { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
 
 
     }

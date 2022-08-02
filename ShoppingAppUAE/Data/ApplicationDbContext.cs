@@ -51,11 +51,15 @@ namespace ShoppingAppUAE.Data
 
 
         public DbSet<WishList> WishLists { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<WishList>()
                  .HasKey(c => new { c.ProductID, c.UserID });
             builder.Entity<SEOData>().HasKey(a => new { a.ActionName, a.ControllerName });
+
+            builder.Entity<Review>().HasKey(c => new { c.ProductID, c.UserID });
             base.OnModelCreating(builder);  
         }
 

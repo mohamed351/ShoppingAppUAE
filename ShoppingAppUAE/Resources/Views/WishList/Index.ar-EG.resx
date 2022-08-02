@@ -123,7 +123,7 @@
   <data name="Home" xml:space="preserve">
     <value>الرئيسية</value>
   </data>
-  <data name="WishList" xml:space="preserve">
+  <data name="Wishlist" xml:space="preserve">
     <value>قائمة المفضلات</value>
   </data>
 </root>

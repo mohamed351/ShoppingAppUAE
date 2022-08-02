@@ -11,6 +11,7 @@ namespace ShoppingAppUAE.Data
         public ApplicationUser()
         {
             this.Orders = new HashSet<Order>();
+            this.Reviews = new HashSet<Review>();
         }
         [ForeignKey(nameof(Counties))]
         public string CountryCode { get; set; }
@@ -30,6 +31,8 @@ namespace ShoppingAppUAE.Data
         public string PhonePrefix { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
 
 
 

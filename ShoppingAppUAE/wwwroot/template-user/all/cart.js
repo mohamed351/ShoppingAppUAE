@@ -13,10 +13,10 @@ function buildCart(currentCart) {
                                    <a href="#"><img src="/images/${data.imageURL}" alt="${data.productName}"></a>
                                                 <span class="mini-cart-item-delete" data-id="${data.productId}"><i class="icon-trash"></i></span>
                                                            </div>
-                                                               <div class="mini-cart-info">
+                                                               <div class="mini-cart-info ">
                                                                         <h6><a href="#">${data.productName}</a>   <span class='text-danger'> ${data.currentQuantity < 0 ? "Out Of Stock" : (data.currentQuantity < data.Quantity ? "Quantity is not Enougth" :"" ) } </span></h6>
                                                                           
-                                                                         <span class="mini-cart-quantity"> <span class='product-qtu-data'>  ${data.Quantity} </span> x <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
+                                                                         <span class="mini-cart-quantity" style='display:flex;'> <span class='product-qtu-data'>  ${data.Quantity} </span> <span> x </span> <span class="reloader product-price-data" data-id="${data.productId}" > <span> </span>
                                                                 </div>
                                                           </div>`;
     });
