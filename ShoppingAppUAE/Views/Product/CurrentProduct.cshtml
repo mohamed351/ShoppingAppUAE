@@ -12,7 +12,14 @@
 
         ViewData["Title"] = Model.ProductNameEnglish;
     }
+    double reviews = 0;
+   
 
+      if(Model.Reviews.Count != 0)
+        {
+            reviews=Model.Reviews.Average(a => a.FeedBackNumber);
+  
+    }
 }
 
 @section metaTags{
@@ -66,6 +73,9 @@
 
 
 
+  <input type="hidden" id="avgReviews" value="@reviews" />
+
+
 <div class="ltn__utilize-overlay"></div>
 
 
@@ -75,6 +85,7 @@
             <section class="col-lg-12">
                 <section class="ltn__breadcrumb-inner text-center">
                     <h1 class="ltn__page-title">@locaization["Product"]</h1>
+                 
                     <nav class="ltn__breadcrumb-list">
                         <ul>
                             <li><a asp-action="Index" asp-controller="Product">@locaization["Product"]</a></li>
@@ -167,6 +178,7 @@
 
 
                                 </h3>
+                                  <div id="currentRate"></div>  <div>@reviews</div>
                                 <section class="product-price-ratting mb-20">
                                     <ul>
                                         <li>
@@ -406,7 +418,7 @@
 @section scripts{
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-624606018f86ebfc"></script>
-
+    <script src="~/template-user/all/rater.min.js"></script>
    <script>
     $(document).ready(function() {
         setTimeout(() => {
@@ -419,7 +431,15 @@
         //getWishListServer(() => {
          
         //})
-     
+            
+
+            
+                $("#currentRate").rate({
+                  max_value: 5,
+                step_size: 1,
+                selected_symbol_type: 'fontawesome_star',
+                initial_value: +$("#avgReviews").val(),
+                });
 
     });
    </script>
