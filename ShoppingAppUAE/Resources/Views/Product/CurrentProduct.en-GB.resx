@@ -126,6 +126,12 @@
   <data name="Product" xml:space="preserve">
     <value>Product</value>
   </data>
+  <data name="Successful added Review" xml:space="preserve">
+    <value>Successful added review</value>
+  </data>
+  <data name="Successful update Review" xml:space="preserve">
+    <value>Successful update review</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
   </data>

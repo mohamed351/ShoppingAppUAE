@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Helpers;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ShoppingAppUAE.Extension;
 
 namespace ShoppingAppUAE.Controllers
 {
@@ -237,6 +239,41 @@ namespace ShoppingAppUAE.Controllers
             }
 
             return PartialView(product);
+        }
+
+        [Authorize]
+        [HttpPost]
+       public IActionResult ReviewProduct([FromBody]ReviewDTO reviewDTO)
+        {
+            string userID = User.GetUserId();
+            if(reviewDTO.ProductID == null)
+            {
+                return BadRequest();
+            }
+
+           var review = context.Reviews.FirstOrDefault(a => a.UserID == userID && a.ProductID == reviewDTO.ProductID);
+            if (review == null)
+            {
+                context.Reviews.Add(new Review() { ProductID = reviewDTO.ProductID.Value, Comment = reviewDTO.Comment.Trim(), FeedBackNumber = reviewDTO.Rate , UserID = userID });
+                context.SaveChanges();
+                return Json("ADDED");
+            }
+            else
+            {
+                review.Comment = reviewDTO.Comment;
+                review.FeedBackNumber = reviewDTO.Rate;
+                context.SaveChanges();
+                return Json("UPDATED");
+            }
+
+        }
+
+        public class ReviewDTO
+        {
+            public int? ProductID { get; set; }
+            public String Comment { get; set; }
+
+            public int Rate { get; set; }
         }
     }
 }

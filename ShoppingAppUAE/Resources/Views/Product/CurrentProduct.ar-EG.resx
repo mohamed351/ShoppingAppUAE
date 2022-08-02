@@ -126,6 +126,12 @@
   <data name="Product" xml:space="preserve">
     <value>المنتج</value>
   </data>
+  <data name="Successful added Review" xml:space="preserve">
+    <value>تم اضافة المراجعة بنجاح</value>
+  </data>
+  <data name="Successful update Review" xml:space="preserve">
+    <value>تم تغير المراجعة بنجاح</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>الوسوم</value>
   </data>

@@ -2,13 +2,13 @@ $(function() {
                
     var LocsA = [
         {
-            lat: 40.740178,
-            lon: -74.190194,
+            lat: 25.286911305981732,
+            lon: 55.449431372387885,
             title: 'Location 1',
             html: ['<div class="ltn__map-item">',
-                '<h3 class="ltn__location-name">Boston, New York</h3>',
-                '<h5 class="ltn__location-single-info"><i class="fas fa-map-marked-alt"></i>5816 S. Coulter Street Amarillo, TX 79119</h5>',
-                '<h4 class="ltn__location-single-info"><i class="fas fa-phone-volume"></i>0123456789</h4>',
+                '<h3 class="ltn__location-name">Almohandes Car Scanner</h3>',
+                '<h5 class="ltn__location-single-info"><i class="fas fa-map-marked-alt"></i>Industrial Area - Industrial Area 17 - Sharjah - United Arab Emirates </h5>',
+                '<h4 class="ltn__location-single-info"><i class="fas fa-phone-volume"></i>+971501679410</h4>',
                 '<div class="btn-wrapper">',
                 '</div>',
                 '</div>'

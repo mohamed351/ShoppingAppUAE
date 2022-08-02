@@ -83,7 +83,7 @@
                     <form id="contact-form" asp-action="SubmitContact" asp-controller="Contact" asp-area="" method="post">
                         <div class="row">
                             <div class="col-md-5">
-                                @Html.AntiForgeryToken();
+                                @Html.AntiForgeryToken()
                                 <input type="text" required name="name" placeholder="@locaization["Name"]:">
                                 <input type="email" required name="email" placeholder="@locaization["EmailAddress"]:">
                                 <input type="text" required name="phonenumber" placeholder="@locaization["PhoneNumber"]:">
