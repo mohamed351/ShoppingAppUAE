@@ -94,14 +94,20 @@
                                                     </div>
                                                     <div class="product-hover-action product-hover-action-2">
                                                         <ul>
+                                                             <li class="add-to-cart">
+                                                                <a href="#" title="Add to Cart" class="product-cart-item" data-id="@item.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-handbag white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-handbag white-color"></i></span>
+                                                                </a>
 
-                                                            <li class="add-to-cart">
-                                                                <a href="#"  title="Add to Cart" class="product-cart-item"   data-id="@item.ProductID">
-                                                                    <span class="cart-text d-none d-xl-block ">Add to Cart</span>
-                                                                    <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
+                                                            </li>
+                                                            <li>
+                                                                
+                                                                 <a href="#" title="Add to WishList" class="product-wish-item" data-id="@item.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-heart white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-heart white-color "></i></span>
                                                                 </a>
                                                             </li>
-
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -225,6 +231,23 @@
         currentUrl.searchParams.append("sort",+$(this).val());
         window.location.href = currentUrl.toString();
     });
+
+
+    $(document).ready(function() {
+    $(".product-wish-item").each(function() {
+
+        let id = +$(this).attr("data-id");
+   
+      
+        if (IsProductIn(id)) {
+            $(this).addClass("active-color");
+               
+        }
+        else {
+            $(this).removeClass("active-color");
+        }
+    });
+});
 
     </script>
 

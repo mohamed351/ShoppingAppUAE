@@ -100,12 +100,20 @@
                             <div class="product-hover-action product-hover-action-2">
                                 <ul>
 
-                                    <li class="add-to-cart">
-                                        <a href="#" title="Add to Cart" class="product-cart-item" data-id="@item.ProductID">
-                                            <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                            <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                        </a>
-                                    </li>
+                                                                  <li class="add-to-cart">
+                                                                <a href="#" title="Add to Cart" class="product-cart-item" data-id="@item.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-handbag white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-handbag white-color"></i></span>
+                                                                </a>
+
+                                                            </li>
+                                                            <li>
+                                                                
+                                                                 <a href="#" title="Add to WishList" class="product-wish-item" data-id="@item.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-heart white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-heart white-color "></i></span>
+                                                                </a>
+                                                            </li>
 
                                 </ul>
                             </div>
@@ -159,12 +167,21 @@
                                                 <i class="icon-magnifier"></i>
                                             </a>
                                         </li>*@
-                                        <li class="add-to-cart">
-                                            <a href="#" title="Add to Cart" class="product-cart-item" data-id="@product.ProductID">
-                                                <span class="cart-text d-none d-xl-block">Add to Cart</span>
-                                                <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
-                                            </a>
-                                        </li>
+                                        
+                                                                  <li class="add-to-cart">
+                                                                <a href="#" title="Add to Cart" class="product-cart-item" data-id="@product.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-handbag white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-handbag white-color"></i></span>
+                                                                </a>
+
+                                                            </li>
+                                                            <li>
+                                                                
+                                                                 <a href="#" title="Add to WishList" class="product-wish-item" data-id="@product.ProductID">
+                                                                    <span class="cart-text d-none d-xl-block "><i class="icon-heart white-color"></i> </span>
+                                                                    <span class="d-block d-xl-none"><i class="icon-heart white-color "></i></span>
+                                                                </a>
+                                                            </li>
                                         @*<li>
                                             <a href="#" title="Quick View" data-toggle="modal" data-target="#quick_view_modal">
                                                 <i class="icon-shuffle"></i>
@@ -177,7 +194,7 @@
                                 <h2 class="product-title"><a href="product-details.html">@product.ProductNameEnglish</a></h2>
                                 <div class="product-price">
                                     <span>@product.PurchasingPrice</span>
-                                   <del>$21.00</del>
+                               
                                 </div>
                             </div>
                         </div>
@@ -190,6 +207,31 @@
             </div>
 
         </div>
+
+   }
+
+
+   @section scripts{
+
+       <script>
+$(document).ready(function() {
+    $(".product-wish-item").each(function() {
+
+        let id = +$(this).attr("data-id");
+
+
+        if (IsProductIn(id)) {
+            $(this).addClass("active-color");
+
+        }
+        else {
+            $(this).removeClass("active-color");
+        }
+    });
+
+
+});
+       </script>
 
    }
 

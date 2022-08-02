@@ -1,0 +1,97 @@
+﻿@model IEnumerable< ShoppingAppUAE.Data.WishList>
+@inject IConfiguration configuration
+@inject IViewLocalizer locaization
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section styles{
+ 
+}
+
+
+<div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 ltn__breadcrumb-color-white---">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__breadcrumb-inner text-center">
+                        <h1 class="ltn__page-title">Wishlist</h1>
+                        <div class="ltn__breadcrumb-list">
+                            <ul>
+                                <li><a asp-action="Index" asp-controller="Home">@locaization["Home"]</a></li>
+                                <li>@locaization["Wishlist"]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="liton__wishlist-area mb-85">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping-cart-inner">
+                        <div class="shoping-cart-table table-responsive">
+                            <table class="table">
+                          
+                                <tbody>
+                                    @foreach (var item in Model)
+                                {
+                                    @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
+                                    {
+                                          <tr>
+                                                <td class="cart-product-remove">x</td>
+                                                <td class="cart-product-image">
+                                                    <a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID"><img src="~/images/@item.Product.ImageURL" alt="@item.Product.ProductNameEnglish"></a>
+                                                </td>
+                                                <td class="cart-product-info">
+                                                    <h4><a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID">@item.Product.ProductNameArabic</a></h4>
+                                                </td>
+                                                <td class="cart-product-price">@(Convert.ToDecimal( item.Product.PurchasingPrice *ViewBag.ExchangeRate).ToString("F2"))  @ViewBag.Currency </td>
+                                    
+                                                <td class="cart-product-add-cart">
+                                                    <a class="submit-button-1" href="#" >Add to Cart</a>
+                                                </td>
+                                                  </tr>
+                                    }
+                                    else
+                                    {
+                                            <tr>
+                                                <td class="cart-product-remove">x</td>
+                                                <td class="cart-product-image">
+                                                    <a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID"><img src="~/images/@item.Product.ImageURL" alt="@item.Product.ProductNameEnglish"></a>
+                                                </td>
+                                                <td class="cart-product-info">
+                                                    <h4><a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID">@item.Product.ProductNameEnglish</a></h4>
+                                                </td>
+                                                <td class="cart-product-price">@(Convert.ToDecimal( item.Product.PurchasingPrice *ViewBag.ExchangeRate).ToString("F2"))  @ViewBag.Currency </td>
+                                    
+                                                <td class="cart-product-add-cart">
+                                                    <a class="submit-button-1" href="#" >Add to Cart</a>
+                                                </td>
+                                                  </tr>
+                                    }
+                                
+                                    
+                                        }
+                                   
+                                    
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section scripts{
+
+  
+}

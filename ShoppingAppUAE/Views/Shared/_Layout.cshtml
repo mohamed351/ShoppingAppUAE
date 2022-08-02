@@ -407,7 +407,7 @@
                                     <h4 class="footer-title">@locaization["MyAccount"]</h4>
                                     <div class="footer-menu">
                                         <ul>
-                                            <li><a href="account.html">@locaization[""]</a></li>
+                                            <li><a asp-action="Index" asp-controller="Account" >@locaization[""]</a></li>
                                             <li><a asp-area="" asp-action="Index" asp-controller="Checkout">@locaization["Checkout"]</a></li>
                                             <li><a asp-area="" asp-action="Index" asp-controller="Contact">@locaization["Contact"]</a></li>
                                             <li><a asp-area="" asp-action="Index" asp-controller="Cart">@locaization["ShopingCart"]</a></li>
@@ -634,9 +634,11 @@
             $(document).on("click",".product-wish-item", function() {
 
                 window.location.href = window.location.origin + "/Identity/Account/Login";
-                    });
-            
-        </script>
+            });
+        function IsProductIn() {
+            return false;
+        }
+                </script>
     }
 </body>
 
