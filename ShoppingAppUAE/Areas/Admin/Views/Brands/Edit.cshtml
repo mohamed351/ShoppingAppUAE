@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+@section styles{
+    <link href="~/js/custome-cropper/cropper.min.css" rel="stylesheet" />
+}
 <h1>Edit</h1>
 
 <h4>Brand</h4>
@@ -23,11 +25,19 @@
                 <input asp-for="BrandNameArabic" class="form-control" />
                 <span asp-validation-for="BrandNameArabic" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImageURL" class="control-label"></label>
-                <input asp-for="ImageURL" class="form-control" />
-                <span asp-validation-for="ImageURL" class="text-danger"></span>
-            </div>
+               <div>
+                        <label>Photo</label>
+                        <br />
+                        <input type="file" id="file" />
+                        <img id="image-src" style="width:50px;height:50px">
+                        <input type="hidden" asp-for="ImageURL" />
+                        <img id="image-src-old" src="~/images/@Model.ImageURL" style="width:50px;height:50px">
+                        <br />
+                        <br />
+                    </div>
+
+
+
             <div class="form-group">
                 <label asp-for="ImageAlternativeText" class="control-label"></label>
                 <input asp-for="ImageAlternativeText" class="form-control" />
@@ -40,7 +50,72 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-default-title">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="img-container">
+                            <img src="" class="img-fluid" id="image-modal-cropper">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
+@section scripts{
+
+
+       <script src="~/js/custome-cropper/cropper.min.js"></script>
+    <script src="~/js/custome-cropper/jquery-cropper.min.js"></script>
+    <script src="~/js/custome-cropper/custome-cropper.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+<script>
+    $(function () {
+
+
+        customimageCropper({
+            fileSelector: "#file",
+            modelImageSelector: "#image-modal-cropper",
+            sourceImageSelector: "#image-src",
+            submitSelector: "#crop",
+            aspectRatio: 1 / 1,
+            minContainerWidth: 500,
+            minContainerHeight: 500,
+            maxCropBoxWidth: 250,
+            maxCropBoxHeight: 250
+        });
+        $("form").on("submit", function () {
+            $("#ImageURL").val($("#image-src").attr("src"));
+          
+        });
+    });
+</script>
+}
 
