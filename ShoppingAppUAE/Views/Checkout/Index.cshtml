@@ -247,11 +247,12 @@
 
     <script>
 
+   
 
 
         function CalculateShipping() {
             let $selector = $("input[type='radio']:checked")
-            if ($selector.length !=0) {
+            if ($selector.length !=0 && doICalculateShipping()) {
                 console.log($selector);
                 let totalWeight = calculateTotalWeight();
                 const firstCostLimitInWeight = +$selector.attr("data-price").replace("٫", ".");
@@ -280,7 +281,7 @@
         function calculateTotalWeight() {
             let currentArray = JSON.parse(localStorage.getItem("cart"));
             let totalWeight = 0;
-            for (let item of currentArray) {
+            for (let item of currentArray.filter(a=> a.paidShipping === true)) {
                 totalWeight += (item.weight * item.Quantity);
             }
             return totalWeight;

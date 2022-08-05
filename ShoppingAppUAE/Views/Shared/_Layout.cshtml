@@ -596,6 +596,17 @@
                 })();
             </script>
 
+
+            <script>
+                 function doICalculateShipping() {
+      
+         let currentArray = JSON.parse(localStorage.getItem("cart"));
+        return (currentArray.findIndex(a => a.paiedShipping === true) !== -1) 
+        
+     
+    }
+            </script>
+
             <!--End of Tawk.to Script-->
                 @if (User.Identity.IsAuthenticated)
                 {

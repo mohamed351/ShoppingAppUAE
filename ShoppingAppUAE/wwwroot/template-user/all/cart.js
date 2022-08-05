@@ -85,6 +85,7 @@ function getPrices() {
                     myCart.find(a => a.productId == item.productID).weight = item.weight;
                     myCart.find(a => a.productId == item.productID).currentQuantity = item.quantity;
                     myCart.find(a => a.productId == item.productID).imageURL = item.imageURL;
+                    myCart.find(a => a.productId == item.productID).paiedShipping = item.paidShipping;
                 }
                 localStorage.setItem("cart", JSON.stringify(myCart));
             
