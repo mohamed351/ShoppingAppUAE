@@ -111,13 +111,11 @@
 </div>
 
 @section scripts{ 
+
+    <script src="~/template-user/all/shipping.js"> </script>
     <script>
-        function setShipping(shippingId) {
-            localStorage.setItem("shippingId", shippingId);
-        }
-        function getShipping(shippingId) {
-            return localStorage.getItem("shippingId")
-        }
+       
+       
 
         $(document).ready(function () {
            
@@ -270,47 +268,10 @@
           
         });
 
-        function CalculateShipping() {
-            let $selector = $("input[type='radio']:checked")
-            console.log($selector);
-            let totalWeight = calculateTotalWeight();
-            const firstCostLimitInWeight = +$selector.attr("data-price").replace("٫",".");
-            const firstWeightCost = +$selector.attr("data-weight-limit").replace("٫",".");
-            const eachKg = +$selector.attr("data-weight-afterExisting").replace("٫", ".");
-            const eachPrice = +$selector.attr("data-price-afterExisting").replace("٫", ".");
-            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
-            console.log(processExchnageRate);
-            if (totalWeight > firstWeightCost) {
-                const remaingKgs = totalWeight - firstWeightCost;
-                console.log(remaingKgs);
-                
-               
-                $("#shippingPirce").text((IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate) + $("#currency-app").val());
-            }
-            else {
-                
-                $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate) + $("#currency-app").val());
-            }
 
-        }
+      
 
-        function calculateTotalWeight() {
-            let currentArray = JSON.parse(localStorage.getItem("cart"));
-            let totalWeight = 0;
-            for (let item of currentArray) {
-                totalWeight += (item.weight * item.Quantity);
-            }
-            return totalWeight;
-        }
-
-        function IncreseTheWeigthPrice(remaning, each, priceAfter, totalPrice) {
-            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
-            console.log("Remaning", remaning);
-            console.log("EachKg", each);
-            console.log("EachPrice", priceAfter);
-            console.log("TotalPrice", totalPrice);
-            return (((remaning / each) * priceAfter) + totalPrice * processExchnageRate);
-        }
+      
     </script>
 
 }
