@@ -389,6 +389,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<bool>("IsShownInHome")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("PaidShipping")
+                        .HasColumnType("bit");
+
                     b.Property<string>("SEOArabicKeyWords")
                         .HasColumnType("nvarchar(max)");
 

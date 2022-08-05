@@ -50,6 +50,8 @@ namespace ShoppingAppUAE.Data
 
         public bool IsDeleted { get; set; }
 
+        public bool PaidShipping { get; set; }
+
 
         public ICollection<Product>  Products { get; set; }
 

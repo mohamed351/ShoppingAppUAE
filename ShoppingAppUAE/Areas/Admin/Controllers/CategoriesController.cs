@@ -65,7 +65,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Create([Bind("CategoryID,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive, IsShownInHome")] Category category)
+        public  IActionResult Create([Bind("CategoryID,PaidShipping,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive, IsShownInHome")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Edit(int id, [Bind("CategoryID,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive,IsShownInHome")] Category category)
+        public  IActionResult Edit(int id, [Bind("CategoryID,PaidShipping,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive,IsShownInHome")] Category category)
         {
             if (id != category.CategoryID)
             {
