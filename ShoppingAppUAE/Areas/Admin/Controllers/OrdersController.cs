@@ -80,12 +80,18 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
             try
             {
+                
                 if (ID == null)
                 {
                     return BadRequest();
                 }
+               
 
                 var order = unitOfWork.Orders.GetByID(ID.Value);
+                if(order.Approved || order.Cancelled)
+                {
+                    throw new Exception("Order has been Changed status please Refresh The Page");
+                }
                 DecreseQuantity(order.OrderDetails.ToList());
                 order.Approved = true;
                 context.SaveChanges();
