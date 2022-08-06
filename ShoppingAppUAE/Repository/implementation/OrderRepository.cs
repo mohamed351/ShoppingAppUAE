@@ -18,6 +18,16 @@ namespace ShoppingAppUAE.Repository.implementation
         {
             this.context = context;
         }
+        public override Task<Order> GetByIDAsync(int key)
+        {
+            return context.orders
+                .Include(a => a.OrderDetails)
+                .ThenInclude(a => a.Product)
+                .Include(a => a.ApplicationUser)
+                .FirstOrDefaultAsync(a => a.OrderID == key);
+        }
+
+
 
         public DataTableViewModel<Order> GetDataTableOrders(int start, int lenght, Expression<Func<Order, bool>> search, Expression<Func<Order, DateTime>> OrderBy)
         {

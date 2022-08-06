@@ -57,7 +57,7 @@ namespace ShoppingAppUAE.Repository.implementation
             return context.Set<TEntity>().AsNoTracking().FirstOrDefault(expression);
         }
 
-        public async Task<TEntity> GetByIDAsync(TKey key)
+        public virtual async Task<TEntity> GetByIDAsync(TKey key)
         {
             return await context.FindAsync<TEntity>(key);
         }

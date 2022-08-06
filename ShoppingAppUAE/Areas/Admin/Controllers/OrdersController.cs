@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly ApplicationDbContext context;
 
-        public OrdersController(IUnitOfWork unitOfWork)
+        public OrdersController(IUnitOfWork unitOfWork, ApplicationDbContext context)
         {
             this.unitOfWork = unitOfWork;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -48,12 +51,70 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     a.ExchangeRate,
                     shippingProvider = a.ShippingAndDelivery.ShippingCompany,
                     shippingFees = a.TotalShippingFees,
-                    a.OrderID
+                    a.OrderID,
+                    a.Approved,
+                    a.InvoiceNumber,
+                    a.Cancelled
 
                 }),
                 query.recordsFiltered,
                 query.recordsTotal
             } );
+        }
+        [HttpGet]
+        public IActionResult GetDetails(int? ID)
+        {
+            if(ID == null)
+            {
+                return BadRequest();
+            }
+            var order = unitOfWork.Orders.GetByID(ID.Value);
+            if(order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+        [HttpPost]
+        public IActionResult ApproveInvoice([FromBody]int? ID)
+        {
+            try
+            {
+                if (ID == null)
+                {
+                    return BadRequest();
+                }
+
+                var order = unitOfWork.Orders.GetByID(ID.Value);
+                DecreseQuantity(order.OrderDetails.ToList());
+
+                return Json(new { status = true , message="Order is Approved"  });
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { status = false, message = ex.Message });
+            }
+           
+          
+        }
+
+
+        public void DecreseQuantity(List<OrderDetails> orderDetails)
+        {
+            foreach (var item in orderDetails)
+            {
+
+                var product = this.context.Products.FirstOrDefault(a => a.ProductID == item.ProductID);
+                product.Quantity = product.Quantity - Convert.ToInt32(item.Quantity);
+                if (product.Quantity < 0)
+                {
+                    throw new Exception("Sorry the Quantity is not enough");
+                }
+            }
+
+
+
         }
 
 

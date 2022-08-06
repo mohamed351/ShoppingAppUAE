@@ -77,19 +77,29 @@
 
     <script src="~/template/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="~/template/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-
+    <script  src="~/lib/sweetalert/sweetalert.min.js"></script>
     <script src="~/js/alphaDataTable.js"></script>
 
     <script>
 
         $(document).ready(function () {
-            tablePlugin("#orderTable", "/Admin/Orders/GetOrders", [
+          globalTable =   tablePlugin("#orderTable", "/Admin/Orders/GetOrders", [
                 { data: "user" },
                 { data: "countryCode" },
                 { data: "city" },
                 { data: "userPhone" },
                 { data: "orderPhone" },
-                { data: "orderType" },
+                {
+                    data: "orderType", render: function(result) {
+                        if (result == 0) {
+                            return `<span class="badge rounded-pill bg-primary" style='color:#fff'> On Delivery</span>`
+                        }
+                        else {
+                            return `<span class="badge rounded-pill bg-info" style='color:#fff'> Card</span>`
+                        }
+
+                    }
+                },
                 { data: "dateTimeIssued" },
                 { data: "exchangeRate" },
                 { data: "currencyCode" },
@@ -97,15 +107,38 @@
                 { data: "shippingFees" },
                 { data: "total" },
                 {
-                    data: "orderID", render: function (result) {
-                        return result;
+                    data: "orderID", render: function(result,row) {
+                        console.log(row);
+                        return `<div class='d-flex'> 
+                            <a class='btn btn-warning'> Details </a>
+                           ${!row.Approved ? `<button class='btn btn-primary approve-button' data-id=${result}> Approve </button>` : '' }
+                             <a class='btn btn-danger'> Cancel </a>
+                            <a class='btn btn-info'> View In Print </a>
+                        </div>`;
                     }
                 }
 
-             
-               
 
-            ])
+
+
+            ]);
+            $(document).on("click", ".approve-button", function() {
+
+                $.ajax({
+                    url:"/Admin/Orders/ApproveInvoice",
+                    method:"POST",
+                    contentType:"application/json",
+                    type:"json",
+                    data:  JSON.stringify(+$(this).attr("data-id")),
+                    success: function(result) {
+                        swal(result.message, "", (result.status ? "success" : "error"));
+                        globalTable.ajax.reload();
+                        
+                    }
+                });
+
+
+            });
 
         });
     </script>

@@ -79,7 +79,8 @@ namespace ShoppingAppUAE.Controllers
                             OrderPhone = paymentCompletedView.PhonePrefix + paymentCompletedView.PhoneNumber,
                             OriginalEmail = user.Email,
                             OriginalPhone = user.PhonePrefix + "" + user.PhoneNumber,
-
+                            Approved = false,
+                            InvoiceNumber = MaxInvoiceNumber() + 1,
                             ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
                             Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
                             OrderDetails = new List<OrderDetails>(),
@@ -139,6 +140,18 @@ namespace ShoppingAppUAE.Controllers
 
          
 
+        }
+
+        public int MaxInvoiceNumber()
+        {
+           if( this.context.orders.Count() == 0)
+            {
+                return 0;
+            }
+            else
+            {
+              return   this.context.orders.Max(a => a.InvoiceNumber);
+            }
         }
 
 
@@ -269,7 +282,7 @@ namespace ShoppingAppUAE.Controllers
 
         
             var order = context.orders.Include(a=>a.OrderDetails).FirstOrDefault(a => a.UserID == user && a.OrderGUID == id);
-            DecreseQuantity(order.OrderDetails.ToList());
+            //DecreseQuantity(order.OrderDetails.ToList());
             context.SaveChanges();
             if (type == "card")
             {

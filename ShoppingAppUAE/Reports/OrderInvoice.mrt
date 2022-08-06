@@ -5,14 +5,14 @@
     <Databases isList="true" count="1">
       <Connection Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
         <Alias>Connection</Alias>
-        <ConnectionStringEncrypted>9FTBSFVKAfF/Wujwdz2lP9F0w4hFVtmFRk3oDGGIqGvFcPPJ5kpRzeJJqZjDdPZj8XC1ScZ7w6RDFdn04fTje9dw+4lVT3v5chX5WGEs6WfEfJkCW0y7zXJt/QRp5G0T3xrBwltsk21peNyYZ3Q=</ConnectionStringEncrypted>
+        <ConnectionStringEncrypted>9Mjdz81W8+1pCCXU9VzhY9FS0cLVQauB4V3tXGO45BfFYvtIVVdCBWpB6L3DzOMvwFqxaMhKMU1sYf3s60StRsRa94nFfZOJ7XDQ7GLE6z/cavvvVn1C1Q==</ConnectionStringEncrypted>
         <Name>Connection</Name>
       </Connection>
     </Databases>
     <DataSources isList="true" count="1">
       <sp_Invoice Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
         <Alias>sp_Invoice</Alias>
-        <Columns isList="true" count="17">
+        <Columns isList="true" count="18">
           <value>OrderID,System.Int32</value>
           <value>FirstName,System.String</value>
           <value>LastName,System.String</value>
@@ -30,6 +30,7 @@
           <value>Quantity,System.Decimal</value>
           <value>Note,System.String</value>
           <value>totalLine,System.Decimal</value>
+          <value>InvoiceNumber,System.Int32</value>
         </Columns>
         <CommandTimeout>30</CommandTimeout>
         <Dictionary isRef="1" />
@@ -179,8 +180,9 @@
               <Name>Text8</Name>
               <Page isRef="4" />
               <Parent isRef="5" />
-              <Text>{sp_Invoice.OrderID}</Text>
+              <Text>{sp_Invoice.InvoiceNumber}</Text>
               <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
               <VertAlignment>Center</VertAlignment>
             </Text8>
             <Text25 Ref="15" type="Text" isKey="true">
@@ -729,10 +731,10 @@ Total Price
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>7/16/2022 7:42:15 PM</ReportChanged>
+  <ReportChanged>8/6/2022 3:56:26 PM</ReportChanged>
   <ReportCreated>5/19/2022 9:14:07 PM</ReportCreated>
-  <ReportFile>C:\Users\moham\source\repos\ShoppingAppUAE\ShoppingAppUAE\Reports\OrderInvoice.mrt</ReportFile>
-  <ReportGuid>287c2cbe26ef4f27a363a06e7f90541f</ReportGuid>
+  <ReportFile>D:\RealProjects\ShoppingApplication UAE\BackEnd\ShoppingAppUAE\ShoppingAppUAE\Reports\OrderInvoice.mrt</ReportFile>
+  <ReportGuid>521cd2f6bc4248a598cccd5974ef70d3</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2020.2.1.0</ReportVersion>

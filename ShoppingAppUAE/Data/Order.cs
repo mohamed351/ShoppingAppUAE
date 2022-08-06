@@ -19,6 +19,7 @@ namespace ShoppingAppUAE.Data
         public ApplicationUser ApplicationUser { get; set; }
         public string OrderGUID { get; set; }
 
+        public int InvoiceNumber { get; set; }
 
         public DateTime DateTimeIssued { get; set; }
 
@@ -52,7 +53,10 @@ namespace ShoppingAppUAE.Data
 
         public string OrderAddress { get; set; }
 
-      
+        public bool Approved { get; set; }
+
+        public bool Cancelled { get; set; }
+
 
 
 
