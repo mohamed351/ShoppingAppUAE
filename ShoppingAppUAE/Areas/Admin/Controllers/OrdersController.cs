@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.UnitOfWork;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dictionary;
+using Stimulsoft.Report.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +18,14 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly ApplicationDbContext context;
+        private readonly IConfiguration configuration;
 
-        public OrdersController(IUnitOfWork unitOfWork, ApplicationDbContext context)
+        public OrdersController(IUnitOfWork unitOfWork, ApplicationDbContext context, IConfiguration configuration)
         {
             this.unitOfWork = unitOfWork;
             this.context = context;
+            this.configuration = configuration;
+            Stimulsoft.Base.StiLicense.LoadFromFile("license.key");
         }
         public IActionResult Index()
         {
@@ -123,6 +130,23 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
 
 
+        }
+        [HttpGet()]
+        public IActionResult InvoicePDF(int? ID)
+        {
+            if (ID == null)
+            {
+                return BadRequest("ID of Invoice is not specifed");
+            }
+
+            var order = context.orders.FirstOrDefault(a => a.OrderID == ID);
+          
+
+            StiReport report = new StiReport();
+            report.Load("Reports/OrderInvoice.mrt");
+            report["@OrderID"] = ID;
+            report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
+            return StiNetCoreReportResponse.PrintAsPdf(report);
         }
 
 
