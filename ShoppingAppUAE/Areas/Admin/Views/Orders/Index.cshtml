@@ -107,12 +107,12 @@
                 { data: "shippingFees" },
                 { data: "total" },
                 {
-                    data: "orderID", render: function(result,row) {
-                        console.log(row);
+                    data: "orderID", render: function(result,row, data) {
+                        console.log(data);
                         return `<div class='d-flex'> 
                             <a class='btn btn-warning'> Details </a>
-                           ${!row.Approved ? `<button class='btn btn-primary approve-button' data-id=${result}> Approve </button>` : '' }
-                             <a class='btn btn-danger'> Cancel </a>
+                           ${(!data.approved && !data.cancelled)   ? `<button class='btn btn-primary approve-button' data-id=${result}> Approve </button>` : '' }
+                            ${ (!data.approved && !data.cancelled)  ? `<a class='btn btn-danger'> Cancel </a>` : '' }
                             <a class='btn btn-info'> View In Print </a>
                         </div>`;
                     }

@@ -87,6 +87,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
                 var order = unitOfWork.Orders.GetByID(ID.Value);
                 DecreseQuantity(order.OrderDetails.ToList());
+                order.Approved = true;
+                context.SaveChanges();
 
                 return Json(new { status = true , message="Order is Approved"  });
             }
