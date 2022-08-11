@@ -112,7 +112,7 @@
                         return `<div class='d-flex'> 
                             <a class='btn btn-warning'> Details </a>
                            ${(!data.approved && !data.cancelled)   ? `<button class='btn btn-primary approve-button' data-id=${result}> Approve </button>` : '' }
-                            ${ (!data.approved && !data.cancelled)  ? `<a class='btn btn-danger'> Cancel </a>` : '' }
+                            ${ (!data.approved && !data.cancelled)  ? `<button class='btn btn-danger btn-cancel' data-id=${result}> Cancel</button>` : '' }
                             <a class='btn btn-info' href='/Admin/Orders/InvoicePDF/${result}' target='_blank'> View In Print </a>
                         </div>`;
                     }
@@ -138,6 +138,22 @@
                 });
 
 
+            });
+            $(document).on("click", ".btn-cancel", function() {
+
+                    $.ajax({
+                    url:"/Admin/Orders/CancelInvoice",
+                    method:"POST",
+                    contentType:"application/json",
+                    type:"json",
+                    data:  JSON.stringify(+$(this).attr("data-id")),
+                    success: function(result) {
+                        swal(result.message, "", (result.status ? "success" : "error"));
+
+                        globalTable.ajax.reload();
+                        
+                    }
+                });
             });
 
         });

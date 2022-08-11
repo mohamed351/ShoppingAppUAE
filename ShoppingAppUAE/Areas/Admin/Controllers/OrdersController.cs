@@ -150,27 +150,49 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return StiNetCoreReportResponse.PrintAsPdf(report);
         }
         [HttpPost]
-        public IActionResult CancelInvoice(int? ID)
+        public IActionResult CancelInvoice([FromBody]int? ID)
         {
-            if(ID == null)
+            try
             {
-                return BadRequest("ID of Order is not Exist");
-            }
 
-            var order = context.orders.FirstOrDefault(a => a.OrderID == ID);
-            if(order.OrderType == OrderType.OnDelivery)
-            {
-                order.Cancelled = true;
-                context.SaveChanges();
-            }
-            else
-            {
-                var options = new RefundCreateOptions { PaymentIntent = "pi_Aabcxyz01aDfoo" };
-                var service = new RefundService();
-                service.Create(options);
-            }
+                if (ID == null)
+                {
+                    return BadRequest("ID of Order is not Exist");
+                }
 
-            return Json("DONE");
+                var order = context.orders.FirstOrDefault(a => a.OrderID == ID);
+                if (order.OrderType == OrderType.OnDelivery)
+                {
+                    order.Cancelled = true;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    order.Cancelled = true;
+                    var options = new RefundCreateOptions { PaymentIntent = order.ReferenceID };
+                    var service = new RefundService();
+                    service.Create(options);
+                    context.SaveChanges();
+                }
+
+                return Json(new { status = true, message = "Order is Cancelled" });
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { status = false, message =ex.Message  });
+            }
+          
+        }
+
+        [HttpGet]
+        public IActionResult GetStripCharge(string ID)
+        {
+            InvoiceService service = new InvoiceService();
+            var invoice = service.Get(ID);
+            return Json(invoice);
+
         }
 
 
