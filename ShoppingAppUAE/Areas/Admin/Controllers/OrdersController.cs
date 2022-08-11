@@ -5,6 +5,7 @@ using ShoppingAppUAE.Repository.UnitOfWork;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Dictionary;
 using Stimulsoft.Report.Mvc;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,7 +152,23 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CancelInvoice(int? ID)
         {
-           
+            if(ID == null)
+            {
+                return BadRequest("ID of Order is not Exist");
+            }
+
+            var order = context.orders.FirstOrDefault(a => a.OrderID == ID);
+            if(order.OrderType == OrderType.OnDelivery)
+            {
+                order.Cancelled = true;
+                context.SaveChanges();
+            }
+            else
+            {
+                var options = new RefundCreateOptions { PaymentIntent = "pi_Aabcxyz01aDfoo" };
+                var service = new RefundService();
+                service.Create(options);
+            }
 
             return Json("DONE");
         }

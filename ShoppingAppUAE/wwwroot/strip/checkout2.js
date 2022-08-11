@@ -4,6 +4,7 @@ $("#currency-app").val(getCookie("currency"));
 $("#currency-app").niceSelect("update");
 const currentCart = localStorage.getItem("cart");
 const items = [];
+let stripIdOrder = null;
 
 //if (checkOutOfStock()) {
    
@@ -66,10 +67,11 @@ async function initialize() {
         body: JSON.stringify({ items, currencyCode: currencyCode, shippingFees: (+CalculateShipping().toFixed(2))}),
     });
     const { clientSecret } = await response.json();
-
+    stripIdOrder = clientSecret;
     const appearance = {
         theme: 'stripe',
     };
+ 
     elements = stripe.elements({ appearance, clientSecret });
 
     const paymentElement = elements.create("payment");
@@ -96,6 +98,7 @@ async function handleSubmit(e) {
         email: $("#ApplicationUser_Email").val(),
         phoneNumber: $("#ApplicationUser_PhoneNumber").val(),
         shipmentFees: CalculateShipping(),
+        stripId: stripIdOrder,
         paymentCarts: items.map(a => {
             return {
                 productId: a.id,
@@ -119,7 +122,7 @@ async function handleSubmit(e) {
                 let paymentData =  stripe.confirmPayment({
                     elements,
                     confirmParams: {
-                        // Make sure to change this to your payment completion page
+                     
                         return_url: "https://localhost:44339/Checkout/PaymentCompleted?type=card&id="+result.id,
                     },
                 }).then(a => {

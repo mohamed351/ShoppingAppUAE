@@ -35,7 +35,9 @@ namespace ShoppingAppUAE.Models.CheckoutViewModels
 
         public string PhonePrefix { get; set; }
 
-      
+        public string StripId { get; set; }
+
+
 
         public OrderType OrderType { get; set; }
         public List<PaymentCart> PaymentCarts { get; set; }
