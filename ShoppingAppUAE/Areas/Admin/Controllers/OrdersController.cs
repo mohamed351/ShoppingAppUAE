@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ShoppingAppUAE.Data;
 using ShoppingAppUAE.Repository.UnitOfWork;
@@ -187,10 +188,11 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetStripCharge(string ID)
+        [AllowAnonymous]
+        public async Task<IActionResult> GetStripCharge(string ID)
         {
-            InvoiceService service = new InvoiceService();
-            var invoice = service.Get(ID);
+            var service = new PaymentIntentService();
+            var invoice =  service.Get(ID);
             return Json(invoice);
 
         }
