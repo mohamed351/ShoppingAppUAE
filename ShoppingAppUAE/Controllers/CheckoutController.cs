@@ -84,7 +84,8 @@ namespace ShoppingAppUAE.Controllers
                             ShippingAndDeliveryShippingID = paymentCompletedView.ShipmentID,
                             Total = (paymentCompletedView.PaymentCarts.Sum(a => a.Quantity * a.Price) + paymentCompletedView.ShipmentFees) * currency.ExchangeRate,
                             OrderDetails = new List<OrderDetails>(),
-                            OrderType = paymentCompletedView.OrderType
+                            OrderType = paymentCompletedView.OrderType,
+                            StripID = paymentCompletedView.StripId
                         };
                         foreach (var item in paymentCompletedView.PaymentCarts)
                         {

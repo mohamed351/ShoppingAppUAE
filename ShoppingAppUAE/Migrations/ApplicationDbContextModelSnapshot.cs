@@ -609,6 +609,9 @@ namespace ShoppingAppUAE.Migrations
                     b.Property<int>("ShippingAndDeliveryShippingID")
                         .HasColumnType("int");
 
+                    b.Property<string>("StripID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 

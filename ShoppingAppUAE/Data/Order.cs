@@ -57,6 +57,7 @@ namespace ShoppingAppUAE.Data
 
         public bool Cancelled { get; set; }
 
+        public string StripID { get; set; }
 
 
 
