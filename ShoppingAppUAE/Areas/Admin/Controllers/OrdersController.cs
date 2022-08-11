@@ -148,6 +148,14 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", configuration.GetConnectionString("DefaultConnection")));
             return StiNetCoreReportResponse.PrintAsPdf(report);
         }
+        [HttpPost]
+        public IActionResult CancelInvoice(int? ID)
+        {
+           
+
+            return Json("DONE");
+        }
+
 
 
     }
