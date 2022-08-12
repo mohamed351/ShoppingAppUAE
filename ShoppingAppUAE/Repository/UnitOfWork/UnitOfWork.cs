@@ -20,6 +20,7 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
             this.Brands = new BrandRepository(context);
             this.Orders = new OrderRepository(context);
             this.ContactMessages = new ContactMessageRepository(context);
+            this.Blogger = new BloggerRepository(context);
         }
         public ICategoryRepository Categories { get; }
 
@@ -30,6 +31,8 @@ namespace ShoppingAppUAE.Repository.UnitOfWork
         public IOrderRepository Orders { get; }
 
         public IContactMessageRepository ContactMessages { get; }
+
+        public IBloggerRepository Blogger { get; }
 
         public int Complete()
         {

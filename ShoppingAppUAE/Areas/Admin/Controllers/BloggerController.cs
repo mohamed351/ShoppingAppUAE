@@ -25,6 +25,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         {
             return View();
         }
+
+
         [HttpGet]
         public IActionResult Create()
         {
