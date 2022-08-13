@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,21 +25,21 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             this.environment = environment;
         }
 
-       
+        [Authorize(Roles = "Admin,Admin2")]
         public   IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Admin2")]
         public IActionResult GetCategories(int start = 0, int length = 10)
         {
            
             string search = HttpContext.Request.Query["search[value]"];
             return Json(unitOfWork.Categories.GetDataTable(start, length, a => a.IsDeleted == false && (a.CategoryNameEnglish.Contains(search) || a.CategoryNameArabic.Contains(search)),a=> a.CategoryID));
         }
-
-  
+        [Authorize(Roles = "Admin,Admin2")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,8 +56,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
             return View(category);
         }
-
-      
+        [Authorize(Roles = "Admin,Admin2")]
         public IActionResult Create()
         {
             return View();
@@ -65,6 +65,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Admin2")]
         public  IActionResult Create([Bind("CategoryID,PaidShipping,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive, IsShownInHome")] Category category)
         {
             if (ModelState.IsValid)
@@ -78,6 +79,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         }
 
         // GET: Admin/Categories/Edit/5
+        [Authorize(Roles = "Admin,Admin2")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +98,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Admin2")]
         public  IActionResult Edit(int id, [Bind("CategoryID,PaidShipping,CategoryNameArabic,CategoryNameEnglish,CategoryDescriptionArabic,CategoryDescriptionEnglish,ImageURL,ImageAlternativeText,SEOEnglishTitle,SEOArabicTitle,SEOEnglishKeyWords,SEOArabicKeyWords,IsActive,IsShownInHome")] Category category)
         {
             if (id != category.CategoryID)
@@ -135,6 +138,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
         }
 
        [HttpGet]
+        [Authorize(Roles = "Admin,Admin2")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,6 +158,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Admin2")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
 
@@ -164,7 +169,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin,Admin2")]
         private bool CategoryExists(int id)
         {
             return unitOfWork.Categories.AnyEntity(a => a.CategoryID == id);
