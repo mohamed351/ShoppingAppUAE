@@ -54,6 +54,10 @@
             <p>@Model.City</p>
         </div>
 
+        <div class="form-group">
+                <select asp-items="ViewBag.Roles" ></select>
+        </div>
+
         <div>
             <a class="btn btn-primary" asp-action="Index" asp-controller="User" asp-area="Admin">Go back</a>
         </div>

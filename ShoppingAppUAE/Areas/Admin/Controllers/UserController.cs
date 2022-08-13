@@ -104,6 +104,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 return NotFound("The Product is not found");
             }
+            ViewBag.Roles = new SelectList(roleManager.Roles.ToList(), "NormalizedName", "NormalizedName");
 
             return View(applicationUser);
 
@@ -172,7 +173,25 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                recordsTotal = count
             };
         }
+        [HttpPost]
+        public  async Task<IActionResult> ChangeRole( [FromBody]RoleChange roleChange)
+        {
+         var currentUser =  await userManager.FindByIdAsync(roleChange.UserID);
+          var roles = await userManager.GetRolesAsync(currentUser);
+            foreach (var item in roles)
+            {
+               await userManager.RemoveFromRoleAsync(currentUser, item);
+            }
 
+           await userManager.AddToRoleAsync(currentUser, roleChange.Role);
+
+            return Json(new { status = true, message="successuful" });
+        }
+        public class RoleChange
+        {
+            public string Role { get; set; }
+            public string UserID { get; set; }
+        }
 
     }
 }

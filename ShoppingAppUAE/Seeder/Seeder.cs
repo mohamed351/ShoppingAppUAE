@@ -31,20 +31,26 @@ namespace ShoppingAppUAE.Seeder
 
         private static async Task BuildRoles(RoleManager<IdentityRole> roleManager)
         {
-            var adminRole = await roleManager.FindByNameAsync("Admin");
-            if (adminRole == null)
-            {
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            await CreateRoleName(roleManager, "Admin");
+            await CreateRoleName(roleManager, "Admin2");
+            await CreateRoleName(roleManager, "Sales");
+            await CreateRoleName(roleManager, "User");
 
-            }
-            var userRole = await roleManager.FindByIdAsync("User");
-            if(userRole == null)
-            {
-                await roleManager.CreateAsync(new IdentityRole("User"));
-            }
-            
+
+
+
+
         }
 
+        private static async Task CreateRoleName(RoleManager<IdentityRole> roleManager , string name)
+        {
+            var adminRole = await roleManager.FindByNameAsync(name);
+            if (adminRole == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole(name));
+
+            }
+        }
 
         private static async Task BuildCountries(ApplicationDbContext context)
         {
