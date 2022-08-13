@@ -35,6 +35,9 @@ namespace ShoppingAppUAE.Data
         public ICollection<Review> Reviews { get; set; }
 
 
+      
+
+
 
 
 

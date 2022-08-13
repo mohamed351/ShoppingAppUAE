@@ -92,7 +92,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return View(user);
         }
         [HttpGet]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -104,7 +104,16 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             {
                 return NotFound("The Product is not found");
             }
-            ViewBag.Roles = new SelectList(roleManager.Roles.ToList(), "NormalizedName", "NormalizedName");
+            var useRoleSelected = (await userManager.GetRolesAsync(applicationUser)).FirstOrDefault();
+            if (useRoleSelected != null)
+            {
+                ViewBag.Roles = new SelectList(roleManager.Roles.ToList(), "NormalizedName", "NormalizedName", useRoleSelected);
+            }
+            else
+            {
+                ViewBag.Roles = new SelectList(roleManager.Roles.ToList(), "NormalizedName", "NormalizedName",null);
+
+            }
 
             return View(applicationUser);
 
