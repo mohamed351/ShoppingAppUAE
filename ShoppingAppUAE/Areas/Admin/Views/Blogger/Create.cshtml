@@ -6,9 +6,7 @@
 
     <link href="~/js/jquery-ui/jqueryui/jquery-ui.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/select2/css/select2.min.css" />
-    <link href="~/lib/image-cropper/css/jquery.Jcrop.css" rel="stylesheet" />
-    <link href="~/lib/image-cropper/css/style.css" rel="stylesheet" />
-    <link href="~/lib/image-cropper/css/style-example.css" rel="stylesheet" />
+      <link href="~/js/custome-cropper/cropper.min.css" rel="stylesheet" />
 }
 
 
@@ -32,15 +30,19 @@
                         <input type="text" class="form-control" asp-for="ArabicTitle" />
                     </div>
 
-                </div>
-
-
-                <div class="col-md-6">
-                    <div class="panel panel-body" style="display: flex; justify-content: center;">
+                    <div>
+                        <label>Photo</label>
+                        <br />
+                        <input type="file" id="file" />
+                        <img id="image-src" style="width:50px;height:50px">
                         <input type="hidden" asp-for="ImageURL" />
-                        <div class="span4 cropme" style="width: 800px; height: 520px;"></div>
+                        <br />
+                        <br />
                     </div>
+
                 </div>
+
+
             </div>
 
             <div id="tabs">
@@ -67,6 +69,35 @@
     </div>
 </form>
 
+
+<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-default-title">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="img-container">
+                            <img src="" class="img-fluid" id="image-modal-cropper">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
 @section scripts{
 
 
@@ -75,18 +106,40 @@
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/lib/tinymce/jquery.tinymce.min.js"></script>
     <script src="~/lib/select2/js/select2.full.min.js"></script>
-    <script src="~/lib/image-cropper/scripts/jquery.Jcrop.js"></script>
-    <script src="~/lib/image-cropper/scripts/jquery.SimpleCropper.js"></script>
+    <script src="~/js/custome-cropper/cropper.min.js"></script>
+    <script src="~/js/custome-cropper/jquery-cropper.min.js"></script>
+    <script src="~/js/custome-cropper/custome-cropper.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
 
     <script>
 
-        $("form").on("submit", () => {
-            $("#ImageURL").val($(".cropme img").attr("src"));
+         $("form").on("submit", function () {
+                $("#ImageURL").val($("#image-src").attr("src"));
+                if ($("#ImageURL").val() === null || $("#ImageURL").val() === undefined || $("#ImageURL").val().trim() === "") {
+                    swal("Please Add Photo", "", "error");
+                    return false;
+                }
 
-        });
+
+              
+     
+            });
+     
         $(document).ready(function () {
 
-            $('.cropme').simpleCropper();
+
+
+            customimageCropper({
+                fileSelector: "#file",
+                modelImageSelector: "#image-modal-cropper",
+                sourceImageSelector: "#image-src",
+                submitSelector: "#crop",
+                aspectRatio: 1 / 1,
+                minContainerWidth: 500,
+                minContainerHeight: 500,
+                maxCropBoxWidth: 250,
+                maxCropBoxHeight: 250
+            });
             $("#tabs").tabs();
             tinymce.init({
                 selector: '#EnglishContent',

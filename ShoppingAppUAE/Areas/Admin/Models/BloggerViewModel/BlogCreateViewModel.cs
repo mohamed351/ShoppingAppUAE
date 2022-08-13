@@ -18,4 +18,10 @@ namespace ShoppingAppUAE.Areas.Admin.Models.BloggerViewModel
 
         public string ArabicContent { get; set; }
     }
+
+    public class BlogEditViewModel : BlogCreateViewModel
+    {
+        public int ID { get; set; }
+
+    }
 }
