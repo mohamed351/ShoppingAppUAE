@@ -43,19 +43,25 @@
            
             overflow-y: visible;
             padding: 0 10px;
-            background-color: #272829;
-            padding: 10px;
+            background-color: #eee;
+            justify-content:space-between;
+        
+           
         }
+         .setting-top-bar .nice-select{
+             margin-bottom:2px;
+         }
             .setting-top-bar .fa{
-                color:#fff;
+                   color:black;
             }
 
             .nice-select {
                 z-index: 9999;
+                
             }
 
         .icon-size {
-            font-size: 32px;
+            font-size: 16px;
             padding: 0 10px;
         }
 
@@ -86,6 +92,18 @@
         .ltn__utilize-overlay{
             z-index:99998;
         }
+        .top-content{
+          display:flex;
+        }
+
+        .top-content p {
+            margin : 0 12px;
+        }
+        @@media (max-width: 767px){
+            .setting-top-bar{
+                flex-direction:column !important;
+            }
+        }
       
 
     </style>
@@ -93,6 +111,18 @@
 
 <body>
 
+    <section class="setting-top-bar d-flex " style="align-items:center">
+
+        <header style="margin-bottom:0px;" class="top-content">
+            <p>
+            <i class="icon-phone"></i>  +971 501679410 
+            </p>
+
+            <p>
+                <i class="icon-envelope"></i>  sales@AL-MUHANDES.com
+            </p>
+        
+        </header>
     <section class="d-flex justify-content-end setting-top-bar">
 
         <form asp-action="Cookie" asp-area="" asp-controller="Home" method="post" class="d-flex align-items-center">
@@ -118,6 +148,7 @@
 
         </form>
     </section>
+    </section>
 
     <input type="hidden" id="GlobalCurrencyCode" value="@configuration["CompanyInfo:DefaultCurrency"]" />
     <main class="body-wrapper">
@@ -130,7 +161,7 @@
                     <section class="row">
                         <section class="col">
                             <div class="site-logo">
-                                <a asp-action="Index" asp-controller="Home" asp-area=""><img src="~/template-user/ltr/img/logo.png" alt="Logo"></a>
+                                <a asp-action="Index" asp-controller="Home" asp-area=""><img src="/template-user/ltr/img/logo.png" alt="Logo"></a>
                             </div>
                         </section>
                         <section class="col header-contact-serarch-column d-none d-xl-block">
@@ -363,7 +394,7 @@
                             </li>
 
                             <li>
-                                <a href="#" title="Shoping Cart">
+                                <a asp-action="Index" asp-controller="Cart" title="Shoping Cart">
                                     <span class="utilize-btn-icon">
                                         <i class="icon-handbag"></i>
                                         <sup id="totalCount-mobile">0</sup>
@@ -416,26 +447,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-md-6 col-sm-6 col-12">
-                                <div class="footer-widget footer-menu-widget clearfix">
-                                    <h4 class="footer-title">Quick Links</h4>
-                                    <div class="footer-menu">
-                                        <ul>
-                                            @*<li><a href="locations.html">Store Location</a></li>*@
 
-
-                                            <li><a href="faq.html">@locaization["FAQs"]</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
                                 <div class="footer-widget footer-menu-widget clearfix">
                                     <h4 class="footer-title">@locaization["Information"]</h4>
                                     <div class="footer-menu">
                                         <ul>
 
-                                            <li><a href="about.html">About us</a></li>
+                                            <li><a asp-action="Index" asp-controller="AboutUs">About us</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                                <div class="footer-widget footer-menu-widget clearfix">
+                                    <h4 class="footer-title">@locaization["FQS"]</h4>
+                                    <div class="footer-menu">
+                                        <ul>
+
+                                            <li><a asp-action="Index" asp-controller="AboutUs">About us</a></li>
 
                                         </ul>
                                     </div>
@@ -449,8 +481,8 @@
                                             <li><a href="product-details.html">Shipping Policy</a></li>
                                             <li><a asp-action="Index" asp-controller="Contact" >Help & Contact Us</a></li>
                                             <li><a asp-action="Index" asp-controller="Contact">Returns & Refunds</a></li>
-                                            <li><a href="shop.html">Online Stores</a></li>
-                                            <li><a href="contact.html">Terms and Conditions</a></li>
+                                            <li><a asp-action="Index" asp-controller="Product">Online Stores</a></li>
+                                            <li><a asp-action="Index" asp-controller="Contact" >Terms and Conditions</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -471,7 +503,7 @@
                                                     <i class="icon-location-pin"></i>
                                                 </div>
                                                 <div class="footer-address-info">
-                                                    <p>Brooklyn, New York, United States</p>
+                                                    <p>Industrial Area - Industrial Area 17 - Sharjah - United Arab Emirates</p>
                                                 </div>
                                             </li>
                                             <li>
@@ -479,7 +511,7 @@
                                                     <i class="icon-phone"></i>
                                                 </div>
                                                 <div class="footer-address-info">
-                                                    <p><a href="tel:+0123-456789">+0123-456789</a></p>
+                                                    <p><a href="tel:+971 501679410">+971 501679410</a></p>
                                                 </div>
                                             </li>
                                             <li>
@@ -487,7 +519,7 @@
                                                     <i class="icon-envelope"></i>
                                                 </div>
                                                 <div class="footer-address-info">
-                                                    <p><a href="mailto:example@example.com">example@example.com</a></p>
+                                                    <p><a href="mailto:sales@AL-MUHANDES.com">sales@AL-MUHANDES.com</a></p>
                                                 </div>
                                             </li>
                                         </ul>
@@ -501,7 +533,7 @@
                                         </ul>
                                     </div>
                                     <div class="footer-payment-img">
-                                        <img src="img/icons/payment-6.png" alt="Payment Image">
+                                        <img src="~/template-user/ltr/img/icons/payment-2.png" alt="Payment Image">
                                     </div>
                                 </div>
                             </div>

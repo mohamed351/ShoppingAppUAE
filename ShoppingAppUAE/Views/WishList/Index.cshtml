@@ -44,7 +44,7 @@
                                     @if (CultureInfo.CurrentCulture.Name.Contains("ar"))
                                     {
                                           <tr>
-                                                <td class="cart-product-remove">x</td>
+                                              @*  <td class="cart-product-remove">x</td>*@
                                                 <td class="cart-product-image">
                                                     <a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID"><img src="~/images/@item.Product.ImageURL" alt="@item.Product.ProductNameEnglish"></a>
                                                 </td>
@@ -61,7 +61,7 @@
                                     else
                                     {
                                             <tr>
-                                                <td class="cart-product-remove">x</td>
+                                               @* <td class="cart-product-remove">x</td>*@
                                                 <td class="cart-product-image">
                                                     <a asp-action="CurrentProduct" asp-controller="Product" asp-route-id="@item.ProductID"><img src="~/images/@item.Product.ImageURL" alt="@item.Product.ProductNameEnglish"></a>
                                                 </td>
