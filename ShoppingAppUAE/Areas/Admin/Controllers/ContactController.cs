@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShoppingAppUAE.Data;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Admin2")]
     public class ContactController : Controller
     {
         private readonly ApplicationDbContext context;

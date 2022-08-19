@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShoppingAppUAE.Data;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace ShoppingAppUAE.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
+    [Authorize(Roles = "Admin,Admin2")]
     public class InitalStoreController : Controller
     {
         private readonly ApplicationDbContext context;

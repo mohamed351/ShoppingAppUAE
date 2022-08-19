@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Stimulsoft.Report;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace ShoppingAppUAE.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Admin2")]
     public class ReportController : Controller
     {
         private readonly IConfiguration configuration;

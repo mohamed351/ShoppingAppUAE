@@ -41,7 +41,11 @@
     <script src="~/js/alphaDataTable.js"></script>
     <script>
         
-tablePlugin("#table-blogger", "/Admin/Blogger/GetData", [{ data: "title" }, { data: "arabicTitle" }, {data:"id"}])
+tablePlugin("#table-blogger", "/Admin/Blogger/GetData", [{ data: "title" }, { data: "arabicTitle" }, { data: "id", render: function(data) { 
+
+    return `<a href='/Admin/Blogger/Edit/${data}' class='btn btn-primary'> Edit</a> | <a class='btn btn-danger' href='/Admin/Blogger/Delete/${data}'>Delete </a>`
+    
+} }])
     </script>
 
 

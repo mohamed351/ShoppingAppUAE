@@ -16,6 +16,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Admin2")]
     public class OrdersController : Controller
     {
         private readonly IUnitOfWork unitOfWork;

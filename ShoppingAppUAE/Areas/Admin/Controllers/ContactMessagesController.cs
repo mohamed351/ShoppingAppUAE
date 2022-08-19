@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShoppingAppUAE.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
   
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Admin2")]
     public class ContactMessagesController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
