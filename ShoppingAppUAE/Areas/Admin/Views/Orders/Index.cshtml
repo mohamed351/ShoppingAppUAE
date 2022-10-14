@@ -21,6 +21,9 @@
             <thead>
                 <tr>
                     <th>
+                        Invoice No
+                    </th>
+                    <th>
                         User
                     </th>
                     <th>
@@ -84,6 +87,7 @@
 
         $(document).ready(function () {
           globalTable =   tablePlugin("#orderTable", "/Admin/Orders/GetOrders", [
+                { data: "invoiceNumber" },
                 { data: "user" },
                 { data: "countryCode" },
                 { data: "city" },

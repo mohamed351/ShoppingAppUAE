@@ -41,7 +41,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
             string search = HttpContext.Request.Query["search[value]"];
            var query =unitOfWork.Orders.GetDataTableOrders(start, length, a => a.FirstName.Contains(search)
-           || a.FirstName.Contains(search) || a.OrderPhone.Contains(search) || a.OriginalPhone.Contains(search),
+           || a.FirstName.Contains(search) || a.OrderPhone.Contains(search) || a.OriginalPhone.Contains(search) || a.InvoiceNumber.ToString().Contains(search),
            a => a.DateTimeIssued);
 
 
@@ -64,7 +64,8 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                     a.OrderID,
                     a.Approved,
                     a.InvoiceNumber,
-                    a.Cancelled
+                    a.Cancelled,
+                  
 
                 }),
                 query.recordsFiltered,
@@ -86,7 +87,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
             return View(order);
         }
         [HttpPost]
-        public IActionResult ApproveInvoice([FromBody]int? ID)
+        public async Task<IActionResult> ApproveInvoice([FromBody]int? ID)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
                 }
                
 
-                var order = unitOfWork.Orders.GetByID(ID.Value);
+                var order = await unitOfWork.Orders.GetByIDAsync(ID.Value);
                 if(order.Approved || order.Cancelled)
                 {
                     throw new Exception("Order has been Changed status please Refresh The Page");
@@ -125,6 +126,7 @@ namespace ShoppingAppUAE.Areas.Admin.Controllers
 
                 var product = this.context.Products.FirstOrDefault(a => a.ProductID == item.ProductID);
                 product.Quantity = product.Quantity - Convert.ToInt32(item.Quantity);
+                this.context.SaveChanges();
                 if (product.Quantity < 0)
                 {
                     throw new Exception("Sorry the Quantity is not enough");

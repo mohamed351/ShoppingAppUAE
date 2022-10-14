@@ -14,11 +14,11 @@
                     const remaingKgs = totalWeight - firstWeightCost;
 
 
-                    shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight) * processExchnageRate)
-                    $("#shippingPirce").text(shippingCost.toFixed(2) + $("#currency-app").val());
+                    shippingCost = (IncreseTheWeigthPrice(remaingKgs, eachKg, eachPrice, firstCostLimitInWeight))
+                    $("#shippingPirce").text(+shippingCost.toFixed(2) * processExchnageRate  + $("#currency-app").val());
                 }
                 else {
-                    shippingCost = (firstCostLimitInWeight * processExchnageRate);
+                   /* shippingCost = (firstCostLimitInWeight * processExchnageRate);*/
                     $("#shippingPirce").text((firstCostLimitInWeight * processExchnageRate).toFixed(2) + $("#currency-app").val());
                 }
                 return shippingCost;
@@ -37,12 +37,12 @@
         }
 
         function IncreseTheWeigthPrice(remaning, each, priceAfter, totalPrice) {
-            let processExchnageRate = +$("#currency-app option:selected").attr("data-rate").replace("٫", ".")
+      
             console.log("Remaning", remaning);
             console.log("EachKg", each);
             console.log("EachPrice", priceAfter);
             console.log("TotalPrice", totalPrice);
-            return (((remaning / each) * priceAfter) + totalPrice * processExchnageRate);
+            return (((remaning / each) * priceAfter) + totalPrice );
         }
 
         function setShipping(shippingId) {
